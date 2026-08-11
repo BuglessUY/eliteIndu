@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Indumentaria | Creadores de Indumentaria Deportiva Premium</title>
+    <meta name="description" content="Catálogo de diseños y fabricación de indumentaria deportiva 100% personalizada. Calidad profesional para tu equipo.">
+    
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Anton&family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Librería para generar imagen del diseño -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+
+    <style>
+        /* ==========================================
+           VARIABLES - ESTILO PREMIUM / NEGRO & BLANCO
+           ========================================== */
+        :root {
+            --bg-dark: #050505; 
+            --bg-panel: #111111; 
+            --primary: #ffffff; 
+            --primary-hover: #e0e0e0;
+            --text-light: #ffffff;
+            --text-gray: #a9a9a9;
+            --border-color: #333333;
+            
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; font-weight: 300; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ==========================================
+           SISTEMA DE VISTAS Y ANIMACIONES
+           ========================================== */
+        .view-section { display: none; padding-top: 80px; min-height: 100vh; }
+        .view-section.active { display: block; animation: fadeInUp 0.6s ease forwards; }
+        
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* ==========================================
+           COMPONENTES COMUNES
+           ========================================== */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Modificado para B&W: Texto base gris, span destacado en blanco */
+        .section-title { font-family: var(--font-display); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; font-weight: 400; color: var(--text-gray); }
+        .section-title span { color: var(--primary); }
+        .section-subtitle { text-align: center; color: var(--text-gray); font-size: 1.1rem; max-width: 700px; margin: 0 auto 50px auto; }
+
+        /* Botones */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 2px; padding: 16px 36px; border: none; cursor: pointer;
+            transition: var(--transition); font-weight: 600; text-align: center; border-radius: 2px;
+        }
+        .btn-primary { background-color: var(--primary); color: #000; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+        
+        .btn-outline { background-color: transparent; border: 1px solid var(--text-light); color: var(--text-light); }
+        .btn-outline:hover { background-color: var(--text-light); color: #000; }
+        
+        .btn-primary-outline { background-color: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-primary-outline:hover { background-color: var(--primary); color: #000; }
+
+        .breadcrumb { display: flex; gap: 10px; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 30px; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .breadcrumb a { cursor: pointer; transition: color 0.3s; }
+        .breadcrumb a:hover { color: var(--primary); }
+        .breadcrumb span { color: var(--primary); }
+
+        /* ==========================================
+           HEADER
+           ========================================== */
+        header { background-color: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; letter-spacing: 2px; cursor: pointer; color: var(--text-light); }
+        .logo span { color: var(--primary); font-weight: bold; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { font-family: var(--font-body); text-transform: uppercase; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; color: var(--text-gray); transition: color 0.3s; cursor: pointer; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background-color: var(--primary); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-light); }
+        .nav-links a:hover::after { width: 100%; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+
+        /* ==========================================
+           VISTA INICIAL: HERO INMERSIVO
+           ========================================== */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: -80px; padding-top: 80px;}
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.8) 100%), url('https://images.unsplash.com/photo-1518659737119-48135832a85e?q=80&w=1920&auto=format&fit=crop') center/cover; z-index: 1; }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 20px; animation: fadeInUp 1s ease 0.2s forwards; opacity: 0; transform: translateY(30px); }
+        .hero-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; }
+        .hero-content h1 { font-family: var(--font-display); font-size: 6rem; line-height: 0.9; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gray); }
+        .hero-content h1 span { color: var(--primary); }
+        .hero-content p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; font-weight: 300; }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+        @media (max-width: 768px) { .hero-content h1 { font-size: 4rem; } }
+
+        /* ==========================================
+           SECCIÓN: SOBRE NOSOTROS
+           ========================================== */
+        .about-section { padding: 120px 20px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text h2 { text-align: left; margin-bottom: 20px; }
+        .about-text p { color: var(--text-gray); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.8; }
+        .about-image { position: relative; }
+        .about-image img { border-radius: 4px; filter: grayscale(10%); transition: var(--transition); width: 100%; object-fit: cover; }
+        .about-image:hover img { filter: grayscale(0%); }
+        .about-image::after { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); z-index: -1; transition: var(--transition); }
+        .about-image:hover::after { top: -10px; right: -10px; }
+        @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } .about-text h2 { text-align: center; } }
+
+        /* ==========================================
+           SECCIÓN: PROCESO / CÓMO TRABAJAMOS / PROMOCIONES
+           ========================================== */
+        .process-section { background-color: var(--bg-panel); padding: 100px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
+        .process-step { padding: 40px 30px; text-align: center; transition: var(--transition); position: relative; border: 1px solid transparent; background: var(--bg-dark); }
+        .process-step:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .step-number { font-family: var(--font-display); font-size: 4rem; color: rgba(255, 255, 255, 0.05); position: absolute; top: 10px; left: 50%; transform: translateX(-50%); line-height: 1; z-index: 1; transition: var(--transition); }
+        .process-step:hover .step-number { color: rgba(255, 255, 255, 0.15); }
+        .process-step h4 { font-family: var(--font-display); font-size: 2rem; color: var(--text-light); margin-bottom: 15px; text-transform: uppercase; position: relative; z-index: 2; letter-spacing: 1px; }
+        .process-step p { color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 2; }
+
+        /* ==========================================
+           CATEGORÍAS DE DEPORTES
+           ========================================== */
+        .sports-section { padding: 120px 0; }
+        .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .sport-card { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; border: 1px solid var(--border-color); background-color: var(--bg-panel); }
+        .sport-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.4; transition: var(--transition); z-index: 1; filter: grayscale(100%); }
+        .sport-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 2; opacity: 0.8; }
+        .sport-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
+        .sport-card:hover::before { opacity: 0.6; filter: grayscale(0%); transform: scale(1.05); }
+        .sport-card h3 { font-family: var(--font-display); font-size: 3rem; text-transform: uppercase; z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); color: var(--text-light); }
+        .sport-card span { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; z-index: 3; opacity: 0; transition: var(--transition); transform: translateY(15px); margin-top: 10px; }
+        .sport-card:hover span { opacity: 1; transform: translateY(0); }
+
+        /* ==========================================
+           SECCIÓN: GALERÍA DE TRABAJOS
+           ========================================== */
+        .gallery-section { padding: 80px 0 120px 0; }
+        .gallery-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-gray); padding: 10px 25px; font-family: var(--font-body); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); }
+        .filter-btn.active, .filter-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+        
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .gallery-item { position: relative; overflow: hidden; border: 1px solid var(--border-color); cursor: pointer; height: 400px; background-color: var(--bg-panel); transition: var(--transition); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay span { color: var(--primary); font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); }
+        .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
+
+        /* LIGHTBOX PARA GALERÍA */
+        .lightbox { position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: var(--text-gray); font-size: 50px; cursor: pointer; font-family: sans-serif; line-height: 1; transition: color 0.3s; }
+        .lightbox-close:hover { color: var(--primary); }
+
+        /* ==========================================
+           SECCIÓN: BENEFICIOS / TECNOLOGÍA
+           ========================================== */
+        .tech-section { padding: 120px 0; background: radial-gradient(circle at 50% 50%, #0d0d0d 0%, var(--bg-dark) 100%); border-top: 1px solid var(--border-color); }
+        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .tech-list { margin-top: 40px; }
+        .tech-list li { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 35px; }
+        .tech-list-icon { color: var(--primary); font-size: 1.8rem; line-height: 1; }
+        .tech-list h4 { font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; color: var(--text-light); }
+        .tech-list p { color: var(--text-gray); font-size: 1rem; }
+        .tech-image-wrapper { position: relative; padding: 20px; }
+        .tech-image-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 60%; border-top: 2px solid var(--primary); border-left: 2px solid var(--primary); }
+        .tech-image-wrapper::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; border-bottom: 2px solid var(--primary); border-right: 2px solid var(--primary); }
+        .tech-image-wrapper img { width: 100%; filter: grayscale(80%); transition: var(--transition); position: relative; z-index: 2; }
+        .tech-image-wrapper:hover img { filter: grayscale(0%); }
+        @media (max-width: 768px) { .tech-grid { grid-template-columns: 1fr; } }
+
+        /* ==========================================
+           CTA FINAL BANNER
+           ========================================== */
+        .cta-banner { background: linear-gradient(135deg, #111 0%, #000 100%); padding: 80px 20px; text-align: center; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 50%); z-index: 1; }
+        .cta-banner-content { position: relative; z-index: 2; }
+        .cta-banner h2 { font-family: var(--font-display); font-size: 3.5rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; color: var(--text-gray); }
+        .cta-banner h2 span { color: var(--primary); }
+        .cta-banner p { color: var(--text-gray); max-width: 600px; margin: 0 auto 30px auto; font-size: 1.1rem; }
+
+        /* ==========================================
+           VISTA: CATÁLOGO DE DEPORTE
+           ========================================== */
+        .custom-design-banner { background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 4px solid var(--primary); padding: 50px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .custom-design-banner h3 { font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        .custom-design-banner p { color: var(--text-gray); font-size: 1rem; max-width: 600px; }
+        @media (max-width: 900px) { .custom-design-banner { flex-direction: column; text-align: center; gap: 30px; } }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-bottom: 100px;}
+        .design-card { background-color: var(--bg-panel); border: 1px solid var(--border-color); transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
+        .design-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .design-img-wrapper { height: 400px; background-color: #080808; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .design-img-wrapper::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.1); transition: var(--transition); }
+        .design-card:hover .design-img-wrapper::after { background: transparent; }
+        .design-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(20%); }
+        .design-card:hover .design-img-wrapper img { transform: scale(1.08); filter: grayscale(0%); }
+        .design-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
+        .design-info h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; color: var(--text-light); }
+        .design-info p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; }
+        .design-btn { margin-top: auto; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; color: var(--primary); font-size: 0.85rem; letter-spacing: 2px; transition: var(--transition); }
+        .design-card:hover .design-btn { color: var(--text-light); }
+
+        /* ==========================================
+           VISTA: DETALLE DE DISEÑO
+           ========================================== */
+        .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 100px; align-items: start;}
+        .detail-image-box { background-color: #080808; border: 1px solid var(--border-color); padding: 0; position: relative; }
+        .detail-image-box::before { content: ''; position: absolute; top: -15px; left: -15px; width: 100%; height: 100%; border: 1px solid var(--border-color); z-index: -1; }
+        .detail-image-box img { width: 100%; height: auto; display: block; filter: grayscale(10%); }
+        
+        .detail-content h1 { font-family: var(--font-display); font-size: 4.5rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 15px; letter-spacing: 2px; color: var(--text-light); }
+        .detail-content .category-tag { display: inline-block; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; }
+        .detail-content p { color: var(--text-gray); margin-bottom: 40px; font-size: 1.1rem; }
+        
+        .features-list { margin-bottom: 50px; }
+        .features-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 1rem; color: #ccc; }
+        .features-list li svg { width: 18px; fill: var(--primary); }
+        
+        .action-box { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; }
+        .action-box h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; color: var(--text-light); }
+        .action-box p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 30px; }
+        .btn-full { width: 100%; margin-bottom: 20px; }
+        @media (max-width: 900px) { .detail-layout { grid-template-columns: 1fr; gap: 50px; } }
+
+        /* ==========================================
+           SIMULADOR
+           ========================================== */
+        .configurator-ui { background-color: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; margin-bottom: 100px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .sim-layout { display: flex; gap: 50px; align-items: flex-start; }
+        .sim-viewer-col { flex: 1; display: flex; justify-content: center; align-items: center; position: sticky; top: 120px; background: #080808; border: 1px solid var(--border-color); padding: 40px 0; }
+        .sim-controls-col { flex: 1; display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        @media (max-width: 900px) { .sim-layout { flex-direction: column; } .sim-viewer-col { position: relative; top: 0; width: 100%; } .configurator-ui { padding: 20px;} }
+
+        .svg-container { height: 450px; width: 100%; animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        
+        /* Acordeón para Controles del Simulador */
+        .acc-item { border: 1px solid var(--border-color); overflow: hidden; background: var(--bg-dark); transition: var(--transition); }
+        .acc-header { background: var(--bg-panel); padding: 20px 25px; font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; letter-spacing: 1px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); border-bottom: 1px solid transparent; color: var(--text-light); }
+        .acc-header:hover { background: #1a1a1a; color: var(--primary); }
+        .acc-header.active { color: var(--primary); border-bottom: 1px solid var(--border-color); }
+        .acc-content { padding: 30px 25px; display: none; flex-direction: column; gap: 25px; }
+        .acc-content.active { display: flex; }
+
+        .control-group label { display: block; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-gray); margin-bottom: 12px; letter-spacing: 1px; }
+        .model-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        
+        .model-btn, .cut-btn, .size-btn { background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-gray); padding: 12px 5px; text-align: center; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; transition: var(--transition); }
+        .model-btn.active, .model-btn:hover, .cut-btn.active, .cut-btn:hover, .size-btn.active, .size-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+
+        .color-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .color-swatch { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: var(--transition); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .color-swatch.active { border: 2px solid var(--primary); transform: scale(1.2); }
+
+        .form-input { width: 100%; padding: 12px 15px; background: var(--bg-dark); border: 1px solid var(--border-color); color: #fff; font-family: var(--font-body); font-size: 0.9rem; transition: var(--transition); }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        
+        .range-slider { width: 100%; cursor: pointer; accent-color: var(--primary); }
+
+        .file-upload-btn { background: var(--bg-dark); border: 1px dashed var(--border-color); padding: 20px; text-align: center; cursor: pointer; color: var(--text-gray); transition: var(--transition); display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;}
+        .file-upload-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+        .file-upload-btn input[type="file"] { display: none; }
+
+        /* Estilo para elementos arrastrables en el SVG */
+        #sim-user-text, #sim-user-logo { cursor: grab; user-select: none; pointer-events: all; }
+        #sim-user-text:active, #sim-user-logo:active { cursor: grabbing; }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer { background-color: #000; padding: 80px 0 40px; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 60px; }
+        .footer-col h4 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul li { margin-bottom: 15px; color: var(--text-gray); font-size: 0.95rem; display: flex; align-items: center; gap: 10px;}
+        .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; color: #555; font-size: 0.85rem; font-weight: 500;}
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo" onclick="app.navigate('home')">ELITE<span>INDUMENTARIA</span></div>
+            <nav class="nav-links">
+                <a onclick="app.navigate('home')">Inicio</a>
+                <a onclick="app.navigate('home', 'seccion-deportes')">Diseños</a>
+                <a onclick="app.navigate('home', 'seccion-galeria')">Nuestros Trabajos</a>
+            </nav>
+            <a href="#" class="btn btn-primary" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.')">Contactar</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         VISTA 1: HOME
+         ========================================================= -->
+    <main id="view-home" class="view-section active">
+        
+        <!-- HERO INMERSIVO -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container hero-content">
+                <span class="hero-tag">Indumentaria Deportiva Premium</span>
+                <h1>Viste a tu <span>Equipo</span></h1>
+                <p>Somos Elite Indumentaria. Fabricantes de ropa deportiva, camperones, canguros y equipos personalizados con calidad profesional para que tu club destaque en cualquier temporada.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('seccion-promociones').scrollIntoView({behavior: 'smooth'})">Ver Promociones</button>
+                    <button class="btn btn-outline" onclick="document.getElementById('seccion-deportes').scrollIntoView({behavior: 'smooth'})">Explorar Catálogos</button>
+                </div>
+                
+                <div style="margin-top: 50px; font-size: 1.1rem; color: var(--text-light); line-height: 1.8; font-weight: 400; letter-spacing: 1px;">
+              
+                    <span style="color: var(--primary); font-weight: 600;">Envíos a todo el país 🇺🇾<br>@eliteindumentariauy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE NOSOTROS -->
+        <section class="about-section container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2 class="section-title">Nuestra <span>Esencia</span></h2>
+                    <p>En Elite Indumentaria no hacemos simples camisetas, creamos la armadura de tu equipo. Ofrecemos calidad superior en prendas de juego y abrigo (camperones, canguros, sudaderas) para acompañarte todo el año.</p>
+                    <p>Entendemos que la imagen de tu club es fundamental. Por eso, ofrecemos atención personalizada para asegurar que cada detalle, escudo y color refleje fielmente la identidad de tu plantel.</p>
+                    <button class="btn btn-primary-outline" style="margin-top: 20px;" onclick="document.getElementById('seccion-proceso').scrollIntoView({behavior: 'smooth'})">Conocer el proceso</button>
+                </div>
+                <div class="about-image">
+                    <img src="foto-match-2.jpg" alt="Jugador vistiendo indumentaria Elite" onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbb4d2b2c3?q=80&w=800&auto=format&fit=crop'">
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: PROMOCIONES (Reutilizando la estructura visual solicitada) -->
+        <section id="seccion-promociones" class="process-section" style="background-color: var(--bg-dark); border-top: none; padding-bottom: 50px;">
+            <div class="container">
+                <h2 class="section-title">Promociones <span>Elite</span></h2>
+                <p class="section-subtitle">Ofertas reales por tiempo limitado. ¡Prepará a tu equipo para la temporada con nuestra línea premium de invierno!</p>
+                <div class="process-steps">
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Me interesan los Canguros Jaspeados en oferta a $650.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Canguros Jaspeados</h4>
+                        <p>A solo <strong>$650</strong>.<br>Incluye escudo y nombre del cuadro. ¡Personalizados para tu equipo!</p>
+                    </div>
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Me gustaría consultar por los Camperones a partir de $1300.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Camperones</h4>
+                        <p>Desde <strong>$1300</strong>.<br>Calidad, abrigo y diseño en una sola prenda. Tu club listo para el invierno.</p>
+                    </div>
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Quería consultar por los Equipos Largos a partir de $1190.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Equipos Largos</h4>
+                        <p>Desde <strong>$1190</strong>.<br>Conjuntos deportivos completos ideales para escuelas, academias y planteles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESO -->
+        <section id="seccion-proceso" class="process-section">
+            <div class="container">
+                <h2 class="section-title">El camino a la <span>Excelencia</span></h2>
+                <p class="section-subtitle">Un proceso optimizado, rápido y profesional para que tengas tu indumentaria sin complicaciones y con envío a todo el país.</p>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">01</div>
+                        <h4>Elegí tu Deporte</h4>
+                        <p>Navegá por nuestro catálogo y seleccioná la disciplina. Contamos con moldería específica adaptada al rendimiento de cada actividad y temporada.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">02</div>
+                        <h4>Diseño Único</h4>
+                        <p>Inspirate con nuestros modelos o utilizá nuestro simulador exclusivo para configurar patrones, textos y aplicar el escudo de tu club.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">03</div>
+                        <h4>Producción</h4>
+                        <p>Aprobado el diseño y los talles, comenzamos la fabricación con telas premium y sublimación digital de máxima definición.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section id="seccion-deportes" class="sports-section">
+            <div class="container">
+                <h2 class="section-title">Seleccioná tu <span>Disciplina</span></h2>
+                <p class="section-subtitle">Explora nuestras líneas de diseño exclusivas desarrolladas para el máximo rendimiento.</p>
+                <div class="sports-grid" id="home-categories-grid"></div>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE TRABAJOS DESTACADOS -->
+        <section id="seccion-galeria" class="gallery-section container">
+            <h2 class="section-title">Trabajos <span>Destacados</span></h2>
+            <p class="section-subtitle">Conocé la calidad y los detalles de nuestras equipaciones reales fabricadas para distintos clubes.</p>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active" onclick="app.filterGallery(event, 'todos')">Todos</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'futbol')">Fútbol</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'basquet')">Básquetbol</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Otros</button>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-item futbol otros" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-1.jpg" alt="Equipación Elite 1" onerror="this.src='https://images.unsplash.com/photo-1522778526582-12297eb098fa?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-2.jpg" alt="Equipación Elite 2" onerror="this.src='https://images.unsplash.com/photo-1551280857-22d4168c4d15?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-3.jpg" alt="Equipación Elite 3" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-basquet-1.jpg" alt="Trabajo de Básquetbol Elite" onerror="this.src='https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-4.jpg" alt="Camiseta de fútbol Elite" onerror="this.src='https://images.unsplash.com/photo-1518659737119-48135832a85e?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-match-otros-1.jpg" alt="Indumentaria deportiva Elite" onerror="this.src='https://images.unsplash.com/photo-1618455495615-5b23ea022b73?q=80&w=800'">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://www.instagram.com/eliteindumentariauy/" target="_blank" class="btn btn-outline">Ver más en nuestro Instagram</a>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS / TECNOLOGÍA -->
+        <section id="seccion-beneficios" class="tech-section">
+            <div class="container tech-grid">
+                <div>
+                    <h2 class="section-title" style="text-align: left;">Calidad <span>Elite</span></h2>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">Cada prenda está pensada para resistir la exigencia deportiva manteniendo una estética impecable ante cualquier clima.</p>
+                    <ul class="tech-list">
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Telas Avanzadas y Abrigo</h4>
+                                <p>Desde materiales Dry-Fit de última generación hasta prendas de invierno con abrigo garantizado (frizza, corderito, polar).</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Sublimación Digital</h4>
+                                <p>Los colores se inyectan en la fibra garantizando tonos vivos y definidos que no se desgastan ni cuartean.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Moldería Anatómica</h4>
+                                <p>Cortes profesionales que permiten total libertad de movimiento sin perder la elegancia del ajuste.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1618455495615-5b23ea022b73?q=80&w=800&auto=format&fit=crop" alt="Textura de tela deportiva">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-banner">
+            <div class="cta-banner-content container">
+                <h2>¿Listo para vestir a tu <span>equipo</span>?</h2>
+                <p>Contactanos hoy mismo al 092 669 504 o por WhatsApp y un asesor te guiará paso a paso para hacer realidad el diseño perfecto para tu club.</p>
+                <button class="btn btn-primary" onclick="app.openWhatsApp('¡Hola! Me gustaría empezar a trabajar en la indumentaria de mi equipo.')">Solicitar Cotización</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================================
+         VISTA 2: CATÁLOGO POR DEPORTE
+         ========================================================= -->
+    <main id="view-category" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; <span id="cat-breadcrumb-name">Deporte</span>
+            </div>
+            
+            <h2 class="section-title" id="cat-title" style="text-align: left; margin-bottom: 40px;">Línea <span>Deporte</span></h2>
+
+            <div class="custom-design-banner">
+                <div>
+                    <h3>El límite es tu imaginación</h3>
+                    <p>Utilizá nuestro Simulador Interactivo 3D para configurar modelos, paletas de colores, textos y agregar tu escudo, o contactanos si ya tenés un diseño propio.</p>
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="app.openSimulator(app.currentSportId)">
+                        Abrir Simulador
+                    </button>
+                    <button class="btn btn-outline" onclick="app.openWhatsApp('¡Hola! Tengo mi propio diseño/idea y me gustaría consultar presupuesto.')">
+                        Consultar Diseño Propio
+                    </button>
+                </div>
+            </div>
+
+            <div class="catalog-grid" id="catalog-grid"></div>
+        </div>
+    </main>
+
+    <!-- =========================================================
+         VISTA 3: SIMULADOR INTERACTIVO
+         ========================================================= -->
+    <main id="view-simulator" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; 
+                <a id="sim-breadcrumb-cat" onclick="">Deporte</a> &gt; 
+                <span>Simulador</span>
+            </div>
+            
+            <h2 class="section-title" style="text-align: left; margin-bottom: 40px;">Estudio de <span>Diseño</span></h2>
+
+            <div class="configurator-ui" id="sim-wrapper">
+                <style>
+                    #sim-wrapper {
+                        --sim-primary: #111111;
+                        --sim-secondary: #ffffff;
+                        --sim-trim: #ffffff;
+                        --sim-text: #ffffff;
+                    }
+                    .c-primary { fill: var(--sim-primary); transition: fill 0.4s ease; }
+                    .c-sec { fill: var(--sim-secondary); transition: fill 0.4s ease; }
+                    .c-trim { fill: var(--sim-trim); transition: fill 0.4s ease; }
+                    .c-text { fill: var(--sim-text); transition: fill 0.4s ease; }
+                </style>
+
+                <div class="sim-layout">
+                    <!-- Columna Izquierda: Vista 3D SVG -->
+                    <div class="sim-viewer-col">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 200 250" width="100%" height="100%" filter="drop-shadow(0 25px 25px rgba(0,0,0,0.8))">
+                                <defs>
+                                    <linearGradient id="shading" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="rgba(0,0,0,0.6)" />
+                                        <stop offset="20%" stop-color="rgba(255,255,255,0.15)" />
+                                        <stop offset="80%" stop-color="rgba(0,0,0,0.15)" />
+                                        <stop offset="100%" stop-color="rgba(0,0,0,0.8)" />
+                                    </linearGradient>
+                                    <linearGradient id="shadowFolds" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(255,255,255,0.1)" />
+                                        <stop offset="100%" stop-color="rgba(0,0,0,0.4)" />
+                                    </linearGradient>
+                                    
+                                    <clipPath id="sim-silhouette-clip">
+                                        <path id="sim-clip-path" d="" style="transition: d 0.4s ease;" />
+                                    </clipPath>
+
+                                    <pattern id="pat-dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="rgba(255,255,255,0.1)"/></pattern>
+                                    <pattern id="pat-stripes" width="10" height="10" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="10" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern>
+                                    <pattern id="pat-zigzag" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0,10 L10,0 L20,10 L10,20 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern>
+                                </defs>
+
+                                <path id="sim-base-shape" class="c-primary" d="" style="transition: d 0.4s ease;" />
+                                
+                                <g clip-path="url(#sim-silhouette-clip)">
+                                    <rect id="sim-pattern-layer" width="100%" height="100%" fill="none" />
+                                </g>
+
+                                <g id="sim-design-layer" clip-path="url(#sim-silhouette-clip)" style="transition: all 0.4s ease;"></g>
+
+                                <path id="sim-trim-shape" class="c-trim" d="" style="transition: d 0.4s ease;" />
+
+                                <!-- ESCUDO Y TEXTO (ARRASTRABLES) -->
+                                <image id="sim-user-logo" x="125" y="45" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
+                                <text id="sim-user-text" class="c-text" x="100" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">SPONSOR</text>
+
+                                <path id="sim-shading-shape" fill="url(#shading)" style="mix-blend-mode: overlay; pointer-events: none; transition: d 0.4s ease;" d="" />
+                                <path id="sim-shadows-shape" fill="url(#shadowFolds)" style="mix-blend-mode: multiply; pointer-events: none; transition: d 0.4s ease;" d="" />
+                            </svg>
+                        </div>
+                        <div id="sim-helper-text" style="position: absolute; bottom: 10px; text-align: center; width: 100%; color: var(--text-gray); font-size: 0.75rem; pointer-events: none;">
+                            💡 Puedes arrastrar el texto y el escudo libremente
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Acordeón de Controles -->
+                    <div class="sim-controls-col">
+                        
+                        <!-- SECCIÓN 1: MOLDE FÍSICO -->
+                        <div class="acc-item">
+                            <div class="acc-header active" onclick="app.toggleAcc(this)">1. Molde de Camiseta <span>▼</span></div>
+                            <div class="acc-content active">
+                                <div class="control-group">
+                                    <label>Corte / Estructura Física</label>
+                                    <div class="model-grid" id="sim-cuts-grid"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 2: DISEÑO GRÁFICO Y COLORES -->
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)">2. Diseño Gráfico y Colores <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Estampado / Patrón Base</label>
+                                    <div class="model-grid" id="sim-models-grid"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Principal (Fondo)</label>
+                                    <div class="color-row" id="sim-colors-primary"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Secundario (Gráficos)</label>
+                                    <div class="color-row" id="sim-colors-secondary"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Detalles (Cuellos/Puños)</label>
+                                    <div class="color-row" id="sim-colors-trim"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 3: PATRONES DE TEXTURA -->
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)">3. Textura de Tela <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Acabado visual</label>
+                                    <div class="model-grid">
+                                        <div class="model-btn active" onclick="app.setPattern('none', this)">Liso</div>
+                                        <div class="model-btn" onclick="app.setPattern('url(#pat-dots)', this)">Punteado</div>
+                                        <div class="model-btn" onclick="app.setPattern('url(#pat-stripes)', this)">Rayas</div>
+                                        <div class="model-btn" onclick="app.setPattern('url(#pat-zigzag)', this)">Hexágonos</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 4: LOGOS Y ESCUDOS -->
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)">4. Escudo del Club <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Archivo del Escudo (PNG sin fondo)</label>
+                                    <label class="file-upload-btn">
+                                        <span style="font-size: 1.2rem; display:block; margin-bottom:5px;">+</span> Clic para adjuntar archivo
+                                        <input type="file" id="sim-logo-upload" accept="image/png, image/jpeg, image/svg+xml">
+                                    </label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Tamaño del Escudo</label>
+                                    <input type="range" id="sim-logo-size" class="range-slider" min="10" max="70" value="25">
+                                </div>
+                                <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
+                                    💡 Selecciona el escudo en la camiseta y arrástralo para posicionarlo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 5: TEXTO / SPONSOR -->
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)">5. Textos y Sponsors <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Sponsor o Nombre del Equipo</label>
+                                    <input type="text" id="sim-text-input" class="form-input" placeholder="Ej: MI CLUB" value="SPONSOR" maxlength="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Estilo Tipográfico</label>
+                                    <select id="sim-font-family" class="form-input">
+                                        <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                                        <option value="'Oswald', sans-serif">Oswald</option>
+                                        <option value="'Anton', sans-serif">Anton</option>
+                                        <option value="'Montserrat', sans-serif">Montserrat</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Escala del Texto</label>
+                                    <input type="range" id="sim-text-size" class="range-slider" min="10" max="60" value="22">
+                                </div>
+                                <div class="control-group">
+                                    <label>Color del Texto</label>
+                                    <div class="color-row" id="sim-colors-text"></div>
+                                </div>
+                                <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
+                                    💡 Selecciona el texto en la camiseta y arrástralo para posicionarlo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECCIÓN 6: TALLE -->
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)">6. Talle <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Seleccioná tu Talle</label>
+                                    <div class="model-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XS', this)">XS</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('S', this)">S</div>
+                                        <div class="size-btn active" onclick="app.setSimulatorSize('M', this)">M</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('L', this)">L</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XL', this)">XL</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XXL', this)">XXL</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div style="margin-top: 25px; display: flex; gap: 15px; flex-direction: column;">
+                            <button class="btn btn-primary" id="btn-sim-consult" style="width: 100%;">Solicitar este Diseño</button>
+                            <button class="btn btn-outline" id="btn-sim-custom" style="width: 100%;">Quiero algo aún más único</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- =========================================================
+         VISTA 4: DETALLE DE DISEÑO DEL CATÁLOGO
+         ========================================================= -->
+    <main id="view-detail" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; 
+                <a id="det-breadcrumb-cat" onclick="">Deporte</a> &gt; 
+                <span id="det-breadcrumb-name">Modelo</span>
+            </div>
+
+            <div class="detail-layout">
+                <div class="detail-image-box">
+                    <img id="det-img" src="" alt="Diseño Elite">
+                </div>
+                <div class="detail-content">
+                    <span class="category-tag" id="det-tag">Categoría</span>
+                    <h1 id="det-title">Nombre del Modelo</h1>
+                    <p id="det-desc">Descripción del diseño de referencia.</p>
+                    
+                    <ul class="features-list">
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Colores 100% adaptables a tu club</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Escudos, números y sponsors incluidos</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Confección en telas Elite Alto Rendimiento</li>
+                    </ul>
+                    
+                    <div class="action-box">
+                        <h4>Hazlo tuyo</h4>
+                        <p>Los modelos del catálogo son un punto de partida. Seleccioná este diseño y nosotros nos encargamos de adaptarlo a los colores e identidad de tu equipo.</p>
+                        <button class="btn btn-primary btn-full" id="btn-consultar-modelo" onclick="">Solicitar este diseño</button>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="#" style="color: var(--text-gray); font-size: 0.8rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-gray)'" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño totalmente desde cero, fuera del catálogo.')">Prefiero diseñar desde cero</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LIGHTBOX PARA LA GALERÍA -->
+    <div class="lightbox" id="lightbox" onclick="app.closeLightbox(event)">
+        <span class="lightbox-close" onclick="app.closeLightbox(event)">&times;</span>
+        <img id="lightbox-img" src="" alt="Trabajo destacado">
+    </div>
+
+    <!-- FOOTER PREMIUM -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px; font-size: 1.8rem;">ELITE<span>INDUMENTARIA</span></div>
+                <p style="color: var(--text-gray); font-size: 0.9rem; max-width: 300px;">Diseño y fabricación de indumentaria deportiva y de invierno para clubes en Uruguay. La identidad de tu equipo, elevada al máximo nivel.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#" onclick="app.navigate('home')">Inicio</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-deportes')">Catálogos</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-beneficios')">Calidad Premium</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-galeria')">Nuestros Trabajos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto directo</h4>
+                <ul>
+                    <li><span style="color:var(--primary)">❖</span> WhatsApp: 092 669 504</li>
+                    <li><span style="color:var(--primary)">❖</span> Instagram: @eliteindumentariauy</li>
+                    <li><span style="color:var(--primary)">❖</span> Envíos a todo el país</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Elite Indumentaria. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================
+        // 1. CONFIGURACIÓN PRINCIPAL
+        // ==========================================
+        const WHATSAPP_NUMBER = "59892669504"; // Número Elite Indumentaria UY
+
+        // ==========================================
+        // 2. BASE DE DATOS DEL SIMULADOR
+        // ==========================================
+        
+        // MOLDES / ESTRUCTURA FÍSICA
+        const physicalCuts = {
+            futbol: [
+                { id: "cut-f1", name: "Clásico", 
+                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
+                  trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f2", name: "Cuello V", 
+                  base: "M 65,10 L 100,45 L 135,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
+                  trim: "M 65,10 L 100,45 L 135,10 L 125,10 L 100,35 L 75,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f3", name: "Polo", 
+                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
+                  trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f4", name: "Ranglán", 
+                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
+                  trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 60,10 L 50,70 L 52,70 L 62,10 Z M 140,10 L 150,70 L 148,70 L 138,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
+            ],
+            basquet: [
+                { id: "cut-b1", name: "Único", 
+                  base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", 
+                  trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
+            ]
+        };
+
+        const designPatterns = {
+            futbol: [
+                { id: "mod-f1", name: "Liso/Base", svg: `` },
+                { id: "mod-f2", name: "Bastones", svg: `<rect x="15" width="30" height="250" class="c-sec"/><rect x="85" width="30" height="250" class="c-sec"/><rect x="155" width="30" height="250" class="c-sec"/>` },
+                { id: "mod-f3", name: "Mitades", svg: `<rect x="100" y="0" width="100" height="250" class="c-sec" />` },
+                { id: "mod-f4", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,80 100,150 0,80" class="c-sec" />` }
+            ],
+            basquet: [
+                { id: "mod-b1", name: "Liso/Base", svg: `` },
+                { id: "mod-b2", name: "Paneles", svg: `<rect x="0" width="75" height="250" class="c-sec"/><rect x="125" width="75" height="250" class="c-sec"/>` },
+                { id: "mod-b3", name: "Diagonal", svg: `<polygon points="-20,200 220,40 220,90 -20,250" class="c-sec" />` },
+                { id: "mod-b4", name: "Superior", svg: `<rect x="0" y="0" width="200" height="110" class="c-sec" />` }
+            ]
+        };
+
+        const globalColors = [
+            { hex: "#ffffff", name: "Blanco" },
+            { hex: "#222222", name: "Negro" },
+            { hex: "#e63946", name: "Rojo" },
+            { hex: "#1d3557", name: "Azul Marino" },
+            { hex: "#ffb703", name: "Amarillo" },
+            { hex: "#2a9d8f", name: "Verde" },
+            { hex: "#8338ec", name: "Morado" }
+        ];
+
+        // ==========================================
+        // 3. BASE DE DATOS CATÁLOGO GENERAL
+        // ==========================================
+        const catalogData = {
+            "futbol": {
+                id: "futbol", title: "Camisetas de Fútbol", bgImg: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600",
+                designs: [
+                    { id: "f-01", name: "Modelo Legend", desc: "Diseño clásico con bastones verticales.", img: "https://images.unsplash.com/photo-1522778526582-12297eb098fa?q=80&w=800" },
+                    { id: "f-02", name: "Modelo Dynamic", desc: "Corte moderno con texturas geométricas.", img: "https://images.unsplash.com/photo-1551280857-22d4168c4d15?q=80&w=800" }
+                ]
+            },
+            "basquet": {
+                id: "basquet", title: "Camisetas de Básquetbol", bgImg: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+                designs: [
+                    { id: "b-01", name: "Modelo All-Star", desc: "Musculosa clásica de básquet.", img: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800" },
+                    { id: "b-02", name: "Modelo Street", desc: "Diseño urbano para torneos 3x3.", img: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800" }
+                ]
+            }
+        };
+
+        // ==========================================
+        // 4. LÓGICA DE LA APLICACIÓN
+        // ==========================================
+        const app = {
+            simState: { 
+                sport: 'futbol', 
+                cutId: '', cutName: '',
+                modelId: 'mod-f1', modelName: 'Liso', 
+                cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
+                pattern: 'Liso', textStr: 'SPONSOR', hasLogo: false,
+                textFont: 'Bebas Neue', textSize: 22, logoSize: 25,
+                size: 'M'
+            },
+            currentSportId: null,
+
+            openWhatsApp: function(message) {
+                const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                const win = window.open(url, '_blank');
+                if (!win || win.closed || typeof win.closed == 'undefined') {
+                    window.location.href = url;
+                }
+            },
+
+            navigate: function(viewId, scrollToId = null) {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.getElementById(`view-${viewId}`).classList.add('active');
+                if(scrollToId) {
+                    setTimeout(() => { document.getElementById(scrollToId).scrollIntoView({behavior: 'smooth'}); }, 100);
+                } else { window.scrollTo({top: 0, behavior: 'smooth'}); }
+            },
+
+            toggleAcc: function(headerEl) {
+                document.querySelectorAll('.acc-header').forEach(h => h.classList.remove('active'));
+                document.querySelectorAll('.acc-content').forEach(c => c.classList.remove('active'));
+                headerEl.classList.add('active');
+                headerEl.nextElementSibling.classList.add('active');
+            },
+
+            // ==========================================
+            // FUNCIONES PARA GALERÍA Y LIGHTBOX
+            // ==========================================
+            filterGallery: function(event, category) {
+                const btns = document.querySelectorAll('.filter-btn');
+                btns.forEach(b => b.classList.remove('active'));
+                event.target.classList.add('active');
+
+                const items = document.querySelectorAll('.gallery-item');
+                items.forEach(item => {
+                    if(category === 'todos' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            },
+
+            openLightbox: function(imgSrc) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('active');
+            },
+
+            closeLightbox: function(e) {
+                if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+                    document.getElementById('lightbox').classList.remove('active');
+                }
+            },
+            // ==========================================
+
+            init: function() {
+                this.buildHomeCategories();
+                this.buildSimulatorColors();
+                this.attachSimulatorEvents();
+            },
+
+            buildHomeCategories: function() {
+                const grid = document.getElementById('home-categories-grid');
+                grid.innerHTML = '';
+                for (const key in catalogData) {
+                    const cat = catalogData[key];
+                    const card = document.createElement('div');
+                    card.className = 'sport-card';
+                    card.style.backgroundImage = `url('${cat.bgImg}')`;
+                    card.innerHTML = `<h3>${cat.title.replace('Camisetas de ', '')}</h3><span>Ver Diseños ➔</span>`;
+                    card.onclick = () => app.openCategory(key);
+                    grid.appendChild(card);
+                }
+            },
+
+            openSimulator: function(sportId) {
+                this.setSimulatorSport(sportId);
+                const bcCat = document.getElementById('sim-breadcrumb-cat');
+                bcCat.innerText = catalogData[sportId].title;
+                bcCat.onclick = () => app.openCategory(sportId);
+                this.navigate('simulator');
+            },
+
+            setSimulatorSport: function(sportId) {
+                this.simState.sport = sportId;
+                
+                // Construir menú de moldes
+                const cutsGrid = document.getElementById('sim-cuts-grid');
+                cutsGrid.innerHTML = '';
+                const cuts = physicalCuts[sportId];
+                
+                cuts.forEach((cut, index) => {
+                    const btn = document.createElement('div');
+                    btn.className = `cut-btn ${index === 0 ? 'active' : ''}`;
+                    btn.innerText = cut.name;
+                    btn.onclick = () => this.setSimulatorCut(cut, btn);
+                    cutsGrid.appendChild(btn);
+                });
+                this.setSimulatorCut(cuts[0], cutsGrid.firstChild);
+
+                // Construir menú de diseño gráfico
+                const modelsGrid = document.getElementById('sim-models-grid');
+                modelsGrid.innerHTML = '';
+                const models = designPatterns[sportId];
+                
+                models.forEach((mod, index) => {
+                    const btn = document.createElement('div');
+                    btn.className = `model-btn ${index === 0 ? 'active' : ''}`;
+                    btn.innerText = mod.name;
+                    btn.onclick = () => this.setSimulatorModel(mod, btn);
+                    modelsGrid.appendChild(btn);
+                });
+                this.setSimulatorModel(models[0], modelsGrid.firstChild);
+            },
+
+            setSimulatorCut: function(cutObj, btnElement) {
+                this.simState.cutId = cutObj.id;
+                this.simState.cutName = cutObj.name;
+                
+                document.querySelectorAll('.cut-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+                
+                document.getElementById('sim-clip-path').setAttribute('d', cutObj.base);
+                document.getElementById('sim-base-shape').setAttribute('d', cutObj.base);
+                document.getElementById('sim-shading-shape').setAttribute('d', cutObj.base);
+                document.getElementById('sim-shadows-shape').setAttribute('d', cutObj.base);
+                document.getElementById('sim-trim-shape').setAttribute('d', cutObj.trim);
+            },
+
+            setSimulatorModel: function(modelObj, btnElement) {
+                this.simState.modelId = modelObj.id;
+                this.simState.modelName = modelObj.name;
+                
+                document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+                
+                document.getElementById('sim-design-layer').innerHTML = modelObj.svg;
+            },
+
+            setPattern: function(fillValue, btnElement) {
+                this.simState.pattern = btnElement.innerText;
+                document.getElementById('sim-pattern-layer').setAttribute('fill', fillValue);
+                
+                btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                btnElement.classList.add('active');
+            },
+
+            setSimulatorSize: function(sizeStr, btnElement) {
+                this.simState.size = sizeStr;
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+            },
+
+            buildSimulatorColors: function() {
+                const createRow = (id, targetVar, stateKey, defColorHex) => {
+                    const container = document.getElementById(id);
+                    container.innerHTML = '';
+                    globalColors.forEach(color => {
+                        const sw = document.createElement('div');
+                        sw.className = `color-swatch ${color.hex === defColorHex ? 'active' : ''}`;
+                        sw.style.backgroundColor = color.hex;
+                        sw.onclick = () => {
+                            container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                            sw.classList.add('active');
+                            document.getElementById('sim-wrapper').style.setProperty(targetVar, color.hex);
+                            this.simState[stateKey] = color.name;
+                        };
+                        container.appendChild(sw);
+                    });
+                };
+
+                createRow('sim-colors-primary', '--sim-primary', 'cPrimary', '#111111');
+                createRow('sim-colors-secondary', '--sim-secondary', 'cSecondary', '#ffffff');
+                createRow('sim-colors-trim', '--sim-trim', 'cTrim', '#ffffff');
+                createRow('sim-colors-text', '--sim-text', 'cText', '#ffffff');
+            },
+
+            attachSimulatorEvents: function() {
+                const textInput = document.getElementById('sim-text-input');
+                textInput.addEventListener('input', (e) => {
+                    const val = e.target.value.toUpperCase();
+                    document.getElementById('sim-user-text').textContent = val;
+                    this.simState.textStr = val;
+                });
+
+                const fontSelect = document.getElementById('sim-font-family');
+                fontSelect.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    document.getElementById('sim-user-text').setAttribute('font-family', val);
+                    this.simState.textFont = e.target.options[e.target.selectedIndex].text;
+                });
+
+                const sizeRange = document.getElementById('sim-text-size');
+                sizeRange.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    document.getElementById('sim-user-text').setAttribute('font-size', val);
+                    this.simState.textSize = val;
+                });
+
+                const logoInput = document.getElementById('sim-logo-upload');
+                logoInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if(file) {
+                        const reader = new FileReader();
+                        reader.onload = (f) => {
+                            document.getElementById('sim-user-logo').setAttribute('href', f.target.result);
+                            this.simState.hasLogo = true;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                const logoSize = document.getElementById('sim-logo-size');
+                logoSize.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    document.getElementById('sim-user-logo').setAttribute('width', val);
+                    document.getElementById('sim-user-logo').setAttribute('height', val);
+                    this.simState.logoSize = val;
+                });
+
+                // =======================================================
+                // LÓGICA DE DRAG & DROP (TEXTO Y ESCUDO)
+                // =======================================================
+                const svgElement = document.querySelector('.svg-container svg');
+                let draggingElement = null;
+                let startPt = svgElement.createSVGPoint();
+
+                function getMousePosition(evt) {
+                    let CTM = svgElement.getScreenCTM();
+                    let clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+                    let clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+                    startPt.x = clientX;
+                    startPt.y = clientY;
+                    return startPt.matrixTransform(CTM.inverse());
+                }
+
+                const startDrag = (evt) => {
+                    if (evt.target.id === 'sim-user-text' || evt.target.id === 'sim-user-logo') {
+                        draggingElement = evt.target;
+                        let coord = getMousePosition(evt);
+                        const x = parseFloat(draggingElement.getAttribute('x')) || 0;
+                        const y = parseFloat(draggingElement.getAttribute('y')) || 0;
+                        draggingElement.dataset.offsetX = coord.x - x;
+                        draggingElement.dataset.offsetY = coord.y - y;
+                    }
+                };
+
+                const drag = (evt) => {
+                    if (draggingElement) {
+                        evt.preventDefault(); // Evita scroll al arrastrar en móvil
+                        let coord = getMousePosition(evt);
+                        let newX = coord.x - parseFloat(draggingElement.dataset.offsetX);
+                        let newY = coord.y - parseFloat(draggingElement.dataset.offsetY);
+                        draggingElement.setAttribute('x', newX);
+                        draggingElement.setAttribute('y', newY);
+                    }
+                };
+
+                const endDrag = () => {
+                    draggingElement = null;
+                };
+
+                const textElem = document.getElementById('sim-user-text');
+                const logoElem = document.getElementById('sim-user-logo');
+                
+                textElem.addEventListener('mousedown', startDrag);
+                textElem.addEventListener('touchstart', startDrag, {passive: false});
+                logoElem.addEventListener('mousedown', startDrag);
+                logoElem.addEventListener('touchstart', startDrag, {passive: false});
+                
+                svgElement.addEventListener('mousemove', drag);
+                svgElement.addEventListener('touchmove', drag, {passive: false});
+                
+                window.addEventListener('mouseup', endDrag);
+                window.addEventListener('touchend', endDrag);
+
+
+                // =======================================================
+                // LÓGICA DE EXPORTACIÓN Y WHATSAPP 100% ESTABLE
+                // =======================================================
+                document.getElementById('btn-sim-consult').onclick = async () => {
+                    const btn = document.getElementById('btn-sim-consult');
+                    const originalText = btn.innerText;
+                    btn.innerText = "Generando diseño...";
+                    btn.disabled = true;
+
+                    const targetToExport = document.querySelector('.sim-viewer-col');
+                    const helperText = document.getElementById('sim-helper-text');
+                    const svgContainer = targetToExport.querySelector('.svg-container');
+                    const actualSvg = targetToExport.querySelector('svg');
+
+                    // 1. PREPARACIÓN: Detenemos elementos visuales que rompen las imágenes (animaciones, filtros y transiciones)
+                    if (helperText) helperText.style.display = 'none';
+                    
+                    const originalAnimation = svgContainer.style.animation;
+                    svgContainer.style.animation = 'none';
+
+                    const originalFilter = actualSvg.getAttribute('filter');
+                    if (originalFilter) actualSvg.removeAttribute('filter');
+
+                    // Quitamos temporalmente las transiciones del CSS de los paths (clave para que no se trabe)
+                    const transitioningElements = actualSvg.querySelectorAll('[style*="transition"]');
+                    const originalStyles = [];
+                    transitioningElements.forEach(el => {
+                        originalStyles.push(el.getAttribute('style'));
+                        el.style.transition = 'none';
+                    });
+
+                    try {
+                        // Pequeño margen para que la página aplique los cambios (quita de animación)
+                        await new Promise(resolve => setTimeout(resolve, 150));
+
+                        // 2. GENERACIÓN DE IMAGEN CON LIBRERÍA ESTABLE PARA SVG
+                        const dataUrl = await htmlToImage.toPng(targetToExport, { 
+                            backgroundColor: '#080808', 
+                            pixelRatio: 2,
+                            cacheBust: true
+                        });
+
+                        // 3. RESTAURACIÓN VISUAL INMEDIATA
+                        svgContainer.style.animation = originalAnimation;
+                        if (helperText) helperText.style.display = '';
+                        if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
+                        transitioningElements.forEach((el, index) => {
+                            if(originalStyles[index]) {
+                                el.setAttribute('style', originalStyles[index]);
+                            }
+                        });
+
+                        // 4. DESCARGAMOS Y GUARDAMOS LA IMAGEN PRIMERO EN EL DISPOSITIVO
+                        const link = document.createElement('a');
+                        link.download = `Diseño-Elite-${Date.now()}.png`;
+                        link.href = dataUrl;
+                        document.body.appendChild(link); // Añadirlo al DOM es requerido en móviles para forzar la descarga
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+
+                        // 5. ENVIAMOS TEXTO Y AVISAMOS CÓMO ADJUNTAR LA FOTO MANUALMENTE
+                        setTimeout(() => {
+                            const s = app.simState;
+                            const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
+                            
+                            const msg = `¡Hola Elite Indumentaria! Quiero consultar por este diseño personalizado.%0A%0A⚠️ *Te enviaré la imagen del diseño que acabo de guardar en el siguiente mensaje.*%0A%0A*Detalles técnicos:*%0A*Deporte:* ${sportName}%0A*Molde (Forma):* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño (Gráfico):* ${s.modelName}%0A*Color Principal:* ${s.cPrimary}%0A*Secundario:* ${s.cSecondary}%0A*Detalles:* ${s.cTrim}%0A*Trama Fondo:* ${s.pattern}%0A*Texto:* "${s.textStr}" (Color: ${s.cText}, Fuente: ${s.textFont})%0A*Logo Subido:* ${s.hasLogo ? 'Sí' : 'No'}`;
+                            
+                            // Confirmación clara de los pasos antes de abrir WhatsApp
+                            const proceed = confirm("✅ IMAGEN DEL DISEÑO GUARDADA\n\nPrimero hemos guardado la foto de tu diseño en tu dispositivo/galería.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez que se abra el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
+                            
+                            if (proceed) {
+                                app.openWhatsApp(msg);
+                            }
+                        }, 500);
+
+                    } catch (err) {
+                        console.error("Error crítico al generar imagen:", err);
+                        
+                        // En caso de fallo rarísimo, restauramos todo y dejamos continuar de todas formas
+                        svgContainer.style.animation = originalAnimation;
+                        if (helperText) helperText.style.display = '';
+                        if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
+                        transitioningElements.forEach((el, index) => {
+                            if(originalStyles[index]) el.setAttribute('style', originalStyles[index]);
+                        });
+                        
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        
+                        alert("Hubo un problema de memoria en el navegador para generar la imagen de alta calidad automáticamente.\n\n¡Sugerencia: Tómale una captura de pantalla al diseño para adjuntarla manualmente en WhatsApp!");
+
+                        const s = app.simState;
+                        const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
+                        const msg = `¡Hola Elite Indumentaria! Armé un diseño en el simulador y quiero consultarte (Mi dispositivo no pudo descargar la imagen, pero te paso los detalles).%0A%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.modelName}%0A*Colores:* ${s.cPrimary}, ${s.cSecondary}, ${s.cTrim}%0A*Trama:* ${s.pattern}%0A*Texto:* "${s.textStr}"`;
+                        app.openWhatsApp(msg);
+                    }
+                };
+
+                document.getElementById('btn-sim-custom').onclick = () => {
+                    const sportName = catalogData[app.simState.sport].title;
+                    const msg = `¡Hola! Tengo mi propio diseño para ${sportName} y quisiera consultar para realizarlo con ustedes.`;
+                    app.openWhatsApp(msg);
+                };
+            },
+
+            openCategory: function(sportId) {
+                const cat = catalogData[sportId];
+                if(!cat) return;
+                
+                this.currentSportId = sportId;
+                
+                document.getElementById('cat-breadcrumb-name').innerText = cat.title;
+                document.getElementById('cat-title').innerHTML = `Línea <span>${cat.title.replace('Camisetas de ', '')}</span>`;
+                
+                const grid = document.getElementById('catalog-grid');
+                grid.innerHTML = '';
+
+                cat.designs.forEach(design => {
+                    const dCard = document.createElement('div');
+                    dCard.className = 'design-card';
+                    dCard.onclick = () => app.openDetail(sportId, design.id);
+                    dCard.innerHTML = `
+                        <div class="design-img-wrapper"><img src="${design.img}" alt="${design.name}"></div>
+                        <div class="design-info"><h4>${design.name}</h4><p>${design.desc}</p><div class="design-btn">Ver Diseño ➔</div></div>
+                    `;
+                    grid.appendChild(dCard);
+                });
+
+                this.navigate('category');
+            },
+
+            openDetail: function(sportId, designId) {
+                const cat = catalogData[sportId];
+                const design = cat.designs.find(d => d.id === designId);
+                if(!design) return;
+
+                const bcCat = document.getElementById('det-breadcrumb-cat');
+                bcCat.innerText = cat.title;
+                bcCat.onclick = () => app.openCategory(sportId); 
+                document.getElementById('det-breadcrumb-name').innerText = design.name;
+
+                document.getElementById('det-img').src = design.img;
+                document.getElementById('det-tag').innerText = cat.title;
+                document.getElementById('det-title').innerText = design.name;
+                document.getElementById('det-desc').innerText = design.desc;
+
+                document.getElementById('btn-consultar-modelo').onclick = () => {
+                    const msg = `¡Hola! Estoy interesado en el diseño *${design.name}* de *${cat.title}*. Quisiera consultar para personalizarlo y saber el presupuesto.`;
+                    app.openWhatsApp(msg);
+                };
+
+                this.navigate('detail');
+            }
+        };
+
+        // Inicializar aplicación
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+
+    </script>
+</body>
+</html>
