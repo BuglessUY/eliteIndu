@@ -55,12 +55,10 @@
            ========================================== */
         .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
         
-        /* Modificado para B&W: Texto base gris, span destacado en blanco */
         .section-title { font-family: var(--font-display); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; font-weight: 400; color: var(--text-gray); }
         .section-title span { color: var(--primary); }
         .section-subtitle { text-align: center; color: var(--text-gray); font-size: 1.1rem; max-width: 700px; margin: 0 auto 50px auto; }
 
-        /* Botones */
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 10px;
             font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase;
@@ -273,7 +271,7 @@
         .color-swatch { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: var(--transition); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
         .color-swatch.active { border: 2px solid var(--primary); transform: scale(1.2); }
 
-        .form-input { width: 100%; padding: 12px 15px; background: var(--bg-dark); border: 1px solid var(--border-color); color: #fff; font-family: var(--font-body); font-size: 0.9rem; transition: var(--transition); }
+        .form-input { width: 100%; padding: 12px 15px; background: var(--bg-dark); border: 1px solid var(--border-color); color: #fff; font-family: var(--font-body); font-size: 0.9rem; transition: var(--transition); border-radius: 4px;}
         .form-input:focus { outline: none; border-color: var(--primary); }
         
         .range-slider { width: 100%; cursor: pointer; accent-color: var(--primary); }
@@ -283,8 +281,8 @@
         .file-upload-btn input[type="file"] { display: none; }
 
         /* Estilo para elementos arrastrables en el SVG */
-        #sim-user-text, #sim-user-logo { cursor: grab; user-select: none; pointer-events: all; }
-        #sim-user-text:active, #sim-user-logo:active { cursor: grabbing; }
+        #sim-text-remera, #sim-logo-remera, #sim-text-short, #sim-logo-short { cursor: grab; user-select: none; pointer-events: all; }
+        #sim-text-remera:active, #sim-logo-remera:active, #sim-text-short:active, #sim-logo-short:active { cursor: grabbing; }
 
         /* ==========================================
            FOOTER
@@ -350,7 +348,7 @@
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: PROMOCIONES (Reutilizando la estructura visual solicitada) -->
+        <!-- NUEVA SECCIÓN: PROMOCIONES -->
         <section id="seccion-promociones" class="process-section" style="background-color: var(--bg-dark); border-top: none; padding-bottom: 50px;">
             <div class="container">
                 <h2 class="section-title">Promociones <span>Elite</span></h2>
@@ -525,6 +523,17 @@
                 </div>
             </div>
 
+            <!-- FILTROS Y BÚSQUEDA ESPECÍFICOS PARA FÚTBOL -->
+            <div id="futbol-filters" style="display: none; margin-bottom: 50px;">
+                <div class="gallery-filters" style="margin-bottom: 25px;">
+                    <button class="filter-btn active" id="btn-sublimadas" onclick="app.filterFutbol('sublimadas')">REMERAS SUBLIMADAS</button>
+                    <button class="filter-btn" id="btn-basicas" onclick="app.filterFutbol('basicas')">REMERAS BÁSICAS</button>
+                </div>
+                <div style="text-align: center;">
+                    <input type="text" id="futbol-search" placeholder="🔍 Buscar diseño..." class="form-input" style="max-width: 450px; display: inline-block;" onkeyup="app.searchFutbol(this.value)">
+                </div>
+            </div>
+
             <div class="catalog-grid" id="catalog-grid"></div>
         </div>
     </main>
@@ -544,16 +553,28 @@
 
             <div class="configurator-ui" id="sim-wrapper">
                 <style>
+                    /* Varios grupos y CSS Variables para colores independientes */
                     #sim-wrapper {
-                        --sim-primary: #111111;
-                        --sim-secondary: #ffffff;
-                        --sim-trim: #ffffff;
-                        --sim-text: #ffffff;
+                        --sim-primary-remera: #111111;
+                        --sim-sec-remera: #ffffff;
+                        --sim-trim-remera: #ffffff;
+                        --sim-text-remera: #ffffff;
+
+                        --sim-primary-short: #111111;
+                        --sim-sec-short: #ffffff;
+                        --sim-trim-short: #ffffff;
+                        --sim-text-short: #ffffff;
                     }
-                    .c-primary { fill: var(--sim-primary); transition: fill 0.4s ease; }
-                    .c-sec { fill: var(--sim-secondary); transition: fill 0.4s ease; }
-                    .c-trim { fill: var(--sim-trim); transition: fill 0.4s ease; }
-                    .c-text { fill: var(--sim-text); transition: fill 0.4s ease; }
+
+                    #sim-group-remera .c-primary { fill: var(--sim-primary-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-sec { fill: var(--sim-sec-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-trim { fill: var(--sim-trim-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-text { fill: var(--sim-text-remera); transition: fill 0.4s ease; }
+
+                    #sim-group-short .c-primary { fill: var(--sim-primary-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-sec { fill: var(--sim-sec-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-trim { fill: var(--sim-trim-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-text { fill: var(--sim-text-short); transition: fill 0.4s ease; }
                 </style>
 
                 <div class="sim-layout">
@@ -572,9 +593,13 @@
                                         <stop offset="0%" stop-color="rgba(255,255,255,0.1)" />
                                         <stop offset="100%" stop-color="rgba(0,0,0,0.4)" />
                                     </linearGradient>
-                                    
-                                    <clipPath id="sim-silhouette-clip">
-                                        <path id="sim-clip-path" d="" style="transition: d 0.4s ease;" />
+
+                                    <!-- Clip Paths Independientes -->
+                                    <clipPath id="sim-clip-remera">
+                                        <path id="sim-clip-path-remera" d="" style="transition: d 0.4s ease;" />
+                                    </clipPath>
+                                    <clipPath id="sim-clip-short">
+                                        <path id="sim-clip-path-short" d="" style="transition: d 0.4s ease;" />
                                     </clipPath>
 
                                     <pattern id="pat-dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="rgba(255,255,255,0.1)"/></pattern>
@@ -582,20 +607,31 @@
                                     <pattern id="pat-zigzag" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0,10 L10,0 L20,10 L10,20 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern>
                                 </defs>
 
-                                <path id="sim-base-shape" class="c-primary" d="" style="transition: d 0.4s ease;" />
-                                
-                                <g clip-path="url(#sim-silhouette-clip)">
-                                    <rect id="sim-pattern-layer" width="100%" height="100%" fill="none" />
+                                <!-- REMERA / CANGURO GROUP -->
+                                <g id="sim-group-remera">
+                                    <path id="sim-base-remera" class="c-primary" d="" style="transition: d 0.4s ease;" />
+                                    <g clip-path="url(#sim-clip-remera)">
+                                        <rect id="sim-pattern-remera" width="100%" height="100%" fill="none" />
+                                    </g>
+                                    <g id="sim-design-remera" clip-path="url(#sim-clip-remera)" style="transition: all 0.4s ease;"></g>
+                                    <path id="sim-trim-remera" class="c-trim" d="" fill="none" stroke="currentColor" stroke-width="1.5" style="transition: stroke 0.4s ease, d 0.4s ease;" />
+                                    <image id="sim-logo-remera" x="125" y="45" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
+                                    <text id="sim-text-remera" class="c-text" x="100" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">SPONSOR</text>
                                 </g>
 
-                                <g id="sim-design-layer" clip-path="url(#sim-silhouette-clip)" style="transition: all 0.4s ease;"></g>
+                                <!-- SHORT / PANTALON GROUP -->
+                                <g id="sim-group-short" style="display: none; transition: opacity 0.4s ease;">
+                                    <path id="sim-base-short" class="c-primary" d="" style="transition: d 0.4s ease;" />
+                                    <g clip-path="url(#sim-clip-short)">
+                                        <rect id="sim-pattern-short" width="100%" height="100%" fill="none" />
+                                    </g>
+                                    <g id="sim-design-short" clip-path="url(#sim-clip-short)" style="transition: all 0.4s ease;"></g>
+                                    <path id="sim-trim-short" class="c-trim" d="" fill="none" stroke="currentColor" stroke-width="1.5" style="transition: stroke 0.4s ease, d 0.4s ease;" />
+                                    <image id="sim-logo-short" x="60" y="320" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
+                                    <text id="sim-text-short" class="c-text" x="140" y="335" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">NUM</text>
+                                </g>
 
-                                <path id="sim-trim-shape" class="c-trim" d="" style="transition: d 0.4s ease;" />
-
-                                <!-- ESCUDO Y TEXTO (ARRASTRABLES) -->
-                                <image id="sim-user-logo" x="125" y="45" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
-                                <text id="sim-user-text" class="c-text" x="100" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">SPONSOR</text>
-
+                                <!-- COMBINED SHADOWS AND SHADING -->
                                 <path id="sim-shading-shape" fill="url(#shading)" style="mix-blend-mode: overlay; pointer-events: none; transition: d 0.4s ease;" d="" />
                                 <path id="sim-shadows-shape" fill="url(#shadowFolds)" style="mix-blend-mode: multiply; pointer-events: none; transition: d 0.4s ease;" d="" />
                             </svg>
@@ -608,12 +644,34 @@
                     <!-- Columna Derecha: Acordeón de Controles -->
                     <div class="sim-controls-col">
                         
-                        <!-- SECCIÓN 1: MOLDE FÍSICO -->
+                        <!-- SECCIÓN 0: TIPO DE CONJUNTO Y TOGGLE PRENDA -->
                         <div class="acc-item">
-                            <div class="acc-header active" onclick="app.toggleAcc(this)">1. Molde de Camiseta <span>▼</span></div>
+                            <div class="acc-header active" onclick="app.toggleAcc(this)">1. Tipo de Conjunto <span>▼</span></div>
                             <div class="acc-content active">
                                 <div class="control-group">
-                                    <label>Corte / Estructura Física</label>
+                                    <label>Seleccioná qué deseas diseñar</label>
+                                    <div class="model-grid" style="grid-template-columns: 1fr 1fr;">
+                                        <div class="model-btn active" id="btn-outfit-single" onclick="app.setOutfitType('remera', this)">Solo Remera</div>
+                                        <div class="model-btn" id="btn-outfit-set" onclick="app.setOutfitType('conjunto', this)">Remera + Short</div>
+                                    </div>
+                                </div>
+                                <div class="control-group" id="sim-garment-editor-toggle" style="display: none; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                                    <label style="color: var(--primary);" id="lbl-garment-editor">Prenda que estás editando ahora mismo:</label>
+                                    <div class="model-grid" style="grid-template-columns: 1fr 1fr;">
+                                        <div class="model-btn active" id="btn-toggle-remera" onclick="app.setActiveGarment('remera', this)">👕 Editar Remera</div>
+                                        <div class="model-btn" id="btn-toggle-short" onclick="app.setActiveGarment('short', this)">🩳 Editar Short</div>
+                                    </div>
+                                    <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem; margin-top: 10px;">
+                                        💡 Todos los cambios abajo se aplicarán a la prenda seleccionada.
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- SECCIÓN 1: MOLDE FÍSICO -->
+                        <div class="acc-item" id="acc-item-molde">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-molde-num">2.</span> Molde / Estructura <span id="lbl-acc-molde-tipo">(Aplica a Remera)</span> <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label id="lbl-molde-desc">Corte / Estructura Física</label>
                                     <div class="model-grid" id="sim-cuts-grid"></div>
                                 </div>
                             </div>
@@ -621,7 +679,7 @@
 
                         <!-- SECCIÓN 2: DISEÑO GRÁFICO Y COLORES -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)">2. Diseño Gráfico y Colores <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-dis-num">3.</span> Diseño Gráfico y Colores <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Estampado / Patrón Base</label>
@@ -632,11 +690,11 @@
                                     <div class="color-row" id="sim-colors-primary"></div>
                                 </div>
                                 <div class="control-group">
-                                    <label>Color Secundario (Gráficos)</label>
+                                    <label>Color Secundario (Gráficos / Mangas)</label>
                                     <div class="color-row" id="sim-colors-secondary"></div>
                                 </div>
                                 <div class="control-group">
-                                    <label>Color Detalles (Cuellos/Puños)</label>
+                                    <label>Color Detalles (Puños / Cintura / Cordones / Líneas)</label>
                                     <div class="color-row" id="sim-colors-trim"></div>
                                 </div>
                             </div>
@@ -644,11 +702,11 @@
 
                         <!-- SECCIÓN 3: PATRONES DE TEXTURA -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)">3. Textura de Tela <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tex-num">4.</span> Textura de Tela <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Acabado visual</label>
-                                    <div class="model-grid">
+                                    <div class="model-grid" id="sim-patterns-grid">
                                         <div class="model-btn active" onclick="app.setPattern('none', this)">Liso</div>
                                         <div class="model-btn" onclick="app.setPattern('url(#pat-dots)', this)">Punteado</div>
                                         <div class="model-btn" onclick="app.setPattern('url(#pat-stripes)', this)">Rayas</div>
@@ -660,7 +718,7 @@
 
                         <!-- SECCIÓN 4: LOGOS Y ESCUDOS -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)">4. Escudo del Club <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-esc-num">5.</span> Escudo del Club <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Archivo del Escudo (PNG sin fondo)</label>
@@ -674,17 +732,17 @@
                                     <input type="range" id="sim-logo-size" class="range-slider" min="10" max="70" value="25">
                                 </div>
                                 <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
-                                    💡 Selecciona el escudo en la camiseta y arrástralo para posicionarlo.
+                                    💡 Selecciona el escudo en la prenda y arrástralo para posicionarlo.
                                 </div>
                             </div>
                         </div>
 
                         <!-- SECCIÓN 5: TEXTO / SPONSOR -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)">5. Textos y Sponsors <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-txt-num">6.</span> Textos y Sponsors <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
-                                    <label>Sponsor o Nombre del Equipo</label>
+                                    <label>Sponsor o Nombre del Equipo/Número</label>
                                     <input type="text" id="sim-text-input" class="form-input" placeholder="Ej: MI CLUB" value="SPONSOR" maxlength="15">
                                 </div>
                                 <div class="control-group">
@@ -705,17 +763,17 @@
                                     <div class="color-row" id="sim-colors-text"></div>
                                 </div>
                                 <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
-                                    💡 Selecciona el texto en la camiseta y arrástralo para posicionarlo.
+                                    💡 Selecciona el texto en la prenda y arrástralo para posicionarlo.
                                 </div>
                             </div>
                         </div>
 
                         <!-- SECCIÓN 6: TALLE -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)">6. Talle <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tal-num">7.</span> Talle <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
-                                    <label>Seleccioná tu Talle</label>
+                                    <label>Seleccioná tu Talle (Aplica al conjunto)</label>
                                     <div class="model-grid" style="grid-template-columns: repeat(3, 1fr);">
                                         <div class="size-btn" onclick="app.setSimulatorSize('XS', this)">XS</div>
                                         <div class="size-btn" onclick="app.setSimulatorSize('S', this)">S</div>
@@ -818,13 +876,13 @@
         // ==========================================
         // 1. CONFIGURACIÓN PRINCIPAL
         // ==========================================
-        const WHATSAPP_NUMBER = "59892669504"; // Número Elite Indumentaria UY
+        const WHATSAPP_NUMBER = "59892669504"; 
 
         // ==========================================
         // 2. BASE DE DATOS DEL SIMULADOR
         // ==========================================
         
-        // MOLDES / ESTRUCTURA FÍSICA
+        // MOLDES / ESTRUCTURA FÍSICA (Remera / Canguro)
         const physicalCuts = {
             futbol: [
                 { id: "cut-f1", name: "Clásico", 
@@ -835,41 +893,89 @@
                   trim: "M 65,10 L 100,45 L 135,10 L 125,10 L 100,35 L 75,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
                 { id: "cut-f3", name: "Polo", 
                   base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
-                  trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
-                { id: "cut-f4", name: "Ranglán", 
-                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
-                  trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 60,10 L 50,70 L 52,70 L 62,10 Z M 140,10 L 150,70 L 148,70 L 138,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
+                  trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
             ],
             basquet: [
                 { id: "cut-b1", name: "Único", 
                   base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", 
                   trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
+            ],
+            // MOLDE EXACTO DE CANGURO BASADO EN LA FOTO DE REFERENCIA
+            canguros: [
+                { id: "cut-c1", name: "Canguro Clásico", 
+                  base: "M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 C 75,45 70,25 75,10 Z", 
+                  trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 90,55 L 92,100 L 89,100 L 87,55 Z M 110,55 L 113,100 L 110,100 L 108,55 Z M 80,170 L 120,170 L 119,172 L 81,172 Z M 80,170 L 65,225 L 68,225 L 82,170 Z M 120,170 L 135,225 L 132,225 L 118,170 Z M 80,50 C 100,65 120,50 120,50 L 118,48 C 100,62 82,48 80,50 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z" }
             ]
         };
 
+        // MOLDES / ESTRUCTURA FÍSICA (Shorts / Pantalón Largo)
+        const shortsData = {
+            futbol: {
+                base: "M 50,242 C 100,252 150,242 150,242 L 165,360 C 165,365 160,370 155,370 L 108,370 C 103,370 100,360 100,340 C 100,360 97,370 92,370 L 45,370 C 40,370 35,365 35,360 Z",
+                trim: "M 50,242 L 35,360 L 45,360 L 60,245 Z M 150,242 L 165,360 L 155,360 L 140,245 Z"
+            },
+            basquet: {
+                base: "M 52,242 C 75,247 125,247 148,242 L 170,410 C 170,415 165,420 155,420 L 108,420 C 103,420 100,410 100,380 C 100,410 97,420 92,420 L 45,420 C 35,420 30,415 30,410 Z",
+                trim: "M 52,242 L 30,410 L 45,420 L 50,420 L 38,405 L 60,245 Z M 148,242 L 170,410 L 155,420 L 150,420 L 162,405 L 140,245 Z"
+            },
+            // PANTALÓN LARGO PARA EL CONJUNTO DE INVIERNO
+            canguros: {
+                base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z",
+                trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z"
+            }
+        };
+
+        // NUEVOS DISEÑOS BASADOS EN LA CAPTURA PROPORCIONADA
         const designPatterns = {
             futbol: [
-                { id: "mod-f1", name: "Liso/Base", svg: `` },
-                { id: "mod-f2", name: "Bastones", svg: `<rect x="15" width="30" height="250" class="c-sec"/><rect x="85" width="30" height="250" class="c-sec"/><rect x="155" width="30" height="250" class="c-sec"/>` },
-                { id: "mod-f3", name: "Mitades", svg: `<rect x="100" y="0" width="100" height="250" class="c-sec" />` },
-                { id: "mod-f4", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,80 100,150 0,80" class="c-sec" />` }
+                { id: "mod-f1", name: "Sin Diseño", svg: `` },
+                { id: "mod-f2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
+                { id: "mod-f3", name: "3 Bastones", svg: `<rect x="15" width="30" height="500" class="c-sec"/><rect x="85" width="30" height="500" class="c-sec"/><rect x="155" width="30" height="500" class="c-sec"/>` },
+                { id: "mod-f4", name: "4 Bastones", svg: `<rect x="20" width="25" height="500" class="c-sec"/><rect x="70" width="25" height="500" class="c-sec"/><rect x="120" width="25" height="500" class="c-sec"/><rect x="170" width="25" height="500" class="c-sec"/>` },
+                { id: "mod-f5", name: "Banda Diagonal", svg: `<polygon points="-10,260 40,260 210,-10 160,-10" class="c-sec"/><polygon points="-10,510 40,510 210,240 160,240" class="c-sec"/>` },
+                { id: "mod-f6", name: "Banda Diagonal 2", svg: `<polygon points="-10,-10 40,-10 210,260 160,260" class="c-sec"/><polygon points="-10,240 40,240 210,510 160,510" class="c-sec"/>` },
+                { id: "mod-f7", name: "Franja Horizontal", svg: `<rect y="100" width="200" height="50" class="c-sec"/><rect y="330" width="200" height="40" class="c-sec"/>` },
+                { id: "mod-f8", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,90 100,160 0,90" class="c-sec" /><polygon points="0,290 100,360 200,290 200,330 100,400 0,330" class="c-sec" />` },
+                { id: "mod-f9", name: "Mitad", svg: `<rect x="100" width="100" height="500" class="c-sec" />` },
+                { id: "mod-f10", name: "Hoops", svg: `<rect y="0" width="200" height="30" class="c-sec"/><rect y="60" width="200" height="30" class="c-sec"/><rect y="120" width="200" height="30" class="c-sec"/><rect y="180" width="200" height="30" class="c-sec"/><rect y="240" width="200" height="30" class="c-sec"/><rect y="300" width="200" height="30" class="c-sec"/><rect y="360" width="200" height="30" class="c-sec"/><rect y="420" width="200" height="30" class="c-sec"/><rect y="480" width="200" height="30" class="c-sec"/>` },
+                { id: "mod-f11", name: "Hoops 2", svg: `<rect y="0" width="200" height="10" class="c-sec"/><rect y="20" width="200" height="10" class="c-sec"/><rect y="40" width="200" height="10" class="c-sec"/><rect y="60" width="200" height="10" class="c-sec"/><rect y="80" width="200" height="10" class="c-sec"/><rect y="100" width="200" height="10" class="c-sec"/><rect y="120" width="200" height="10" class="c-sec"/><rect y="140" width="200" height="10" class="c-sec"/><rect y="160" width="200" height="10" class="c-sec"/><rect y="180" width="200" height="10" class="c-sec"/><rect y="200" width="200" height="10" class="c-sec"/><rect y="220" width="200" height="10" class="c-sec"/><rect y="240" width="200" height="10" class="c-sec"/><rect y="260" width="200" height="10" class="c-sec"/><rect y="280" width="200" height="10" class="c-sec"/><rect y="300" width="200" height="10" class="c-sec"/><rect y="320" width="200" height="10" class="c-sec"/><rect y="340" width="200" height="10" class="c-sec"/><rect y="360" width="200" height="10" class="c-sec"/><rect y="380" width="200" height="10" class="c-sec"/><rect y="400" width="200" height="10" class="c-sec"/><rect y="420" width="200" height="10" class="c-sec"/><rect y="440" width="200" height="10" class="c-sec"/><rect y="460" width="200" height="10" class="c-sec"/><rect y="480" width="200" height="10" class="c-sec"/>` },
+                { id: "mod-f12", name: "Franja Vertical", svg: `<rect x="70" width="60" height="500" class="c-sec"/>` },
+                { id: "mod-f13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
+                { id: "mod-f14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
+                { id: "mod-f15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
             ],
             basquet: [
-                { id: "mod-b1", name: "Liso/Base", svg: `` },
-                { id: "mod-b2", name: "Paneles", svg: `<rect x="0" width="75" height="250" class="c-sec"/><rect x="125" width="75" height="250" class="c-sec"/>` },
-                { id: "mod-b3", name: "Diagonal", svg: `<polygon points="-20,200 220,40 220,90 -20,250" class="c-sec" />` },
-                { id: "mod-b4", name: "Superior", svg: `<rect x="0" y="0" width="200" height="110" class="c-sec" />` }
+                { id: "mod-b1", name: "Sin Diseño", svg: `` },
+                { id: "mod-b2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
+                { id: "mod-b3", name: "3 Bastones", svg: `<rect x="15" width="30" height="500" class="c-sec"/><rect x="85" width="30" height="500" class="c-sec"/><rect x="155" width="30" height="500" class="c-sec"/>` },
+                { id: "mod-b4", name: "4 Bastones", svg: `<rect x="20" width="25" height="500" class="c-sec"/><rect x="70" width="25" height="500" class="c-sec"/><rect x="120" width="25" height="500" class="c-sec"/><rect x="170" width="25" height="500" class="c-sec"/>` },
+                { id: "mod-b5", name: "Banda Diagonal", svg: `<polygon points="-10,260 40,260 210,-10 160,-10" class="c-sec"/><polygon points="-10,510 40,510 210,240 160,240" class="c-sec"/>` },
+                { id: "mod-b6", name: "Banda Diagonal 2", svg: `<polygon points="-10,-10 40,-10 210,260 160,260" class="c-sec"/><polygon points="-10,240 40,240 210,510 160,510" class="c-sec"/>` },
+                { id: "mod-b7", name: "Franja Horizontal", svg: `<rect y="100" width="200" height="50" class="c-sec"/><rect y="330" width="200" height="40" class="c-sec"/>` },
+                { id: "mod-b8", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,90 100,160 0,90" class="c-sec" /><polygon points="0,290 100,360 200,290 200,330 100,400 0,330" class="c-sec" />` },
+                { id: "mod-b9", name: "Mitad", svg: `<rect x="100" width="100" height="500" class="c-sec" />` },
+                { id: "mod-b10", name: "Hoops", svg: `<rect y="0" width="200" height="30" class="c-sec"/><rect y="60" width="200" height="30" class="c-sec"/><rect y="120" width="200" height="30" class="c-sec"/><rect y="180" width="200" height="30" class="c-sec"/><rect y="240" width="200" height="30" class="c-sec"/><rect y="300" width="200" height="30" class="c-sec"/><rect y="360" width="200" height="30" class="c-sec"/><rect y="420" width="200" height="30" class="c-sec"/><rect y="480" width="200" height="30" class="c-sec"/>` },
+                { id: "mod-b11", name: "Hoops 2", svg: `<rect y="0" width="200" height="10" class="c-sec"/><rect y="20" width="200" height="10" class="c-sec"/><rect y="40" width="200" height="10" class="c-sec"/><rect y="60" width="200" height="10" class="c-sec"/><rect y="80" width="200" height="10" class="c-sec"/><rect y="100" width="200" height="10" class="c-sec"/><rect y="120" width="200" height="10" class="c-sec"/><rect y="140" width="200" height="10" class="c-sec"/><rect y="160" width="200" height="10" class="c-sec"/><rect y="180" width="200" height="10" class="c-sec"/><rect y="200" width="200" height="10" class="c-sec"/><rect y="220" width="200" height="10" class="c-sec"/><rect y="240" width="200" height="10" class="c-sec"/><rect y="260" width="200" height="10" class="c-sec"/><rect y="280" width="200" height="10" class="c-sec"/><rect y="300" width="200" height="10" class="c-sec"/><rect y="320" width="200" height="10" class="c-sec"/><rect y="340" width="200" height="10" class="c-sec"/><rect y="360" width="200" height="10" class="c-sec"/><rect y="380" width="200" height="10" class="c-sec"/><rect y="400" width="200" height="10" class="c-sec"/><rect y="420" width="200" height="10" class="c-sec"/><rect y="440" width="200" height="10" class="c-sec"/><rect y="460" width="200" height="10" class="c-sec"/><rect y="480" width="200" height="10" class="c-sec"/>` },
+                { id: "mod-b12", name: "Franja Vertical", svg: `<rect x="70" width="60" height="500" class="c-sec"/>` },
+                { id: "mod-b13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
+                { id: "mod-b14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
+                { id: "mod-b15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
+            ],
+            // DISEÑOS DE CANGURO IDÉNTICOS A LA FOTO REFERENCIA
+            canguros: [
+                { id: "mod-c1", name: "Un Solo Color", svg: `` },
+                { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><path d="M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 C 120,50 100,65 80,50 C 80,50 70,25 75,10 Z" class="c-sec" />` },
+                { id: "mod-c3", name: "Mitad y Mitad", svg: `<rect x="100" y="0" width="100" height="500" class="c-sec" />` }
             ]
-        };
-
-        const globalColors = [
+        };const globalColors = [
             { hex: "#ffffff", name: "Blanco" },
             { hex: "#222222", name: "Negro" },
             { hex: "#e63946", name: "Rojo" },
             { hex: "#1d3557", name: "Azul Marino" },
             { hex: "#ffb703", name: "Amarillo" },
             { hex: "#2a9d8f", name: "Verde" },
-            { hex: "#8338ec", name: "Morado" }
+            { hex: "#8338ec", name: "Morado" },
+            { hex: "#a8a9ad", name: "Gris Jaspeado" } // Especialmente útil para la foto de referencia
         ];
 
         // ==========================================
@@ -879,8 +985,59 @@
             "futbol": {
                 id: "futbol", title: "Camisetas de Fútbol", bgImg: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600",
                 designs: [
-                    { id: "f-01", name: "Modelo Legend", desc: "Diseño clásico con bastones verticales.", img: "https://images.unsplash.com/photo-1522778526582-12297eb098fa?q=80&w=800" },
-                    { id: "f-02", name: "Modelo Dynamic", desc: "Corte moderno con texturas geométricas.", img: "https://images.unsplash.com/photo-1551280857-22d4168c4d15?q=80&w=800" }
+                    // --- 25 MODELOS SUBLIMADOS ---
+                    { id: "f-s01", name: "Modelo Sublimado 01", desc: "Diseño exclusivo de la línea sublimada.", img: "SUBLIMADO1.jpg", type: "sublimadas" },
+                    { id: "f-s02", name: "Modelo Sublimado 02", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-02.jpg", type: "sublimadas" },
+                    { id: "f-s03", name: "Modelo Sublimado 03", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-03.jpg", type: "sublimadas" },
+                    { id: "f-s04", name: "Modelo Sublimado 04", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-04.jpg", type: "sublimadas" },
+                    { id: "f-s05", name: "Modelo Sublimado 05", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-05.jpg", type: "sublimadas" },
+                    { id: "f-s06", name: "Modelo Sublimado 06", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-06.jpg", type: "sublimadas" },
+                    { id: "f-s07", name: "Modelo Sublimado 07", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-07.jpg", type: "sublimadas" },
+                    { id: "f-s08", name: "Modelo Sublimado 08", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-08.jpg", type: "sublimadas" },
+                    { id: "f-s09", name: "Modelo Sublimado 09", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-09.jpg", type: "sublimadas" },
+                    { id: "f-s10", name: "Modelo Sublimado 10", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-10.jpg", type: "sublimadas" },
+                    { id: "f-s11", name: "Modelo Sublimado 11", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-11.jpg", type: "sublimadas" },
+                    { id: "f-s12", name: "Modelo Sublimado 12", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-12.jpg", type: "sublimadas" },
+                    { id: "f-s13", name: "Modelo Sublimado 13", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-13.jpg", type: "sublimadas" },
+                    { id: "f-s14", name: "Modelo Sublimado 14", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-14.jpg", type: "sublimadas" },
+                    { id: "f-s15", name: "Modelo Sublimado 15", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-15.jpg", type: "sublimadas" },
+                    { id: "f-s16", name: "Modelo Sublimado 16", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-16.jpg", type: "sublimadas" },
+                    { id: "f-s17", name: "Modelo Sublimado 17", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-17.jpg", type: "sublimadas" },
+                    { id: "f-s18", name: "Modelo Sublimado 18", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-18.jpg", type: "sublimadas" },
+                    { id: "f-s19", name: "Modelo Sublimado 19", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-19.jpg", type: "sublimadas" },
+                    { id: "f-s20", name: "Modelo Sublimado 20", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-20.jpg", type: "sublimadas" },
+                    { id: "f-s21", name: "Modelo Sublimado 21", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-21.jpg", type: "sublimadas" },
+                    { id: "f-s22", name: "Modelo Sublimado 22", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-22.jpg", type: "sublimadas" },
+                    { id: "f-s23", name: "Modelo Sublimado 23", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-23.jpg", type: "sublimadas" },
+                    { id: "f-s24", name: "Modelo Sublimado 24", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-24.jpg", type: "sublimadas" },
+                    { id: "f-s25", name: "Modelo Sublimado 25", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-25.jpg", type: "sublimadas" },
+
+                    // --- 25 MODELOS BÁSICOS ---
+                    { id: "f-b01", name: "Modelo Básico 01", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-01.jpg", type: "basicas" },
+                    { id: "f-b02", name: "Modelo Básico 02", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-02.jpg", type: "basicas" },
+                    { id: "f-b03", name: "Modelo Básico 03", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-03.jpg", type: "basicas" },
+                    { id: "f-b04", name: "Modelo Básico 04", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-04.jpg", type: "basicas" },
+                    { id: "f-b05", name: "Modelo Básico 05", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-05.jpg", type: "basicas" },
+                    { id: "f-b06", name: "Modelo Básico 06", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-06.jpg", type: "basicas" },
+                    { id: "f-b07", name: "Modelo Básico 07", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-07.jpg", type: "basicas" },
+                    { id: "f-b08", name: "Modelo Básico 08", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-08.jpg", type: "basicas" },
+                    { id: "f-b09", name: "Modelo Básico 09", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-09.jpg", type: "basicas" },
+                    { id: "f-b10", name: "Modelo Básico 10", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-10.jpg", type: "basicas" },
+                    { id: "f-b11", name: "Modelo Básico 11", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-11.jpg", type: "basicas" },
+                    { id: "f-b12", name: "Modelo Básico 12", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-12.jpg", type: "basicas" },
+                    { id: "f-b13", name: "Modelo Básico 13", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-13.jpg", type: "basicas" },
+                    { id: "f-b14", name: "Modelo Básico 14", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-14.jpg", type: "basicas" },
+                    { id: "f-b15", name: "Modelo Básico 15", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-15.jpg", type: "basicas" },
+                    { id: "f-b16", name: "Modelo Básico 16", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-16.jpg", type: "basicas" },
+                    { id: "f-b17", name: "Modelo Básico 17", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-17.jpg", type: "basicas" },
+                    { id: "f-b18", name: "Modelo Básico 18", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-18.jpg", type: "basicas" },
+                    { id: "f-b19", name: "Modelo Básico 19", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-19.jpg", type: "basicas" },
+                    { id: "f-b20", name: "Modelo Básico 20", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-20.jpg", type: "basicas" },
+                    { id: "f-b21", name: "Modelo Básico 21", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-21.jpg", type: "basicas" },
+                    { id: "f-b22", name: "Modelo Básico 22", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-22.jpg", type: "basicas" },
+                    { id: "f-b23", name: "Modelo Básico 23", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-23.jpg", type: "basicas" },
+                    { id: "f-b24", name: "Modelo Básico 24", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-24.jpg", type: "basicas" },
+                    { id: "f-b25", name: "Modelo Básico 25", desc: "Remera clásica de la línea básica.", img: "ruta/a/tu/foto-basica-25.jpg", type: "basicas" }
                 ]
             },
             "basquet": {
@@ -888,6 +1045,13 @@
                 designs: [
                     { id: "b-01", name: "Modelo All-Star", desc: "Musculosa clásica de básquet.", img: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800" },
                     { id: "b-02", name: "Modelo Street", desc: "Diseño urbano para torneos 3x3.", img: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800" }
+                ]
+            },
+            "canguros": {
+                id: "canguros", title: "Canguros y Camperones", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
+                designs: [
+                    { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
+                    { id: "c-02", name: "Camperón Pro", desc: "Abrigo ideal para la temporada de invierno (Con cierre).", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
                 ]
             }
         };
@@ -898,12 +1062,26 @@
         const app = {
             simState: { 
                 sport: 'futbol', 
+                outfitType: 'remera',
+                activePart: 'remera',
                 cutId: '', cutName: '',
-                modelId: 'mod-f1', modelName: 'Liso', 
-                cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
-                pattern: 'Liso', textStr: 'SPONSOR', hasLogo: false,
-                textFont: 'Bebas Neue', textSize: 22, logoSize: 25,
-                size: 'M'
+                size: 'M',
+                remera: {
+                    modelId: 'mod-f1', modelName: 'Sin Diseño', 
+                    cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
+                    pattern: 'Liso', textStr: 'SPONSOR', hasLogo: false,
+                    textFont: 'Bebas Neue', textSize: 22, logoSize: 25
+                },
+                short: {
+                    modelId: 'mod-f1', modelName: 'Sin Diseño', 
+                    cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
+                    pattern: 'Liso', textStr: 'NUM', hasLogo: false,
+                    textFont: 'Bebas Neue', textSize: 22, logoSize: 25
+                }
+            },
+            futbolState: {
+                tab: 'sublimadas',
+                search: ''
             },
             currentSportId: null,
 
@@ -934,7 +1112,7 @@
             // FUNCIONES PARA GALERÍA Y LIGHTBOX
             // ==========================================
             filterGallery: function(event, category) {
-                const btns = document.querySelectorAll('.filter-btn');
+                const btns = document.querySelectorAll('.gallery-section .filter-btn');
                 btns.forEach(b => b.classList.remove('active'));
                 event.target.classList.add('active');
 
@@ -964,6 +1142,7 @@
 
             init: function() {
                 this.buildHomeCategories();
+                this.setInitialColors();
                 this.buildSimulatorColors();
                 this.attachSimulatorEvents();
             },
@@ -976,7 +1155,9 @@
                     const card = document.createElement('div');
                     card.className = 'sport-card';
                     card.style.backgroundImage = `url('${cat.bgImg}')`;
-                    card.innerHTML = `<h3>${cat.title.replace('Camisetas de ', '')}</h3><span>Ver Diseños ➔</span>`;
+                    // Limpieza visual: si es canguros, mostramos Canguros, de lo contrario limpiamos "Camisetas de"
+                    const titleText = key === 'canguros' ? 'Canguros' : cat.title.replace('Camisetas de ', '');
+                    card.innerHTML = `<h3>${titleText}</h3><span>Ver Diseños ➔</span>`;
                     card.onclick = () => app.openCategory(key);
                     grid.appendChild(card);
                 }
@@ -990,10 +1171,51 @@
                 this.navigate('simulator');
             },
 
+            setInitialColors: function() {
+                const wrapper = document.getElementById('sim-wrapper');
+                const parts = ['remera', 'short'];
+                parts.forEach(part => {
+                    wrapper.style.setProperty(`--sim-primary-${part}`, '#222222');
+                    wrapper.style.setProperty(`--sim-sec-${part}`, '#ffffff');
+                    wrapper.style.setProperty(`--sim-trim-${part}`, '#ffffff');
+                    wrapper.style.setProperty(`--sim-text-${part}`, '#ffffff');
+                });
+            },
+
             setSimulatorSport: function(sportId) {
                 this.simState.sport = sportId;
                 
-                // Construir menú de moldes
+                // Reiniciar selección de outfit a una sola prenda
+                this.simState.outfitType = 'remera';
+                this.simState.activePart = 'remera';
+
+                // ============================================================
+                // CAMBIO DINÁMICO DE TEXTOS SEGÚN CATEGORÍA
+                // ============================================================
+                const isCanguro = sportId === 'canguros';
+                document.getElementById('btn-outfit-single').innerText = isCanguro ? 'Solo Canguro' : 'Solo Remera';
+                document.getElementById('btn-outfit-set').innerText = isCanguro ? 'Conjunto Largo' : 'Remera + Short';
+                
+                document.getElementById('btn-toggle-remera').innerText = isCanguro ? '🧥 Editar Canguro' : '👕 Editar Remera';
+                document.getElementById('btn-toggle-short').innerText = isCanguro ? '👖 Editar Pantalón' : '🩳 Editar Short';
+                
+                document.getElementById('lbl-acc-molde-tipo').innerText = isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)';
+                document.getElementById('lbl-molde-desc').innerText = isCanguro ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
+
+                // Resetear el estilo activo en el menú de conjunto
+                const acc1 = document.querySelectorAll('.acc-item')[0];
+                if(acc1) {
+                    const btns = acc1.querySelectorAll('.model-btn');
+                    if(btns.length > 0) {
+                        btns.forEach(b => b.classList.remove('active'));
+                        document.getElementById('btn-outfit-single').classList.add('active'); // Botón principal por defecto
+                    }
+                }
+                
+                document.getElementById('sim-garment-editor-toggle').style.display = 'none';
+                document.getElementById('sim-group-short').style.display = 'none';
+                
+                // Construir menú de moldes físicos
                 const cutsGrid = document.getElementById('sim-cuts-grid');
                 cutsGrid.innerHTML = '';
                 const cuts = physicalCuts[sportId];
@@ -1007,7 +1229,7 @@
                 });
                 this.setSimulatorCut(cuts[0], cutsGrid.firstChild);
 
-                // Construir menú de diseño gráfico
+                // Construir menú de diseños gráficos
                 const modelsGrid = document.getElementById('sim-models-grid');
                 modelsGrid.innerHTML = '';
                 const models = designPatterns[sportId];
@@ -1020,6 +1242,116 @@
                     modelsGrid.appendChild(btn);
                 });
                 this.setSimulatorModel(models[0], modelsGrid.firstChild);
+
+                // Posicionamiento de escudos y textos inicial
+                document.getElementById('sim-logo-remera').setAttribute('x', '125');
+                document.getElementById('sim-logo-remera').setAttribute('y', '45');
+                document.getElementById('sim-text-remera').setAttribute('x', '100');
+                document.getElementById('sim-text-remera').setAttribute('y', '125');
+                
+                // Ajuste de altura/posicion si es Pantalón (Canguros) vs Short (Fútbol/Básquet)
+                if(isCanguro) {
+                    document.getElementById('sim-logo-short').setAttribute('x', '60');
+                    document.getElementById('sim-logo-short').setAttribute('y', '280'); // Más arriba en la pierna
+                    document.getElementById('sim-text-short').setAttribute('x', '140');
+                    document.getElementById('sim-text-short').setAttribute('y', '380');
+                } else {
+                    document.getElementById('sim-logo-short').setAttribute('x', '60');
+                    document.getElementById('sim-logo-short').setAttribute('y', '320');
+                    document.getElementById('sim-text-short').setAttribute('x', '140');
+                    document.getElementById('sim-text-short').setAttribute('y', '335');
+                }
+                
+                this.syncUI();
+            },
+
+            setOutfitType: function(type, btnElement) {
+                this.simState.outfitType = type;
+                
+                if (btnElement) {
+                    btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                    btnElement.classList.add('active');
+                }
+
+                const editorToggle = document.getElementById('sim-garment-editor-toggle');
+                if (type === 'conjunto') {
+                    editorToggle.style.display = 'block';
+                    document.getElementById('sim-group-short').style.display = 'inline';
+                    
+                    const shortModel = designPatterns[this.simState.sport].find(m => m.id === this.simState.short.modelId) || designPatterns[this.simState.sport][0];
+                    document.getElementById('sim-design-short').innerHTML = shortModel.svg;
+                } else {
+                    editorToggle.style.display = 'none';
+                    document.getElementById('sim-group-short').style.display = 'none';
+                    this.setActiveGarment('remera', document.getElementById('btn-toggle-remera'));
+                }
+                
+                this.updateSimulatorShapes();
+            },
+
+            setActiveGarment: function(part, btnElement) {
+                this.simState.activePart = part;
+                
+                if (btnElement) {
+                    btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                    btnElement.classList.add('active');
+                } else {
+                    document.getElementById('btn-toggle-remera').classList.remove('active');
+                    document.getElementById('btn-toggle-short').classList.remove('active');
+                    document.getElementById(`btn-toggle-${part}`).classList.add('active');
+                }
+
+                const moldeSection = document.getElementById('acc-item-molde');
+                if (part === 'remera') {
+                    moldeSection.style.display = 'block';
+                } else {
+                    moldeSection.style.display = 'none';
+                }
+
+                this.syncUI();
+            },
+
+            syncUI: function() {
+                const partState = this.simState[this.simState.activePart];
+
+                // Models
+                document.querySelectorAll('#sim-models-grid .model-btn').forEach(b => {
+                    if (b.innerText === partState.modelName) b.classList.add('active');
+                    else b.classList.remove('active');
+                });
+
+                // Colors
+                const syncColor = (id, prop) => {
+                    const swatches = document.getElementById(id).querySelectorAll('.color-swatch');
+                    swatches.forEach(sw => {
+                        if (sw.dataset.name === partState[prop]) sw.classList.add('active');
+                        else sw.classList.remove('active');
+                    });
+                };
+                syncColor('sim-colors-primary', 'cPrimary');
+                syncColor('sim-colors-secondary', 'cSecondary');
+                syncColor('sim-colors-trim', 'cTrim');
+                syncColor('sim-colors-text', 'cText');
+
+                // Patterns
+                document.querySelectorAll('#sim-patterns-grid .model-btn').forEach(b => {
+                    if (b.innerText === partState.pattern) b.classList.add('active');
+                    else b.classList.remove('active');
+                });
+
+                // Text and Size Inputs
+                document.getElementById('sim-text-input').value = partState.textStr;
+                
+                const fontSelect = document.getElementById('sim-font-family');
+                for (let i = 0; i < fontSelect.options.length; i++) {
+                    if (fontSelect.options[i].text === partState.textFont) {
+                        fontSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+                
+                document.getElementById('sim-text-size').value = partState.textSize;
+                document.getElementById('sim-logo-size').value = partState.logoSize;
             },
 
             setSimulatorCut: function(cutObj, btnElement) {
@@ -1029,29 +1361,63 @@
                 document.querySelectorAll('.cut-btn').forEach(b => b.classList.remove('active'));
                 if(btnElement) btnElement.classList.add('active');
                 
-                document.getElementById('sim-clip-path').setAttribute('d', cutObj.base);
-                document.getElementById('sim-base-shape').setAttribute('d', cutObj.base);
-                document.getElementById('sim-shading-shape').setAttribute('d', cutObj.base);
-                document.getElementById('sim-shadows-shape').setAttribute('d', cutObj.base);
-                document.getElementById('sim-trim-shape').setAttribute('d', cutObj.trim);
+                this.updateSimulatorShapes();
+            },
+
+            updateSimulatorShapes: function() {
+                const cuts = physicalCuts[this.simState.sport];
+                const cutObj = cuts.find(c => c.id === this.simState.cutId) || cuts[0];
+
+                let baseD_remera = cutObj.base;
+                let trimD_remera = cutObj.trim;
+                
+                document.getElementById('sim-clip-path-remera').setAttribute('d', baseD_remera);
+                document.getElementById('sim-base-remera').setAttribute('d', baseD_remera);
+                document.getElementById('sim-trim-remera').setAttribute('d', trimD_remera);
+
+                let combinedBase = baseD_remera;
+
+                if (this.simState.outfitType === 'conjunto') {
+                    const shorts = shortsData[this.simState.sport];
+                    if (shorts) {
+                        document.getElementById('sim-clip-path-short').setAttribute('d', shorts.base);
+                        document.getElementById('sim-base-short').setAttribute('d', shorts.base);
+                        document.getElementById('sim-trim-short').setAttribute('d', shorts.trim);
+                        combinedBase += ' ' + shorts.base;
+                    }
+                    
+                    // AJUSTE CLAVE: El pantalón largo necesita más espacio vertical (ViewBox hasta 500)
+                    if(this.simState.sport === 'canguros') {
+                        document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 500');
+                    } else {
+                        document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 450');
+                    }
+                } else {
+                    document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 250');
+                }
+
+                document.getElementById('sim-shading-shape').setAttribute('d', combinedBase);
+                document.getElementById('sim-shadows-shape').setAttribute('d', combinedBase);
             },
 
             setSimulatorModel: function(modelObj, btnElement) {
-                this.simState.modelId = modelObj.id;
-                this.simState.modelName = modelObj.name;
+                const part = this.simState.activePart;
+                this.simState[part].modelId = modelObj.id;
+                this.simState[part].modelName = modelObj.name;
                 
-                document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('#sim-models-grid .model-btn').forEach(b => b.classList.remove('active'));
                 if(btnElement) btnElement.classList.add('active');
                 
-                document.getElementById('sim-design-layer').innerHTML = modelObj.svg;
+                document.getElementById(`sim-design-${part}`).innerHTML = modelObj.svg;
             },
 
             setPattern: function(fillValue, btnElement) {
-                this.simState.pattern = btnElement.innerText;
-                document.getElementById('sim-pattern-layer').setAttribute('fill', fillValue);
+                const part = this.simState.activePart;
+                this.simState[part].pattern = btnElement.innerText;
+                document.getElementById(`sim-pattern-${part}`).setAttribute('fill', fillValue);
                 
-                btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
-                btnElement.classList.add('active');
+                document.querySelectorAll('#sim-patterns-grid .model-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
             },
 
             setSimulatorSize: function(sizeStr, btnElement) {
@@ -1061,25 +1427,30 @@
             },
 
             buildSimulatorColors: function() {
-                const createRow = (id, targetVar, stateKey, defColorHex) => {
+                const createRow = (id, targetVarBase, stateKey, defColorHex) => {
                     const container = document.getElementById(id);
                     container.innerHTML = '';
                     globalColors.forEach(color => {
                         const sw = document.createElement('div');
-                        sw.className = `color-swatch ${color.hex === defColorHex ? 'active' : ''}`;
+                        sw.className = 'color-swatch';
+                        if (color.hex === defColorHex) sw.classList.add('active');
                         sw.style.backgroundColor = color.hex;
+                        sw.dataset.name = color.name;
                         sw.onclick = () => {
                             container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
                             sw.classList.add('active');
+                            
+                            const part = this.simState.activePart;
+                            const targetVar = `${targetVarBase}-${part}`;
                             document.getElementById('sim-wrapper').style.setProperty(targetVar, color.hex);
-                            this.simState[stateKey] = color.name;
+                            this.simState[part][stateKey] = color.name;
                         };
                         container.appendChild(sw);
                     });
                 };
 
-                createRow('sim-colors-primary', '--sim-primary', 'cPrimary', '#111111');
-                createRow('sim-colors-secondary', '--sim-secondary', 'cSecondary', '#ffffff');
+                createRow('sim-colors-primary', '--sim-primary', 'cPrimary', '#222222');
+                createRow('sim-colors-secondary', '--sim-sec', 'cSecondary', '#ffffff');
                 createRow('sim-colors-trim', '--sim-trim', 'cTrim', '#ffffff');
                 createRow('sim-colors-text', '--sim-text', 'cText', '#ffffff');
             },
@@ -1088,22 +1459,25 @@
                 const textInput = document.getElementById('sim-text-input');
                 textInput.addEventListener('input', (e) => {
                     const val = e.target.value.toUpperCase();
-                    document.getElementById('sim-user-text').textContent = val;
-                    this.simState.textStr = val;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).textContent = val;
+                    this.simState[part].textStr = val;
                 });
 
                 const fontSelect = document.getElementById('sim-font-family');
                 fontSelect.addEventListener('change', (e) => {
                     const val = e.target.value;
-                    document.getElementById('sim-user-text').setAttribute('font-family', val);
-                    this.simState.textFont = e.target.options[e.target.selectedIndex].text;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).setAttribute('font-family', val);
+                    this.simState[part].textFont = e.target.options[e.target.selectedIndex].text;
                 });
 
                 const sizeRange = document.getElementById('sim-text-size');
                 sizeRange.addEventListener('input', (e) => {
                     const val = e.target.value;
-                    document.getElementById('sim-user-text').setAttribute('font-size', val);
-                    this.simState.textSize = val;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).setAttribute('font-size', val);
+                    this.simState[part].textSize = val;
                 });
 
                 const logoInput = document.getElementById('sim-logo-upload');
@@ -1112,8 +1486,9 @@
                     if(file) {
                         const reader = new FileReader();
                         reader.onload = (f) => {
-                            document.getElementById('sim-user-logo').setAttribute('href', f.target.result);
-                            this.simState.hasLogo = true;
+                            const part = this.simState.activePart;
+                            document.getElementById(`sim-logo-${part}`).setAttribute('href', f.target.result);
+                            this.simState[part].hasLogo = true;
                         };
                         reader.readAsDataURL(file);
                     }
@@ -1122,13 +1497,14 @@
                 const logoSize = document.getElementById('sim-logo-size');
                 logoSize.addEventListener('input', (e) => {
                     const val = e.target.value;
-                    document.getElementById('sim-user-logo').setAttribute('width', val);
-                    document.getElementById('sim-user-logo').setAttribute('height', val);
-                    this.simState.logoSize = val;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-logo-${part}`).setAttribute('width', val);
+                    document.getElementById(`sim-logo-${part}`).setAttribute('height', val);
+                    this.simState[part].logoSize = val;
                 });
 
                 // =======================================================
-                // LÓGICA DE DRAG & DROP (TEXTO Y ESCUDO)
+                // LÓGICA DE DRAG & DROP
                 // =======================================================
                 const svgElement = document.querySelector('.svg-container svg');
                 let draggingElement = null;
@@ -1144,7 +1520,8 @@
                 }
 
                 const startDrag = (evt) => {
-                    if (evt.target.id === 'sim-user-text' || evt.target.id === 'sim-user-logo') {
+                    const id = evt.target.id;
+                    if (['sim-text-remera', 'sim-logo-remera', 'sim-text-short', 'sim-logo-short'].includes(id)) {
                         draggingElement = evt.target;
                         let coord = getMousePosition(evt);
                         const x = parseFloat(draggingElement.getAttribute('x')) || 0;
@@ -1156,7 +1533,7 @@
 
                 const drag = (evt) => {
                     if (draggingElement) {
-                        evt.preventDefault(); // Evita scroll al arrastrar en móvil
+                        evt.preventDefault();
                         let coord = getMousePosition(evt);
                         let newX = coord.x - parseFloat(draggingElement.dataset.offsetX);
                         let newY = coord.y - parseFloat(draggingElement.dataset.offsetY);
@@ -1169,13 +1546,14 @@
                     draggingElement = null;
                 };
 
-                const textElem = document.getElementById('sim-user-text');
-                const logoElem = document.getElementById('sim-user-logo');
-                
-                textElem.addEventListener('mousedown', startDrag);
-                textElem.addEventListener('touchstart', startDrag, {passive: false});
-                logoElem.addEventListener('mousedown', startDrag);
-                logoElem.addEventListener('touchstart', startDrag, {passive: false});
+                const elementsToDrag = ['sim-text-remera', 'sim-logo-remera', 'sim-text-short', 'sim-logo-short'];
+                elementsToDrag.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) {
+                        el.addEventListener('mousedown', startDrag);
+                        el.addEventListener('touchstart', startDrag, {passive: false});
+                    }
+                });
                 
                 svgElement.addEventListener('mousemove', drag);
                 svgElement.addEventListener('touchmove', drag, {passive: false});
@@ -1183,9 +1561,8 @@
                 window.addEventListener('mouseup', endDrag);
                 window.addEventListener('touchend', endDrag);
 
-
                 // =======================================================
-                // LÓGICA DE EXPORTACIÓN Y WHATSAPP 100% ESTABLE
+                // LÓGICA DE EXPORTACIÓN Y WHATSAPP (Soporte Inteligente)
                 // =======================================================
                 document.getElementById('btn-sim-consult').onclick = async () => {
                     const btn = document.getElementById('btn-sim-consult');
@@ -1198,7 +1575,6 @@
                     const svgContainer = targetToExport.querySelector('.svg-container');
                     const actualSvg = targetToExport.querySelector('svg');
 
-                    // 1. PREPARACIÓN: Detenemos elementos visuales que rompen las imágenes (animaciones, filtros y transiciones)
                     if (helperText) helperText.style.display = 'none';
                     
                     const originalAnimation = svgContainer.style.animation;
@@ -1207,7 +1583,6 @@
                     const originalFilter = actualSvg.getAttribute('filter');
                     if (originalFilter) actualSvg.removeAttribute('filter');
 
-                    // Quitamos temporalmente las transiciones del CSS de los paths (clave para que no se trabe)
                     const transitioningElements = actualSvg.querySelectorAll('[style*="transition"]');
                     const originalStyles = [];
                     transitioningElements.forEach(el => {
@@ -1216,17 +1591,14 @@
                     });
 
                     try {
-                        // Pequeño margen para que la página aplique los cambios (quita de animación)
                         await new Promise(resolve => setTimeout(resolve, 150));
 
-                        // 2. GENERACIÓN DE IMAGEN CON LIBRERÍA ESTABLE PARA SVG
                         const dataUrl = await htmlToImage.toPng(targetToExport, { 
                             backgroundColor: '#080808', 
                             pixelRatio: 2,
                             cacheBust: true
                         });
 
-                        // 3. RESTAURACIÓN VISUAL INMEDIATA
                         svgContainer.style.animation = originalAnimation;
                         if (helperText) helperText.style.display = '';
                         if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
@@ -1236,25 +1608,34 @@
                             }
                         });
 
-                        // 4. DESCARGAMOS Y GUARDAMOS LA IMAGEN PRIMERO EN EL DISPOSITIVO
                         const link = document.createElement('a');
                         link.download = `Diseño-Elite-${Date.now()}.png`;
                         link.href = dataUrl;
-                        document.body.appendChild(link); // Añadirlo al DOM es requerido en móviles para forzar la descarga
+                        document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
                         
                         btn.innerText = originalText;
                         btn.disabled = false;
 
-                        // 5. ENVIAMOS TEXTO Y AVISAMOS CÓMO ADJUNTAR LA FOTO MANUALMENTE
                         setTimeout(() => {
                             const s = app.simState;
                             const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
+                            const isCang = s.sport === 'canguros';
+                            const topName = isCang ? 'CANGURO' : 'REMERA';
+                            const bottomName = isCang ? 'PANTALÓN' : 'SHORT';
                             
-                            const msg = `¡Hola Elite Indumentaria! Quiero consultar por este diseño personalizado.%0A%0A⚠️ *Te enviaré la imagen del diseño que acabo de guardar en el siguiente mensaje.*%0A%0A*Detalles técnicos:*%0A*Deporte:* ${sportName}%0A*Molde (Forma):* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño (Gráfico):* ${s.modelName}%0A*Color Principal:* ${s.cPrimary}%0A*Secundario:* ${s.cSecondary}%0A*Detalles:* ${s.cTrim}%0A*Trama Fondo:* ${s.pattern}%0A*Texto:* "${s.textStr}" (Color: ${s.cText}, Fuente: ${s.textFont})%0A*Logo Subido:* ${s.hasLogo ? 'Sí' : 'No'}`;
+                            let msg = `¡Hola Elite Indumentaria! Quiero consultar por este diseño personalizado.%0A%0A⚠️ *Te enviaré la imagen del diseño que acabo de guardar en el siguiente mensaje.*%0A%0A`;
                             
-                            // Confirmación clara de los pasos antes de abrir WhatsApp
+                            if (s.outfitType === 'conjunto') {
+                                msg += `*Tipo de Conjunto:* ${isCang ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}%0A%0A`;
+                                msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary} (Fondo), ${s.short.cSecondary} (Secundario), ${s.short.cTrim} (Detalles)%0A*Trama:* ${s.short.pattern}%0A*Texto:* "${s.short.textStr}" (Color: ${s.short.cText}, Fuente: ${s.short.textFont})%0A*Logo:* ${s.short.hasLogo ? 'Sí' : 'No'}`;
+                            } else {
+                                msg += `*Tipo de Conjunto:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde/Corte:* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}`;
+                            }
+                            
                             const proceed = confirm("✅ IMAGEN DEL DISEÑO GUARDADA\n\nPrimero hemos guardado la foto de tu diseño en tu dispositivo/galería.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez que se abra el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
                             
                             if (proceed) {
@@ -1265,7 +1646,6 @@
                     } catch (err) {
                         console.error("Error crítico al generar imagen:", err);
                         
-                        // En caso de fallo rarísimo, restauramos todo y dejamos continuar de todas formas
                         svgContainer.style.animation = originalAnimation;
                         if (helperText) helperText.style.display = '';
                         if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
@@ -1280,7 +1660,20 @@
 
                         const s = app.simState;
                         const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
-                        const msg = `¡Hola Elite Indumentaria! Armé un diseño en el simulador y quiero consultarte (Mi dispositivo no pudo descargar la imagen, pero te paso los detalles).%0A%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.modelName}%0A*Colores:* ${s.cPrimary}, ${s.cSecondary}, ${s.cTrim}%0A*Trama:* ${s.pattern}%0A*Texto:* "${s.textStr}"`;
+                        const isCang = s.sport === 'canguros';
+                        const topName = isCang ? 'CANGURO' : 'REMERA';
+                        const bottomName = isCang ? 'PANTALÓN' : 'SHORT';
+                        
+                        let msg = `¡Hola Elite Indumentaria! Armé un diseño en el simulador y quiero consultarte (Mi dispositivo no pudo descargar la imagen, pero te paso los detalles).%0A%0A`;
+                        
+                        if (s.outfitType === 'conjunto') {
+                            msg += `*Tipo de Conjunto:* ${isCang ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                            msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"%0A%0A`;
+                            msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary}, ${s.short.cSecondary}, ${s.short.cTrim}%0A*Texto:* "${s.short.textStr}"`;
+                        } else {
+                            msg += `*Tipo:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}"`;
+                        }
+                        
                         app.openWhatsApp(msg);
                     }
                 };
@@ -1292,6 +1685,9 @@
                 };
             },
 
+            // =========================================================
+            // APERTURA DE CATEGORÍA DE CATÁLOGO Y RENDERIZADO (MODIFICADO PARA FÚTBOL)
+            // =========================================================
             openCategory: function(sportId) {
                 const cat = catalogData[sportId];
                 if(!cat) return;
@@ -1301,21 +1697,69 @@
                 document.getElementById('cat-breadcrumb-name').innerText = cat.title;
                 document.getElementById('cat-title').innerHTML = `Línea <span>${cat.title.replace('Camisetas de ', '')}</span>`;
                 
+                const filterSection = document.getElementById('futbol-filters');
+                
+                // Mostrar filtros SOLO para Fútbol
+                if (sportId === 'futbol') {
+                    filterSection.style.display = 'block';
+                    this.futbolState.search = '';
+                    document.getElementById('futbol-search').value = '';
+                } else {
+                    filterSection.style.display = 'none';
+                }
+
+                this.renderCatalogGrid(sportId);
+
+                this.navigate('category');
+            },
+
+            // Función para renderizar el catálogo considerando los filtros aplicables
+            renderCatalogGrid: function(sportId) {
+                const cat = catalogData[sportId];
                 const grid = document.getElementById('catalog-grid');
                 grid.innerHTML = '';
 
-                cat.designs.forEach(design => {
+                let designsToRender = cat.designs;
+
+                // Lógica exclusiva de filtrado para Fútbol
+                if (sportId === 'futbol') {
+                    const tab = this.futbolState.tab;
+                    const search = this.futbolState.search.toLowerCase();
+                    
+                    designsToRender = designsToRender.filter(d => d.type === tab);
+                    
+                    if (search) {
+                        designsToRender = designsToRender.filter(d => 
+                            d.name.toLowerCase().includes(search) || 
+                            d.desc.toLowerCase().includes(search)
+                        );
+                    }
+                }
+
+                designsToRender.forEach(design => {
                     const dCard = document.createElement('div');
                     dCard.className = 'design-card';
                     dCard.onclick = () => app.openDetail(sportId, design.id);
                     dCard.innerHTML = `
-                        <div class="design-img-wrapper"><img src="${design.img}" alt="${design.name}"></div>
+                        <div class="design-img-wrapper"><img src="${design.img}" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800'" alt="${design.name}"></div>
                         <div class="design-info"><h4>${design.name}</h4><p>${design.desc}</p><div class="design-btn">Ver Diseño ➔</div></div>
                     `;
                     grid.appendChild(dCard);
                 });
+            },
 
-                this.navigate('category');
+            filterFutbol: function(tab) {
+                this.futbolState.tab = tab;
+                document.getElementById('btn-sublimadas').classList.remove('active');
+                document.getElementById('btn-basicas').classList.remove('active');
+                document.getElementById('btn-' + tab).classList.add('active');
+                
+                this.renderCatalogGrid('futbol');
+            },
+
+            searchFutbol: function(query) {
+                this.futbolState.search = query;
+                this.renderCatalogGrid('futbol');
             },
 
             openDetail: function(sportId, designId) {
