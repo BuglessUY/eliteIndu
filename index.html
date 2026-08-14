@@ -905,27 +905,28 @@
             }
         };
 
-        // NUEVOS DISEÑOS
+        // NUEVOS DISEÑOS (Actualizado con imagen "Diseños Tradicionales")
         const designPatterns = {
             futbol: [
                 { id: "mod-f1", name: "Sin Diseño", svg: `` },
                 { id: "mod-f2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
                 { id: "mod-f3", name: "3 Bastones", svg: `<rect x="15" width="30" height="500" class="c-sec"/><rect x="85" width="30" height="500" class="c-sec"/><rect x="155" width="30" height="500" class="c-sec"/>` },
                 { id: "mod-f4", name: "4 Bastones", svg: `<rect x="20" width="25" height="500" class="c-sec"/><rect x="70" width="25" height="500" class="c-sec"/><rect x="120" width="25" height="500" class="c-sec"/><rect x="170" width="25" height="500" class="c-sec"/>` },
-                { id: "mod-f5", name: "Banda Diagonal", svg: `<polygon points="-10,260 40,260 210,-10 160,-10" class="c-sec"/><polygon points="-10,510 40,510 210,240 160,240" class="c-sec"/>` },
-                { id: "mod-f6", name: "Banda Diagonal 2", svg: `<polygon points="-10,-10 40,-10 210,260 160,260" class="c-sec"/><polygon points="-10,240 40,240 210,510 160,510" class="c-sec"/>` },
-                { id: "mod-f7", name: "Franja Horizontal", svg: `<rect y="100" width="200" height="50" class="c-sec"/><rect y="330" width="200" height="40" class="c-sec"/>` },
-                { id: "mod-f8", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,90 100,160 0,90" class="c-sec" /><polygon points="0,290 100,360 200,290 200,330 100,400 0,330" class="c-sec" />` },
+                { id: "mod-f5", name: "Banda Diagonal", svg: `<polygon points="250,-50 150,-50 -50,300 50,300" class="c-sec" />` },
+                { id: "mod-f6", name: "Banda Diagonal 2", svg: `<polygon points="-50,-50 50,-50 250,300 150,300" class="c-sec" />` },
+                { id: "mod-f7", name: "Franja Horizontal", svg: `<rect y="110" width="200" height="50" class="c-sec"/>` },
+                { id: "mod-f8", name: "Chevron", svg: `<polygon points="-20,50 100,140 220,50 220,100 100,190 -20,100" class="c-sec" />` },
                 { id: "mod-f9", name: "Mitad", svg: `<rect x="100" width="100" height="500" class="c-sec" />` },
                 { id: "mod-f10", name: "Hoops", svg: `<rect y="0" width="200" height="30" class="c-sec"/><rect y="60" width="200" height="30" class="c-sec"/><rect y="120" width="200" height="30" class="c-sec"/><rect y="180" width="200" height="30" class="c-sec"/><rect y="240" width="200" height="30" class="c-sec"/><rect y="300" width="200" height="30" class="c-sec"/><rect y="360" width="200" height="30" class="c-sec"/><rect y="420" width="200" height="30" class="c-sec"/><rect y="480" width="200" height="30" class="c-sec"/>` },
                 { id: "mod-f11", name: "Hoops 2", svg: `<rect y="0" width="200" height="10" class="c-sec"/><rect y="20" width="200" height="10" class="c-sec"/><rect y="40" width="200" height="10" class="c-sec"/><rect y="60" width="200" height="10" class="c-sec"/><rect y="80" width="200" height="10" class="c-sec"/><rect y="100" width="200" height="10" class="c-sec"/><rect y="120" width="200" height="10" class="c-sec"/><rect y="140" width="200" height="10" class="c-sec"/><rect y="160" width="200" height="10" class="c-sec"/><rect y="180" width="200" height="10" class="c-sec"/><rect y="200" width="200" height="10" class="c-sec"/><rect y="220" width="200" height="10" class="c-sec"/><rect y="240" width="200" height="10" class="c-sec"/><rect y="260" width="200" height="10" class="c-sec"/><rect y="280" width="200" height="10" class="c-sec"/><rect y="300" width="200" height="10" class="c-sec"/><rect y="320" width="200" height="10" class="c-sec"/><rect y="340" width="200" height="10" class="c-sec"/><rect y="360" width="200" height="10" class="c-sec"/><rect y="380" width="200" height="10" class="c-sec"/><rect y="400" width="200" height="10" class="c-sec"/><rect y="420" width="200" height="10" class="c-sec"/><rect y="440" width="200" height="10" class="c-sec"/><rect y="460" width="200" height="10" class="c-sec"/><rect y="480" width="200" height="10" class="c-sec"/>` },
-                { id: "mod-f12", name: "Franja Vertical", svg: `<rect x="70" width="60" height="500" class="c-sec"/>` },
+                { id: "mod-f12", name: "Franja Vertical", svg: `<rect x="35" width="12" height="500" class="c-sec"/><rect x="75" width="50" height="500" class="c-sec"/><rect x="153" width="12" height="500" class="c-sec"/>` },
                 { id: "mod-f13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
                 { id: "mod-f14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
                 { id: "mod-f15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` },
-                { id: "mod-f16", name: "Tradicional Cuartos", svg: `<rect x="100" y="0" width="100" height="250" class="c-sec"/><rect x="0" y="250" width="100" height="250" class="c-sec"/>` },
                 { id: "mod-f17", name: "Tradicional Rayas Finas", svg: `<rect x="10" width="5" height="500" class="c-sec"/><rect x="30" width="5" height="500" class="c-sec"/><rect x="50" width="5" height="500" class="c-sec"/><rect x="70" width="5" height="500" class="c-sec"/><rect x="90" width="5" height="500" class="c-sec"/><rect x="110" width="5" height="500" class="c-sec"/><rect x="130" width="5" height="500" class="c-sec"/><rect x="150" width="5" height="500" class="c-sec"/><rect x="170" width="5" height="500" class="c-sec"/><rect x="190" width="5" height="500" class="c-sec"/>` },
-                { id: "mod-f18", name: "Tradicional Escapulario", svg: `<polygon points="0,0 100,100 200,0 200,30 100,130 0,30" class="c-sec" />` }
+                { id: "mod-f19", name: "Franja Central", svg: `<rect x="75" width="50" height="500" class="c-sec"/>` },
+                { id: "mod-f20", name: "Bandera", svg: `<rect x="66" width="68" height="500" class="c-sec"/>` },
+                { id: "mod-f21", name: "2 Bastones con Líneas", svg: `<rect x="25" width="8" height="500" class="c-sec"/><rect x="55" width="35" height="500" class="c-sec"/><rect x="110" width="35" height="500" class="c-sec"/><rect x="167" width="8" height="500" class="c-sec"/>` }
             ],
             basquet: [
                 { id: "mod-b1", name: "Sin Diseño", svg: `` },
