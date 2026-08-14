@@ -348,7 +348,7 @@
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: PROMOCIONES -->
+        <!-- PROMOCIONES -->
         <section id="seccion-promociones" class="process-section" style="background-color: var(--bg-dark); border-top: none; padding-bottom: 50px;">
             <div class="container">
                 <h2 class="section-title">Promociones <span>Elite</span></h2>
@@ -601,10 +601,6 @@
                                     <clipPath id="sim-clip-short">
                                         <path id="sim-clip-path-short" d="" style="transition: d 0.4s ease;" />
                                     </clipPath>
-
-                                    <pattern id="pat-dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.5" fill="rgba(255,255,255,0.1)"/></pattern>
-                                    <pattern id="pat-stripes" width="10" height="10" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="10" y2="10" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern>
-                                    <pattern id="pat-zigzag" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0,10 L10,0 L20,10 L10,20 Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></pattern>
                                 </defs>
 
                                 <!-- REMERA / CANGURO GROUP -->
@@ -700,25 +696,9 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 3: PATRONES DE TEXTURA -->
+                        <!-- SECCIÓN 3: LOGOS Y ESCUDOS -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tex-num">4.</span> Textura de Tela <span>▼</span></div>
-                            <div class="acc-content">
-                                <div class="control-group">
-                                    <label>Acabado visual</label>
-                                    <div class="model-grid" id="sim-patterns-grid">
-                                        <div class="model-btn active" onclick="app.setPattern('none', this)">Liso</div>
-                                        <div class="model-btn" onclick="app.setPattern('url(#pat-dots)', this)">Punteado</div>
-                                        <div class="model-btn" onclick="app.setPattern('url(#pat-stripes)', this)">Rayas</div>
-                                        <div class="model-btn" onclick="app.setPattern('url(#pat-zigzag)', this)">Hexágonos</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- SECCIÓN 4: LOGOS Y ESCUDOS -->
-                        <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-esc-num">5.</span> Escudo del Club <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-esc-num">4.</span> Escudo del Club <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Archivo del Escudo (PNG sin fondo)</label>
@@ -737,9 +717,9 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 5: TEXTO / SPONSOR -->
+                        <!-- SECCIÓN 4: TEXTO / SPONSOR -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-txt-num">6.</span> Textos y Sponsors <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-txt-num">5.</span> Textos y Sponsors <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Sponsor o Nombre del Equipo/Número</label>
@@ -768,9 +748,9 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 6: TALLE -->
+                        <!-- SECCIÓN 5: TALLE -->
                         <div class="acc-item">
-                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tal-num">7.</span> Talle <span>▼</span></div>
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tal-num">6.</span> Talle <span>▼</span></div>
                             <div class="acc-content">
                                 <div class="control-group">
                                     <label>Seleccioná tu Talle (Aplica al conjunto)</label>
@@ -925,7 +905,7 @@
             }
         };
 
-        // NUEVOS DISEÑOS BASADOS EN LA CAPTURA PROPORCIONADA
+        // NUEVOS DISEÑOS
         const designPatterns = {
             futbol: [
                 { id: "mod-f1", name: "Sin Diseño", svg: `` },
@@ -942,13 +922,14 @@
                 { id: "mod-f12", name: "Franja Vertical", svg: `<rect x="70" width="60" height="500" class="c-sec"/>` },
                 { id: "mod-f13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
                 { id: "mod-f14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
-                { id: "mod-f15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
+                { id: "mod-f15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` },
+                { id: "mod-f16", name: "Tradicional Cuartos", svg: `<rect x="100" y="0" width="100" height="250" class="c-sec"/><rect x="0" y="250" width="100" height="250" class="c-sec"/>` },
+                { id: "mod-f17", name: "Tradicional Rayas Finas", svg: `<rect x="10" width="5" height="500" class="c-sec"/><rect x="30" width="5" height="500" class="c-sec"/><rect x="50" width="5" height="500" class="c-sec"/><rect x="70" width="5" height="500" class="c-sec"/><rect x="90" width="5" height="500" class="c-sec"/><rect x="110" width="5" height="500" class="c-sec"/><rect x="130" width="5" height="500" class="c-sec"/><rect x="150" width="5" height="500" class="c-sec"/><rect x="170" width="5" height="500" class="c-sec"/><rect x="190" width="5" height="500" class="c-sec"/>` },
+                { id: "mod-f18", name: "Tradicional Escapulario", svg: `<polygon points="0,0 100,100 200,0 200,30 100,130 0,30" class="c-sec" />` }
             ],
             basquet: [
                 { id: "mod-b1", name: "Sin Diseño", svg: `` },
                 { id: "mod-b2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
-                { id: "mod-b3", name: "3 Bastones", svg: `<rect x="15" width="30" height="500" class="c-sec"/><rect x="85" width="30" height="500" class="c-sec"/><rect x="155" width="30" height="500" class="c-sec"/>` },
-                { id: "mod-b4", name: "4 Bastones", svg: `<rect x="20" width="25" height="500" class="c-sec"/><rect x="70" width="25" height="500" class="c-sec"/><rect x="120" width="25" height="500" class="c-sec"/><rect x="170" width="25" height="500" class="c-sec"/>` },
                 { id: "mod-b5", name: "Banda Diagonal", svg: `<polygon points="-10,260 40,260 210,-10 160,-10" class="c-sec"/><polygon points="-10,510 40,510 210,240 160,240" class="c-sec"/>` },
                 { id: "mod-b6", name: "Banda Diagonal 2", svg: `<polygon points="-10,-10 40,-10 210,260 160,260" class="c-sec"/><polygon points="-10,240 40,240 210,510 160,510" class="c-sec"/>` },
                 { id: "mod-b7", name: "Franja Horizontal", svg: `<rect y="100" width="200" height="50" class="c-sec"/><rect y="330" width="200" height="40" class="c-sec"/>` },
@@ -1069,13 +1050,13 @@
                 remera: {
                     modelId: 'mod-f1', modelName: 'Sin Diseño', 
                     cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
-                    pattern: 'Liso', textStr: 'SPONSOR', hasLogo: false,
+                    textStr: 'SPONSOR', hasLogo: false,
                     textFont: 'Bebas Neue', textSize: 22, logoSize: 25
                 },
                 short: {
                     modelId: 'mod-f1', modelName: 'Sin Diseño', 
                     cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
-                    pattern: 'Liso', textStr: 'NUM', hasLogo: false,
+                    textStr: 'NUM', hasLogo: false,
                     textFont: 'Bebas Neue', textSize: 22, logoSize: 25
                 }
             },
@@ -1333,12 +1314,6 @@
                 syncColor('sim-colors-trim', 'cTrim');
                 syncColor('sim-colors-text', 'cText');
 
-                // Patterns
-                document.querySelectorAll('#sim-patterns-grid .model-btn').forEach(b => {
-                    if (b.innerText === partState.pattern) b.classList.add('active');
-                    else b.classList.remove('active');
-                });
-
                 // Text and Size Inputs
                 document.getElementById('sim-text-input').value = partState.textStr;
                 
@@ -1409,15 +1384,6 @@
                 if(btnElement) btnElement.classList.add('active');
                 
                 document.getElementById(`sim-design-${part}`).innerHTML = modelObj.svg;
-            },
-
-            setPattern: function(fillValue, btnElement) {
-                const part = this.simState.activePart;
-                this.simState[part].pattern = btnElement.innerText;
-                document.getElementById(`sim-pattern-${part}`).setAttribute('fill', fillValue);
-                
-                document.querySelectorAll('#sim-patterns-grid .model-btn').forEach(b => b.classList.remove('active'));
-                if(btnElement) btnElement.classList.add('active');
             },
 
             setSimulatorSize: function(sizeStr, btnElement) {
@@ -1629,11 +1595,11 @@
                             
                             if (s.outfitType === 'conjunto') {
                                 msg += `*Tipo de Conjunto:* ${isCang ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
-                                msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}%0A%0A`;
-                                msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary} (Fondo), ${s.short.cSecondary} (Secundario), ${s.short.cTrim} (Detalles)%0A*Trama:* ${s.short.pattern}%0A*Texto:* "${s.short.textStr}" (Color: ${s.short.cText}, Fuente: ${s.short.textFont})%0A*Logo:* ${s.short.hasLogo ? 'Sí' : 'No'}`;
+                                msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}%0A%0A`;
+                                msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary} (Fondo), ${s.short.cSecondary} (Secundario), ${s.short.cTrim} (Detalles)%0A*Texto:* "${s.short.textStr}" (Color: ${s.short.cText}, Fuente: ${s.short.textFont})%0A*Logo:* ${s.short.hasLogo ? 'Sí' : 'No'}`;
                             } else {
                                 msg += `*Tipo de Conjunto:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde/Corte:* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
-                                msg += `*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}`;
+                                msg += `*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}`;
                             }
                             
                             const proceed = confirm("✅ IMAGEN DEL DISEÑO GUARDADA\n\nPrimero hemos guardado la foto de tu diseño en tu dispositivo/galería.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez que se abra el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
@@ -1671,7 +1637,7 @@
                             msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"%0A%0A`;
                             msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary}, ${s.short.cSecondary}, ${s.short.cTrim}%0A*Texto:* "${s.short.textStr}"`;
                         } else {
-                            msg += `*Tipo:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Trama:* ${s.remera.pattern}%0A*Texto:* "${s.remera.textStr}"`;
+                            msg += `*Tipo:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"`;
                         }
                         
                         app.openWhatsApp(msg);
