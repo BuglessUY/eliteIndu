@@ -943,11 +943,11 @@
                 { id: "mod-b14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
                 { id: "mod-b15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
             ],
-            // DISEÑOS DE CANGURO IDÉNTICOS A LA FOTO REFERENCIA
+            // DISEÑOS EXCLUSIVOS DE CANGURO
             canguros: [
                 { id: "mod-c1", name: "Un Solo Color", svg: `` },
-                { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><path d="M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 C 120,50 100,65 80,50 C 80,50 70,25 75,10 Z" class="c-sec" />` },
-                { id: "mod-c3", name: "Mitad y Mitad", svg: `<rect x="100" y="0" width="100" height="500" class="c-sec" />` }
+                // Las mangas adoptan el color secundario, pero la capucha hereda el color principal
+                { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` }
             ]
         };const globalColors = [
             { hex: "#ffffff", name: "Blanco" },
@@ -957,7 +957,7 @@
             { hex: "#ffb703", name: "Amarillo" },
             { hex: "#2a9d8f", name: "Verde" },
             { hex: "#8338ec", name: "Morado" },
-            { hex: "#a8a9ad", name: "Gris Jaspeado" } // Especialmente útil para la foto de referencia
+            { hex: "#a8a9ad", name: "Gris Jaspeado" } 
         ];
 
         // ==========================================
@@ -1032,8 +1032,8 @@
             "canguros": {
                 id: "canguros", title: "Canguros y Camperones", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
                 designs: [
-                    { id: "c-01", name: "Canguro Elite", desc: "Canguro full color", img: "canguronegro.jpg" },
-                    { id: "c-02", name: "Camperón Pro", desc: " Canguro frente y mangas doble color.", img: "canguromangascolor.jpg" }
+                    { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
+                    { id: "c-02", name: "Camperón Pro", desc: "Abrigo ideal para la temporada de invierno (Con cierre).", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
                 ]
             }
         };
@@ -1184,6 +1184,14 @@
                 document.getElementById('lbl-acc-molde-tipo').innerText = isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)';
                 document.getElementById('lbl-molde-desc').innerText = isCanguro ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
 
+                // Ocultar sección de Molde si es Canguro desde el inicio
+                const moldeSection = document.getElementById('acc-item-molde');
+                if (isCanguro) {
+                    moldeSection.style.display = 'none';
+                } else {
+                    moldeSection.style.display = 'block';
+                }
+
                 // Resetear el estilo activo en el menú de conjunto
                 const acc1 = document.querySelectorAll('.acc-item')[0];
                 if(acc1) {
@@ -1244,7 +1252,8 @@
                     document.getElementById('sim-text-short').setAttribute('y', '335');
                 }
                 
-                this.syncUI();
+                // Asegurarnos de que los botones y numeración estén en sync perfecto
+                this.setActiveGarment('remera');
             },
 
             setOutfitType: function(type, btnElement) {
@@ -1284,11 +1293,25 @@
                 }
 
                 const moldeSection = document.getElementById('acc-item-molde');
-                if (part === 'remera') {
-                    moldeSection.style.display = 'block';
-                } else {
+                // Ocultar sección molde si es Canguro o si estamos editando el Short
+                const isMoldeHidden = (this.simState.sport === 'canguros' || part === 'short');
+                
+                if (isMoldeHidden) {
                     moldeSection.style.display = 'none';
+                } else {
+                    moldeSection.style.display = 'block';
                 }
+
+                // Ajustar numéricamente los pasos visibles del simulador
+                let step = 2;
+                if (!isMoldeHidden) {
+                    document.getElementById('lbl-acc-molde-num').innerText = step + ".";
+                    step++;
+                }
+                document.getElementById('lbl-acc-dis-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-esc-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-txt-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-tal-num').innerText = step + ".";
 
                 this.syncUI();
             },
