@@ -905,7 +905,7 @@
             }
         };
 
-        // NUEVOS DISEÑOS (Actualizado con imagen "Diseños Tradicionales")
+        // NUEVOS DISEÑOS
         const designPatterns = {
             futbol: [
                 { id: "mod-f1", name: "Sin Diseño", svg: `` },
@@ -943,10 +943,8 @@
                 { id: "mod-b14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
                 { id: "mod-b15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
             ],
-            // DISEÑOS EXCLUSIVOS DE CANGURO
             canguros: [
                 { id: "mod-c1", name: "Un Solo Color", svg: `` },
-                // Las mangas adoptan el color secundario, pero la capucha hereda el color principal
                 { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` }
             ]
         };const globalColors = [
@@ -1032,8 +1030,8 @@
             "canguros": {
                 id: "canguros", title: "Canguros y Camperones", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
                 designs: [
-                    { id: "c-01", name: "Canguro Elite", desc: "Canguro full color", img: "canguronegro.jpg" },
-                    { id: "c-02", name: "Camperón Pro", desc: "Canguro doble color frente y mangas", img: "canguromangascolor.jpg" }
+                    { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
+                    { id: "c-02", name: "Camperón Pro", desc: "Abrigo ideal para la temporada de invierno (Con cierre).", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
                 ]
             }
         };
@@ -1552,7 +1550,7 @@
                 window.addEventListener('touchend', endDrag);
 
                 // =======================================================
-                // LÓGICA DE EXPORTACIÓN Y WHATSAPP (Soporte Inteligente)
+                // LÓGICA DE EXPORTACIÓN Y WHATSAPP PARA EL SIMULADOR
                 // =======================================================
                 document.getElementById('btn-sim-consult').onclick = async () => {
                     const btn = document.getElementById('btn-sim-consult');
@@ -1676,7 +1674,7 @@
             },
 
             // =========================================================
-            // APERTURA DE CATEGORÍA DE CATÁLOGO Y RENDERIZADO (MODIFICADO PARA FÚTBOL)
+            // APERTURA DE CATEGORÍA DE CATÁLOGO Y RENDERIZADO
             // =========================================================
             openCategory: function(sportId) {
                 const cat = catalogData[sportId];
@@ -1703,7 +1701,6 @@
                 this.navigate('category');
             },
 
-            // Función para renderizar el catálogo considerando los filtros aplicables
             renderCatalogGrid: function(sportId) {
                 const cat = catalogData[sportId];
                 const grid = document.getElementById('catalog-grid');
@@ -1711,7 +1708,6 @@
 
                 let designsToRender = cat.designs;
 
-                // Lógica exclusiva de filtrado para Fútbol
                 if (sportId === 'futbol') {
                     const tab = this.futbolState.tab;
                     const search = this.futbolState.search.toLowerCase();
@@ -1752,6 +1748,9 @@
                 this.renderCatalogGrid('futbol');
             },
 
+            // =========================================================
+            // VISTA DETALLE DEL CATÁLOGO (Ahora descarga la imagen también)
+            // =========================================================
             openDetail: function(sportId, designId) {
                 const cat = catalogData[sportId];
                 const design = cat.designs.find(d => d.id === designId);
@@ -1767,9 +1766,49 @@
                 document.getElementById('det-title').innerText = design.name;
                 document.getElementById('det-desc').innerText = design.desc;
 
-                document.getElementById('btn-consultar-modelo').onclick = () => {
-                    const msg = `¡Hola! Estoy interesado en el diseño *${design.name}* de *${cat.title}*. Quisiera consultar para personalizarlo y saber el presupuesto.`;
-                    app.openWhatsApp(msg);
+                // BOTÓN: Solicitar este diseño (Catálogo Estático)
+                document.getElementById('btn-consultar-modelo').onclick = async () => {
+                    const btn = document.getElementById('btn-consultar-modelo');
+                    const originalText = btn.innerText;
+                    btn.innerText = "Guardando imagen...";
+                    btn.disabled = true;
+
+                    try {
+                        // Forzar la descarga automática de la imagen estática
+                        const response = await fetch(design.img);
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        
+                        const link = document.createElement('a');
+                        link.href = url;
+                        // Le damos un nombre limpio al archivo que se descarga
+                        link.download = `Elite-${design.name.replace(/\s+/g, '-')}.jpg`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+
+                        setTimeout(() => {
+                            const msg = `¡Hola Elite Indumentaria! Estoy interesado en el diseño de catálogo: *${design.name}* (Línea: ${cat.title}).%0A%0A⚠️ *Te enviaré la foto del modelo que acabo de guardar en el siguiente mensaje para que sepas cuál es.*%0A%0AQuisiera saber presupuesto y cómo adaptarlo a mi club.`;
+                            
+                            const proceed = confirm("✅ IMAGEN DEL MODELO GUARDADA\n\nHemos guardado la foto de este diseño en la galería/descargas de tu dispositivo.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez en el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
+                            
+                            if (proceed) {
+                                app.openWhatsApp(msg);
+                            }
+                            
+                            btn.innerText = originalText;
+                            btn.disabled = false;
+                        }, 500);
+
+                    } catch (err) {
+                        console.error("Error al descargar imagen estática:", err);
+                        // Fallback de emergencia si el navegador bloquea la descarga por seguridad
+                        const msg = `¡Hola Elite Indumentaria! Estoy interesado en el diseño de catálogo: *${design.name}* (Línea: ${cat.title}).%0A%0AQuisiera saber presupuesto y cómo adaptarlo a mi club.`;
+                        app.openWhatsApp(msg);
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    }
                 };
 
                 this.navigate('detail');
