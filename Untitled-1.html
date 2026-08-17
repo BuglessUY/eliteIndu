@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Indumentaria | Creadores de Indumentaria Deportiva Premium</title>
+    <meta name="description" content="Catálogo de diseños y fabricación de indumentaria deportiva 100% personalizada. Calidad profesional para tu equipo.">
+    
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Anton&family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Librería para generar imagen del diseño -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+
+    <style>
+        /* ==========================================
+           VARIABLES - ESTILO PREMIUM / NEGRO & BLANCO
+           ========================================== */
+        :root {
+            --bg-dark: #050505; 
+            --bg-panel: #111111; 
+            --primary: #ffffff; 
+            --primary-hover: #e0e0e0;
+            --text-light: #ffffff;
+            --text-gray: #a9a9a9;
+            --border-color: #333333;
+            
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: var(--font-body); background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; font-weight: 300; }
+        h1, h2, h3, h4, p { overflow-wrap: break-word; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ==========================================
+           SISTEMA DE VISTAS Y ANIMACIONES
+           ========================================== */
+        .view-section { display: none; padding-top: 80px; min-height: 100vh; }
+        .view-section.active { display: block; animation: fadeInUp 0.6s ease forwards; }
+        
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* ==========================================
+           COMPONENTES COMUNES
+           ========================================== */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        
+        .section-title { font-family: var(--font-display); font-size: 3.5rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; text-align: center; font-weight: 400; color: var(--text-gray); }
+        .section-title span { color: var(--primary); }
+        .section-subtitle { text-align: center; color: var(--text-gray); font-size: 1.1rem; max-width: 700px; margin: 0 auto 50px auto; }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            font-family: var(--font-body); font-size: 0.85rem; text-transform: uppercase;
+            letter-spacing: 2px; padding: 16px 36px; border: none; cursor: pointer;
+            transition: var(--transition); font-weight: 600; text-align: center; border-radius: 2px;
+        }
+        .btn-primary { background-color: var(--primary); color: #000; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15); }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3); }
+        
+        .btn-outline { background-color: transparent; border: 1px solid var(--text-light); color: var(--text-light); }
+        .btn-outline:hover { background-color: var(--text-light); color: #000; }
+        
+        .btn-primary-outline { background-color: transparent; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-primary-outline:hover { background-color: var(--primary); color: #000; }
+
+        .breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 30px; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .breadcrumb a { cursor: pointer; transition: color 0.3s; }
+        .breadcrumb a:hover { color: var(--primary); }
+        .breadcrumb span { color: var(--primary); }
+
+        /* ==========================================
+           HEADER
+           ========================================== */
+        header { background-color: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; letter-spacing: 2px; cursor: pointer; color: var(--text-light); z-index: 1001; }
+        .logo span { color: var(--primary); font-weight: bold; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { font-family: var(--font-body); text-transform: uppercase; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; color: var(--text-gray); transition: color 0.3s; cursor: pointer; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background-color: var(--primary); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-light); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ==========================================
+           VISTA INICIAL: HERO INMERSIVO CON CARRUSEL
+           ========================================== */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: -80px; padding-top: 80px;}
+        
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-color: var(--bg-dark); overflow: hidden; }
+        
+        /* Slides del Carrusel */
+        .hero-slide {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center 20%;
+            opacity: 0;
+            animation: heroCrossfade 25s linear infinite;
+        }
+        
+        /* Definición de fotografías reutilizadas */
+        .slide-1 { background-image: url('FUTBOLPARTIDOUNO.jpeg'); animation-delay: 0s; }
+        .slide-2 { background-image: url('FUTBOLCHICOS.jpg'); animation-delay: 5s; }
+        .slide-3 { background-image: url('BASKETBALLCHICAS.jpg'); background-position: center 15%; animation-delay: 10s; }
+        .slide-4 { background-image: url('CAMPERONES.jpg'); animation-delay: 15s; }
+        .slide-5 { background-image: url('BASKETPARTIDOIMPORTANTEFOTO.jpeg'); animation-delay: 20s; }
+
+        /* Capa oscura superpuesta para asegurar legibilidad */
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%);
+            z-index: 2; pointer-events: none;
+        }
+
+        /* Animación suave Fade + Ken Burns (Zoom) */
+        @keyframes heroCrossfade {
+            0%   { opacity: 0; transform: scale(1); }
+            4%   { opacity: 1; }      /* Aparece en 1 segundo */
+            20%  { opacity: 1; }      /* Se mantiene hasta el segundo 5 */
+            24%  { opacity: 0; transform: scale(1.08); } /* Se desvanece suavemente mientras se acerca */
+            100% { opacity: 0; transform: scale(1.08); }
+        }
+
+        .hero-content { position: relative; z-index: 3; text-align: center; max-width: 800px; padding: 0 20px; animation: fadeInUp 1s ease 0.2s forwards; opacity: 0; transform: translateY(30px); }
+        .hero-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); background: rgba(0,0,0,0.3);}
+        .hero-content h1 { font-family: var(--font-display); font-size: 6rem; line-height: 0.9; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gray); }
+        .hero-content h1 span { color: var(--primary); }
+        .hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+        /* ==========================================
+           SECCIÓN: SOBRE NOSOTROS
+           ========================================== */
+        .about-section { padding: 120px 20px; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text h2 { text-align: left; margin-bottom: 20px; }
+        .about-text p { color: var(--text-gray); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.8; }
+        .about-image { position: relative; }
+        .about-image img { border-radius: 12px; filter: grayscale(40%); transition: var(--transition); width: 100%; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .about-image:hover img { filter: grayscale(0%); transform: translateY(-5px); }
+        .about-image::after { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); z-index: -1; transition: var(--transition); border-radius: 12px; }
+        .about-image:hover::after { top: -10px; right: -10px; }
+        @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } .about-text h2 { text-align: center; } }
+
+        /* ==========================================
+           SECCIÓN: PROCESO / PROMOCIONES
+           ========================================== */
+        .process-section { background-color: var(--bg-panel); padding: 100px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
+        .process-step { padding: 40px 30px; text-align: center; transition: var(--transition); position: relative; border: 1px solid transparent; background: var(--bg-dark); border-radius: 8px; }
+        .process-step:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        .step-number { font-family: var(--font-display); font-size: 4rem; color: rgba(255, 255, 255, 0.05); position: absolute; top: 10px; left: 50%; transform: translateX(-50%); line-height: 1; z-index: 1; transition: var(--transition); }
+        .process-step:hover .step-number { color: rgba(255, 255, 255, 0.15); }
+        .process-step h4 { font-family: var(--font-display); font-size: 2rem; color: var(--text-light); margin-bottom: 15px; text-transform: uppercase; position: relative; z-index: 2; letter-spacing: 1px; }
+        .process-step p { color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 2; }
+
+        /* ==========================================
+           CATEGORÍAS DE DEPORTES
+           ========================================== */
+        .sports-section { padding: 120px 0; }
+        .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .sport-card { 
+            height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            cursor: pointer; position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--border-color); 
+            background-color: var(--bg-panel); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: var(--transition);
+        }
+        .sport-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .sport-card-bg {
+            position: absolute; inset: 0; background-size: cover; background-position: center 15%; 
+            transition: transform 0.8s ease, filter 0.8s ease; filter: grayscale(60%) brightness(0.6); z-index: 1;
+        }
+        .sport-card:hover .sport-card-bg { transform: scale(1.08); filter: grayscale(0%) brightness(0.9); }
+        .sport-card::after { 
+            content: ''; position: absolute; inset: 0; 
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); 
+            z-index: 2; pointer-events: none;
+        }
+        .sport-card h3 { 
+            font-family: var(--font-display); font-size: 3.2rem; text-transform: uppercase; 
+            z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); color: var(--text-light); text-align: center;
+            transition: transform 0.4s ease;
+        }
+        .sport-card:hover h3 { transform: translateY(-10px); }
+        .sport-card span { 
+            color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 2px; z-index: 3; opacity: 0; transition: var(--transition); 
+            transform: translateY(15px); margin-top: 5px;
+        }
+        .sport-card:hover span { opacity: 1; transform: translateY(-5px); }
+
+        /* ==========================================
+           SECCIÓN: GALERÍA DE TRABAJOS
+           ========================================== */
+        .gallery-section { padding: 80px 0 120px 0; }
+        .gallery-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-gray); padding: 10px 25px; font-family: var(--font-body); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); border-radius: 4px;}
+        .filter-btn.active, .filter-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+        
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .gallery-item { position: relative; overflow: hidden; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; height: 400px; background-color: var(--bg-panel); transition: var(--transition); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.05); filter: brightness(0.6); }
+        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-overlay span { color: var(--primary); font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); text-shadow: 0 5px 15px rgba(0,0,0,0.8);}
+        .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
+
+        .lightbox { position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.8); border-radius: 4px; }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: var(--text-gray); font-size: 50px; cursor: pointer; font-family: sans-serif; line-height: 1; transition: color 0.3s; }
+        .lightbox-close:hover { color: var(--primary); }
+
+        /* ==========================================
+           SECCIÓN: BENEFICIOS / TECNOLOGÍA
+           ========================================== */
+        .tech-section { padding: 120px 0; background: radial-gradient(circle at 50% 50%, #0d0d0d 0%, var(--bg-dark) 100%); border-top: 1px solid var(--border-color); }
+        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .tech-list { margin-top: 40px; }
+        .tech-list li { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 35px; }
+        .tech-list-icon { color: var(--primary); font-size: 1.8rem; line-height: 1; }
+        .tech-list h4 { font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; color: var(--text-light); }
+        .tech-list p { color: var(--text-gray); font-size: 1rem; }
+        .tech-image-wrapper { position: relative; padding: 20px; }
+        .tech-image-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 60%; border-top: 2px solid var(--primary); border-left: 2px solid var(--primary); border-radius: 12px 0 0 0;}
+        .tech-image-wrapper::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; border-bottom: 2px solid var(--primary); border-right: 2px solid var(--primary); border-radius: 0 0 12px 0;}
+        .tech-image-wrapper img { width: 100%; border-radius: 8px; filter: grayscale(40%); transition: var(--transition); position: relative; z-index: 2; box-shadow: 0 15px 40px rgba(0,0,0,0.5);}
+        .tech-image-wrapper:hover img { filter: grayscale(0%); transform: scale(1.02); }
+
+        /* ==========================================
+           CTA FINAL BANNER
+           ========================================== */
+        .cta-banner { background: linear-gradient(135deg, #111 0%, #000 100%); padding: 80px 20px; text-align: center; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 50%); z-index: 1; }
+        .cta-banner-content { position: relative; z-index: 2; }
+        .cta-banner h2 { font-family: var(--font-display); font-size: 3.5rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; color: var(--text-gray); }
+        .cta-banner h2 span { color: var(--primary); }
+        .cta-banner p { color: var(--text-gray); max-width: 600px; margin: 0 auto 30px auto; font-size: 1.1rem; }
+
+        /* ==========================================
+           VISTA: CATÁLOGO DE DEPORTE
+           ========================================== */
+        .custom-design-banner { background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 4px solid var(--primary); padding: 50px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 8px;}
+        .custom-design-banner h3 { font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        .custom-design-banner p { color: var(--text-gray); font-size: 1rem; max-width: 600px; }
+
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-bottom: 100px;}
+        .design-card { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; overflow: hidden;}
+        .design-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .design-img-wrapper { height: 400px; background-color: #080808; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
+        .design-img-wrapper::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.1); transition: var(--transition); }
+        .design-card:hover .design-img-wrapper::after { background: transparent; }
+        .design-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(20%); }
+        .design-card:hover .design-img-wrapper img { transform: scale(1.08); filter: grayscale(0%); }
+        .design-info { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; text-align: center; }
+        .design-info h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; color: var(--text-light); }
+        .design-info p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; }
+        .design-btn { margin-top: auto; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; color: var(--primary); font-size: 0.85rem; letter-spacing: 2px; transition: var(--transition); }
+        .design-card:hover .design-btn { color: var(--text-light); }
+
+        /* ==========================================
+           VISTA: DETALLE DE DISEÑO
+           ========================================== */
+        .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 100px; align-items: start;}
+        .detail-image-box { background-color: #080808; border: 1px solid var(--border-color); border-radius: 8px; padding: 0; position: relative; }
+        .detail-image-box::before { content: ''; position: absolute; top: -15px; left: -15px; width: 100%; height: 100%; border: 1px solid var(--border-color); border-radius: 8px; z-index: -1; }
+        .detail-image-box img { width: 100%; height: auto; display: block; border-radius: 8px; filter: grayscale(10%); }
+        
+        .detail-content h1 { font-family: var(--font-display); font-size: 4.5rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 15px; letter-spacing: 2px; color: var(--text-light); }
+        .detail-content .category-tag { display: inline-block; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; border-radius: 4px;}
+        .detail-content p { color: var(--text-gray); margin-bottom: 40px; font-size: 1.1rem; }
+        
+        .features-list { margin-bottom: 50px; }
+        .features-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 1rem; color: #ccc; }
+        .features-list li svg { width: 18px; fill: var(--primary); }
+        
+        .action-box { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; border-radius: 8px;}
+        .action-box h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; color: var(--text-light); }
+        .action-box p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 30px; }
+        .btn-full { width: 100%; margin-bottom: 20px; }
+
+        /* ==========================================
+           SIMULADOR
+           ========================================== */
+        .configurator-ui { background-color: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; margin-bottom: 100px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border-radius: 8px;}
+        .sim-layout { display: flex; gap: 50px; align-items: flex-start; }
+        .sim-viewer-col { flex: 1; display: flex; justify-content: center; align-items: center; position: sticky; top: 120px; background: #080808; border: 1px solid var(--border-color); border-radius: 8px; padding: 40px 0; }
+        .sim-controls-col { flex: 1; display: flex; flex-direction: column; gap: 15px; width: 100%; }
+
+        .svg-container { height: 450px; width: 100%; animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        
+        .acc-item { border: 1px solid var(--border-color); overflow: hidden; background: var(--bg-dark); transition: var(--transition); border-radius: 6px;}
+        .acc-header { background: var(--bg-panel); padding: 20px 25px; font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; letter-spacing: 1px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); border-bottom: 1px solid transparent; color: var(--text-light); }
+        .acc-header:hover { background: #1a1a1a; color: var(--primary); }
+        .acc-header.active { color: var(--primary); border-bottom: 1px solid var(--border-color); }
+        .acc-content { padding: 30px 25px; display: none; flex-direction: column; gap: 25px; }
+        .acc-content.active { display: flex; }
+
+        .control-group label { display: block; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-gray); margin-bottom: 12px; letter-spacing: 1px; }
+        .model-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        
+        .model-btn, .cut-btn, .size-btn { background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-gray); padding: 12px 5px; text-align: center; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; transition: var(--transition); border-radius: 4px;}
+        .model-btn.active, .model-btn:hover, .cut-btn.active, .cut-btn:hover, .size-btn.active, .size-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+
+        .color-row { display: flex; gap: 12px; flex-wrap: wrap; }
+        .color-swatch { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: var(--transition); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .color-swatch.active { border: 2px solid var(--primary); transform: scale(1.2); }
+
+        .form-input { width: 100%; padding: 12px 15px; background: var(--bg-dark); border: 1px solid var(--border-color); color: #fff; font-family: var(--font-body); font-size: 0.9rem; transition: var(--transition); border-radius: 4px;}
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        
+        .range-slider { width: 100%; cursor: pointer; accent-color: var(--primary); }
+
+        .file-upload-btn { background: var(--bg-dark); border: 1px dashed var(--border-color); padding: 20px; text-align: center; cursor: pointer; color: var(--text-gray); transition: var(--transition); display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 6px;}
+        .file-upload-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
+        .file-upload-btn input[type="file"] { display: none; }
+
+        /* Evitar scroll nativo al arrastrar en táctil */
+        #sim-text-remera, #sim-logo-remera, #sim-text-short, #sim-logo-short { cursor: grab; user-select: none; pointer-events: all; touch-action: none; }
+        #sim-text-remera:active, #sim-logo-remera:active, #sim-text-short:active, #sim-logo-short:active { cursor: grabbing; }
+
+        /* ==========================================
+           FOOTER
+           ========================================== */
+        footer { background-color: #000; padding: 80px 0 40px; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; margin-bottom: 60px; }
+        .footer-col h4 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-col ul li { margin-bottom: 15px; color: var(--text-gray); font-size: 0.95rem; display: flex; align-items: center; gap: 10px;}
+        .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; color: #555; font-size: 0.85rem; font-weight: 500;}
+
+        /* ==========================================
+           ADAPTACIÓN RESPONSIVE (MOBILE & TABLET)
+           ========================================== */
+
+        .menu-btn { display: none; }
+        .menu-overlay { display: none; }
+        .mobile-contact { display: none; }
+
+        @media (max-width: 900px) {
+            /* Menú Hamburguesa Lateral */
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+                background-color: var(--bg-dark); border-left: 1px solid var(--border-color);
+                flex-direction: column; justify-content: flex-start; align-items: flex-start;
+                padding: 100px 30px; gap: 30px; transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                z-index: 1000; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            }
+            .nav-links.open { right: 0; }
+            .nav-links a { font-size: 1.1rem; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+            .nav-links a::after { display: none; }
+            
+            /* Botón Menú Animado */
+            .menu-btn {
+                display: flex; flex-direction: column; justify-content: space-between;
+                width: 35px; height: 24px; cursor: pointer; z-index: 1001; position: relative;
+            }
+            .menu-btn span {
+                display: block; width: 100%; height: 3px; background-color: var(--text-light);
+                transition: var(--transition); border-radius: 2px;
+            }
+            .menu-btn.open span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+            .menu-btn.open span:nth-child(2) { opacity: 0; }
+            .menu-btn.open span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+            
+            /* Overlay Oscuro */
+            .menu-overlay {
+                display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+                z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            }
+            .menu-overlay.open { opacity: 1; pointer-events: all; }
+            
+            /* Botones Contacto */
+            .desktop-contact-btn { display: none !important; }
+            .mobile-contact { display: block; color: var(--primary) !important; font-weight: 600; }
+            
+            /* Grillas / Columnas */
+            .about-grid { grid-template-columns: 1fr; } 
+            .about-text h2 { text-align: center; }
+            .custom-design-banner { flex-direction: column; text-align: center; gap: 30px; }
+            .detail-layout { grid-template-columns: 1fr; gap: 50px; }
+            .sim-layout { flex-direction: column; } 
+            .sim-viewer-col { position: relative; top: 0; width: 100%; } 
+            .configurator-ui { padding: 20px;}
+        }
+
+        @media (max-width: 768px) {
+            /* Tipografías y Espaciados */
+            .section-title { font-size: 2.8rem; margin-bottom: 15px; }
+            .section-subtitle { font-size: 1rem; margin-bottom: 35px; }
+            
+            .about-section, .process-section, .sports-section, .gallery-section, .tech-section, .cta-banner { padding: 60px 20px; }
+            
+            .hero-content h1 { font-size: 3.8rem; }
+            .hero-content p { font-size: 1.05rem; }
+            
+            .tech-grid { grid-template-columns: 1fr; gap: 40px; }
+            
+            /* Ajuste de Imágenes / Cajas para que no ocupen demasiada pantalla */
+            .gallery-item { height: 320px; }
+            .sport-card { height: 320px; }
+            .design-img-wrapper { height: 320px; }
+            
+            .custom-design-banner h3 { font-size: 2rem; }
+            .detail-content h1 { font-size: 3.2rem; }
+            .cta-banner h2 { font-size: 2.8rem; }
+            
+            /* Evitar desbordes horizontales de efectos de diseño */
+            .tech-image-wrapper::before, .tech-image-wrapper::after { display: none; }
+            .detail-image-box::before { top: -8px; left: -8px; }
+            
+            .lightbox-close { top: 15px; right: 20px; font-size: 40px; }
+
+            /* Ajustes para el Carrusel en Celular (Centrar a las personas) */
+            .slide-1 { background-position: center; }
+            .slide-2 { background-position: center 10%; }
+            .slide-3 { background-position: center 15%; }
+            .slide-4 { background-position: center 10%; }
+            .slide-5 { background-position: center 15%; }
+        }
+
+        @media (max-width: 480px) {
+            /* Optimizaciones para celulares (320px - 480px) */
+            .logo { font-size: 1.6rem; }
+            .hero-content h1 { font-size: 3.2rem; }
+            .section-title { font-size: 2.4rem; }
+            
+            /* Botones 100% Ancho táctiles */
+            .btn { padding: 16px 20px; font-size: 0.8rem; width: 100%; justify-content: center; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 15px; }
+            
+            /* Reorganización de tarjetas a 1 Columna (Evita Scroll Horizontal) */
+            .process-steps { grid-template-columns: 1fr; gap: 20px; }
+            .process-step { padding: 30px 20px; }
+            .sports-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-col ul li { justify-content: center; }
+            
+            .custom-design-banner div:last-child { flex-direction: column; width: 100%; gap: 15px; }
+            .custom-design-banner div:last-child .btn { margin: 0; }
+            
+            /* Filtros de la Galería en cuadrícula 2x2 para fácil lectura */
+            .gallery-filters { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 10px; }
+            .filter-btn { width: 100%; padding: 12px; font-size: 0.75rem; }
+            
+            /* INTERFAZ DEL SIMULADOR MÓVIL */
+            .sim-layout { gap: 25px; }
+            .sim-viewer-col { padding: 20px 0; }
+            .svg-container { height: 320px; }
+            .configurator-ui { padding: 20px 15px; }
+            
+            .acc-header { font-size: 1.15rem; padding: 15px; }
+            .acc-content { padding: 20px 15px; }
+            
+            /* Botones del simulador más cómodos y a 2 columnas */
+            .model-btn, .cut-btn, .size-btn { padding: 14px 8px; font-size: 0.8rem; }
+            .model-grid[style*="grid-template-columns"] { grid-template-columns: 1fr 1fr !important; }
+            .model-grid { grid-template-columns: 1fr 1fr !important; }
+            
+            /* Selector de Colores optimizado */
+            .color-swatch { width: 42px; height: 42px; margin-bottom: 5px; }
+            .color-row { gap: 10px; }
+            
+            .form-input { padding: 15px; font-size: 1rem; }
+            .range-slider { height: 25px; }
+            
+            .file-upload-btn { padding: 30px 15px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER Y NAVEGACIÓN -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo" onclick="app.navigate('home')">ELITE<span>INDUMENTARIA</span></div>
+            
+            <!-- Botón Hamburguesa -->
+            <div class="menu-btn" id="menu-btn" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+
+            <!-- Menú Enlaces -->
+            <nav class="nav-links" id="nav-links">
+                <a onclick="app.navigate('home'); closeMenuIfMobile();">Inicio</a>
+                <a onclick="app.navigate('home', 'seccion-deportes'); closeMenuIfMobile();">Diseños</a>
+                <a onclick="app.navigate('home', 'seccion-galeria'); closeMenuIfMobile();">Nuestros Trabajos</a>
+                <a class="mobile-contact" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.'); closeMenuIfMobile();">Contacto</a>
+            </nav>
+
+            <a href="#" class="btn btn-primary desktop-contact-btn" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.')">Contactar</a>
+        </div>
+    </header>
+    
+    <!-- Overlay Oscuro del Menú Celular -->
+    <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- =========================================================
+         VISTA 1: HOME
+         ========================================================= -->
+    <main id="view-home" class="view-section active">
+        
+        <!-- HERO INMERSIVO CON CARRUSEL DE FONDO -->
+        <section class="hero">
+            <div class="hero-bg">
+                <div class="hero-slide slide-1"></div>
+                <div class="hero-slide slide-2"></div>
+                <div class="hero-slide slide-3"></div>
+                <div class="hero-slide slide-4"></div>
+                <div class="hero-slide slide-5"></div>
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="container hero-content">
+                <span class="hero-tag">Indumentaria Deportiva Premium</span>
+                <h1>Viste a tu <span>Equipo</span></h1>
+                <p>Somos Elite Indumentaria. Fabricantes de ropa deportiva, camperones, canguros, camperas y equipos personalizados con calidad profesional para que tu club destaque en cualquier temporada.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('seccion-promociones').scrollIntoView({behavior: 'smooth'})">Ver Promociones</button>
+                    <button class="btn btn-outline" onclick="document.getElementById('seccion-deportes').scrollIntoView({behavior: 'smooth'})">Explorar Catálogos</button>
+                </div>
+                
+                <div style="margin-top: 50px; font-size: 1.1rem; color: var(--text-light); line-height: 1.8; font-weight: 400; letter-spacing: 1px;">
+                    <span style="color: var(--primary); font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">Envíos a todo el país 🇺🇾<br>@eliteindumentariauy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE NOSOTROS -->
+        <section class="about-section container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2 class="section-title">Nuestra <span>Esencia</span></h2>
+                    <p>En Elite Indumentaria no hacemos simples camisetas, creamos la armadura de tu equipo. Ofrecemos calidad superior en prendas de juego y abrigo (camperones, camperas, canguros, sudaderas) para acompañarte todo el año.</p>
+                    <p>Entendemos que la imagen de tu club es fundamental. Por eso, ofrecemos atención personalizada para asegurar que cada detalle, escudo y color refleje fielmente la identidad de tu plantel.</p>
+                    <button class="btn btn-primary-outline" style="margin-top: 20px;" onclick="document.getElementById('seccion-proceso').scrollIntoView({behavior: 'smooth'})">Conocer el proceso</button>
+                </div>
+                <div class="about-image">
+                    <img src="BASKETPARTIDOIMPORTANTEFOTO.jpeg" alt="Equipo femenino vistiendo indumentaria Elite">
+                </div>
+            </div>
+        </section>
+
+        <!-- PROMOCIONES -->
+        <section id="seccion-promociones" class="process-section" style="background-color: var(--bg-dark); border-top: none; padding-bottom: 50px;">
+            <div class="container">
+                <h2 class="section-title">Promociones <span>Elite</span></h2>
+                <p class="section-subtitle">Ofertas reales por tiempo limitado. ¡Prepará a tu equipo para la temporada con nuestra línea premium de invierno!</p>
+                <div class="process-steps">
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Me interesan los Canguros Jaspeados en oferta a $650.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Canguros Jaspeados</h4>
+                        <p>A solo <strong>$650</strong>.<br>Incluye escudo y nombre del cuadro. ¡Personalizados para tu equipo!</p>
+                    </div>
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Me gustaría consultar por los Camperones a partir de $1300.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Camperones</h4>
+                        <p>Desde <strong>$1300</strong>.<br>Calidad, abrigo y diseño en una sola prenda. Tu club listo para el invierno.</p>
+                    </div>
+                    <div class="process-step" onclick="app.openWhatsApp('¡Hola! Quería consultar por los Equipos Largos a partir de $1190.')" style="cursor:pointer;">
+                        <div class="step-number">%</div>
+                        <h4>Equipos Largos</h4>
+                        <p>Desde <strong>$1190</strong>.<br>Conjuntos deportivos completos ideales para escuelas, academias y planteles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESO -->
+        <section id="seccion-proceso" class="process-section">
+            <div class="container">
+                <h2 class="section-title">El camino a la <span>Excelencia</span></h2>
+                <p class="section-subtitle">Un proceso optimizado, rápido y profesional para que tengas tu indumentaria sin complicaciones y con envío a todo el país.</p>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">01</div>
+                        <h4>Elegí tu Deporte</h4>
+                        <p>Navegá por nuestro catálogo y seleccioná la disciplina. Contamos con moldería específica adaptada al rendimiento de cada actividad y temporada.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">02</div>
+                        <h4>Diseño Único</h4>
+                        <p>Inspirate con nuestros modelos o utilizá nuestro simulador exclusivo para configurar patrones, textos y aplicar el escudo de tu club.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">03</div>
+                        <h4>Producción</h4>
+                        <p>Aprobado el diseño y los talles, comenzamos la fabricación con telas premium y sublimación digital de máxima definición.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS -->
+        <section id="seccion-deportes" class="sports-section">
+            <div class="container">
+                <h2 class="section-title">Seleccioná tu <span>Disciplina</span></h2>
+                <p class="section-subtitle">Explora nuestras líneas de diseño exclusivas desarrolladas para el máximo rendimiento deportivo.</p>
+                <div class="sports-grid" id="home-categories-grid"></div>
+            </div>
+        </section>
+
+        <!-- GALERÍA DE TRABAJOS DESTACADOS -->
+        <section id="seccion-galeria" class="gallery-section container">
+            <h2 class="section-title">Trabajos <span>Destacados</span></h2>
+            <p class="section-subtitle">Conocé la calidad y los detalles de nuestras equipaciones reales fabricadas para distintos clubes.</p>
+            
+            <div class="gallery-filters">
+                <button class="filter-btn active" onclick="app.filterGallery(event, 'todos')">Todos</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'futbol')">Fútbol</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'basquet')">Básquetbol</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Canguros/ Camperas</button>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="FUTBOLCHICOS.jpg" alt="Equipación de Fútbol Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="BASKETBALLCHICAS.jpg" alt="Equipación Femenina Básquet Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="CAMPERONES.jpg" alt="Equipación Masculina Básquet Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="FUTBOLPARTIDOUNO.jpg" alt="Camperones Deportivos Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item basquet " onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="BASKETURU.jpg" alt="Indumentaria en Acción Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="CAMPERASFUTBOL.jpg" alt="Camperas Deportivas Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="https://www.instagram.com/eliteindumentariauy/" target="_blank" class="btn btn-outline">Ver más en nuestro Instagram</a>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS / TECNOLOGÍA -->
+        <section id="seccion-beneficios" class="tech-section">
+            <div class="container tech-grid">
+                <div>
+                    <h2 class="section-title" style="text-align: left;">Calidad <span>Elite</span></h2>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">Cada prenda está pensada para resistir la exigencia deportiva manteniendo una estética impecable ante cualquier clima.</p>
+                    <ul class="tech-list">
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Telas Avanzadas y Abrigo</h4>
+                                <p>Desde materiales Dry-Fit de última generación hasta prendas de invierno con abrigo garantizado (frizza, corderito, polar, acetato).</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Sublimación Digital</h4>
+                                <p>Los colores se inyectan en la fibra garantizando tonos vivos y definidos que no se desgastan ni cuartean.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tech-list-icon">❖</div>
+                            <div>
+                                <h4>Moldería Anatómica</h4>
+                                <p>Cortes profesionales que permiten total libertad de movimiento sin perder la elegancia del ajuste.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tech-image-wrapper">
+                    <img src="FUTBOLCHICOS.jpg" alt="Calidad y Confección Elite">
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-banner">
+            <div class="cta-banner-content container">
+                <h2>¿Listo para vestir a tu <span>equipo</span>?</h2>
+                <p>Contactanos hoy mismo al 092 669 504 o por WhatsApp y un asesor te guiará paso a paso para hacer realidad el diseño perfecto para tu club.</p>
+                <button class="btn btn-primary" onclick="app.openWhatsApp('¡Hola! Me gustaría empezar a trabajar en la indumentaria de mi equipo.')">Solicitar Cotización</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================================
+         VISTA 2: CATÁLOGO POR DEPORTE
+         ========================================================= -->
+    <main id="view-category" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; <span id="cat-breadcrumb-name">Deporte</span>
+            </div>
+            
+            <h2 class="section-title" id="cat-title" style="text-align: left; margin-bottom: 40px;">Línea <span>Deporte</span></h2>
+
+            <div class="custom-design-banner">
+                <div>
+                    <h3>El límite es tu imaginación</h3>
+                    <p>Utilizá nuestro Simulador Interactivo 3D para configurar modelos, paletas de colores, textos y agregar tu escudo, o contactanos si ya tenés un diseño propio.</p>
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="app.openSimulator(app.currentSportId)">
+                        Abrir Simulador
+                    </button>
+                    <button class="btn btn-outline" onclick="app.openWhatsApp('¡Hola! Tengo mi propio diseño/idea y me gustaría consultar presupuesto.')">
+                        Consultar Diseño Propio
+                    </button>
+                </div>
+            </div>
+
+            <div id="futbol-filters" style="display: none; margin-bottom: 50px;">
+                <div class="gallery-filters" style="margin-bottom: 25px;">
+                    <button class="filter-btn active" id="btn-sublimadas" onclick="app.filterFutbol('sublimadas')">REMERAS SUBLIMADAS</button>
+                    <button class="filter-btn" id="btn-basicas" onclick="app.filterFutbol('basicas')">REMERAS BÁSICAS</button>
+                </div>
+                <div style="text-align: center;">
+                    <input type="text" id="futbol-search" placeholder="🔍 Buscar diseño..." class="form-input" style="max-width: 450px; display: inline-block;" onkeyup="app.searchFutbol(this.value)">
+                </div>
+            </div>
+
+            <div class="catalog-grid" id="catalog-grid"></div>
+        </div>
+    </main>
+
+    <!-- =========================================================
+         VISTA 3: SIMULADOR INTERACTIVO
+         ========================================================= -->
+    <main id="view-simulator" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; 
+                <a id="sim-breadcrumb-cat" onclick="">Deporte</a> &gt; 
+                <span>Simulador</span>
+            </div>
+            
+            <h2 class="section-title" style="text-align: left; margin-bottom: 40px;">Estudio de <span>Diseño</span></h2>
+
+            <div class="configurator-ui" id="sim-wrapper">
+                <style>
+                    #sim-wrapper {
+                        --sim-primary-remera: #111111;
+                        --sim-sec-remera: #ffffff;
+                        --sim-trim-remera: #ffffff;
+                        --sim-text-remera: #ffffff;
+
+                        --sim-primary-short: #111111;
+                        --sim-sec-short: #ffffff;
+                        --sim-trim-short: #ffffff;
+                        --sim-text-short: #ffffff;
+                    }
+
+                    #sim-group-remera .c-primary { fill: var(--sim-primary-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-sec { fill: var(--sim-sec-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-trim { fill: var(--sim-trim-remera); transition: fill 0.4s ease; }
+                    #sim-group-remera .c-text { fill: var(--sim-text-remera); transition: fill 0.4s ease; }
+
+                    #sim-group-short .c-primary { fill: var(--sim-primary-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-sec { fill: var(--sim-sec-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-trim { fill: var(--sim-trim-short); transition: fill 0.4s ease; }
+                    #sim-group-short .c-text { fill: var(--sim-text-short); transition: fill 0.4s ease; }
+                </style>
+
+                <div class="sim-layout">
+                    <!-- Columna Izquierda: Vista 3D SVG -->
+                    <div class="sim-viewer-col">
+                        <div class="svg-container">
+                            <svg viewBox="0 0 200 250" width="100%" height="100%" filter="drop-shadow(0 25px 25px rgba(0,0,0,0.8))">
+                                <defs>
+                                    <linearGradient id="shading" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="rgba(0,0,0,0.6)" />
+                                        <stop offset="20%" stop-color="rgba(255,255,255,0.15)" />
+                                        <stop offset="80%" stop-color="rgba(0,0,0,0.15)" />
+                                        <stop offset="100%" stop-color="rgba(0,0,0,0.8)" />
+                                    </linearGradient>
+                                    <linearGradient id="shadowFolds" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(255,255,255,0.1)" />
+                                        <stop offset="100%" stop-color="rgba(0,0,0,0.4)" />
+                                    </linearGradient>
+
+                                    <clipPath id="sim-clip-remera">
+                                        <path id="sim-clip-path-remera" d="" style="transition: d 0.4s ease;" />
+                                    </clipPath>
+                                    <clipPath id="sim-clip-short">
+                                        <path id="sim-clip-path-short" d="" style="transition: d 0.4s ease;" />
+                                    </clipPath>
+                                </defs>
+
+                                <g id="sim-group-remera">
+                                    <path id="sim-base-remera" class="c-primary" d="" style="transition: d 0.4s ease;" />
+                                    <g clip-path="url(#sim-clip-remera)">
+                                        <rect id="sim-pattern-remera" width="100%" height="100%" fill="none" />
+                                    </g>
+                                    <g id="sim-design-remera" clip-path="url(#sim-clip-remera)" style="transition: all 0.4s ease;"></g>
+                                    <path id="sim-trim-remera" class="c-trim" d="" fill="none" stroke="currentColor" stroke-width="1.5" style="transition: stroke 0.4s ease, d 0.4s ease;" />
+                                    <image id="sim-logo-remera" x="125" y="45" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
+                                    <text id="sim-text-remera" class="c-text" x="100" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">SPONSOR</text>
+                                </g>
+
+                                <g id="sim-group-short" style="display: none; transition: opacity 0.4s ease;">
+                                    <path id="sim-base-short" class="c-primary" d="" style="transition: d 0.4s ease;" />
+                                    <g clip-path="url(#sim-clip-short)">
+                                        <rect id="sim-pattern-short" width="100%" height="100%" fill="none" />
+                                    </g>
+                                    <g id="sim-design-short" clip-path="url(#sim-clip-short)" style="transition: all 0.4s ease;"></g>
+                                    <path id="sim-trim-short" class="c-trim" d="" fill="none" stroke="currentColor" stroke-width="1.5" style="transition: stroke 0.4s ease, d 0.4s ease;" />
+                                    <image id="sim-logo-short" x="60" y="320" width="25" height="25" preserveAspectRatio="xMidYMid meet" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="></image>
+                                    <text id="sim-text-short" class="c-text" x="140" y="335" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">NUM</text>
+                                </g>
+
+                                <path id="sim-shading-shape" fill="url(#shading)" style="mix-blend-mode: overlay; pointer-events: none; transition: d 0.4s ease;" d="" />
+                                <path id="sim-shadows-shape" fill="url(#shadowFolds)" style="mix-blend-mode: multiply; pointer-events: none; transition: d 0.4s ease;" d="" />
+                            </svg>
+                        </div>
+                        <div id="sim-helper-text" style="position: absolute; bottom: 10px; text-align: center; width: 100%; color: var(--text-gray); font-size: 0.75rem; pointer-events: none;">
+                            💡 Puedes arrastrar el texto y el escudo libremente
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Acordeón de Controles -->
+                    <div class="sim-controls-col">
+                        <div class="acc-item">
+                            <div class="acc-header active" onclick="app.toggleAcc(this)">1. Tipo de Conjunto <span>▼</span></div>
+                            <div class="acc-content active">
+                                <div class="control-group">
+                                    <label>Seleccioná qué deseas diseñar</label>
+                                    <div class="model-grid" style="grid-template-columns: 1fr 1fr;">
+                                        <div class="model-btn active" id="btn-outfit-single" onclick="app.setOutfitType('remera', this)">Solo Remera</div>
+                                        <div class="model-btn" id="btn-outfit-set" onclick="app.setOutfitType('conjunto', this)">Remera + Short</div>
+                                    </div>
+                                </div>
+                                <div class="control-group" id="sim-garment-editor-toggle" style="display: none; margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                                    <label style="color: var(--primary);" id="lbl-garment-editor">Prenda que estás editando ahora mismo:</label>
+                                    <div class="model-grid" style="grid-template-columns: 1fr 1fr;">
+                                        <div class="model-btn active" id="btn-toggle-remera" onclick="app.setActiveGarment('remera', this)">👕 Editar Remera</div>
+                                        <div class="model-btn" id="btn-toggle-short" onclick="app.setActiveGarment('short', this)">🩳 Editar Short</div>
+                                    </div>
+                                    <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem; margin-top: 10px;">
+                                        💡 Todos los cambios abajo se aplicarán a la prenda seleccionada.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="acc-item" id="acc-item-molde">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-molde-num">2.</span> Molde / Estructura <span id="lbl-acc-molde-tipo">(Aplica a Remera)</span> <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label id="lbl-molde-desc">Corte / Estructura Física</label>
+                                    <div class="model-grid" id="sim-cuts-grid"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-dis-num">3.</span> Diseño Gráfico y Colores <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Estampado / Patrón Base</label>
+                                    <div class="model-grid" id="sim-models-grid"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Principal (Fondo)</label>
+                                    <div class="color-row" id="sim-colors-primary"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Secundario (Gráficos / Mangas)</label>
+                                    <div class="color-row" id="sim-colors-secondary"></div>
+                                </div>
+                                <div class="control-group">
+                                    <label>Color Detalles (Puños / Cintura / Cordones / Líneas)</label>
+                                    <div class="color-row" id="sim-colors-trim"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-esc-num">4.</span> Escudo del Club <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Archivo del Escudo (PNG sin fondo)</label>
+                                    <label class="file-upload-btn">
+                                        <span style="font-size: 1.2rem; display:block; margin-bottom:5px;">+</span> Clic para adjuntar archivo
+                                        <input type="file" id="sim-logo-upload" accept="image/png, image/jpeg, image/svg+xml">
+                                    </label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Tamaño del Escudo</label>
+                                    <input type="range" id="sim-logo-size" class="range-slider" min="10" max="70" value="25">
+                                </div>
+                                <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
+                                    💡 Selecciona el escudo en la prenda y arrástralo para posicionarlo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-txt-num">5.</span> Textos y Sponsors <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Sponsor o Nombre del Equipo/Número</label>
+                                    <input type="text" id="sim-text-input" class="form-input" placeholder="Ej: MI CLUB" value="SPONSOR" maxlength="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Estilo Tipográfico</label>
+                                    <select id="sim-font-family" class="form-input">
+                                        <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+                                        <option value="'Oswald', sans-serif">Oswald</option>
+                                        <option value="'Anton', sans-serif">Anton</option>
+                                        <option value="'Montserrat', sans-serif">Montserrat</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Escala del Texto</label>
+                                    <input type="range" id="sim-text-size" class="range-slider" min="10" max="60" value="22">
+                                </div>
+                                <div class="control-group">
+                                    <label>Color del Texto</label>
+                                    <div class="color-row" id="sim-colors-text"></div>
+                                </div>
+                                <div style="text-align: center; color: var(--text-gray); font-size: 0.75rem;">
+                                    💡 Selecciona el texto en la prenda y arrástralo para posicionarlo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc-item">
+                            <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tal-num">6.</span> Talle <span>▼</span></div>
+                            <div class="acc-content">
+                                <div class="control-group">
+                                    <label>Seleccioná tu Talle (Aplica al conjunto)</label>
+                                    <div class="model-grid" style="grid-template-columns: repeat(3, 1fr);">
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XS', this)">XS</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('S', this)">S</div>
+                                        <div class="size-btn active" onclick="app.setSimulatorSize('M', this)">M</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('L', this)">L</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XL', this)">XL</div>
+                                        <div class="size-btn" onclick="app.setSimulatorSize('XXL', this)">XXL</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 25px; display: flex; gap: 15px; flex-direction: column;">
+                            <button class="btn btn-primary" id="btn-sim-consult" style="width: 100%;">Solicitar este Diseño</button>
+                            <button class="btn btn-outline" id="btn-sim-custom" style="width: 100%;">Quiero algo aún más único</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- =========================================================
+         VISTA 4: DETALLE DE DISEÑO DEL CATÁLOGO
+         ========================================================= -->
+    <main id="view-detail" class="view-section">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="app.navigate('home')">Inicio</a> &gt; 
+                <a id="det-breadcrumb-cat" onclick="">Deporte</a> &gt; 
+                <span id="det-breadcrumb-name">Modelo</span>
+            </div>
+
+            <div class="detail-layout">
+                <div class="detail-image-box">
+                    <img id="det-img" src="" alt="Diseño Elite">
+                </div>
+                <div class="detail-content">
+                    <span class="category-tag" id="det-tag">Categoría</span>
+                    <h1 id="det-title">Nombre del Modelo</h1>
+                    <p id="det-desc">Descripción del diseño de referencia.</p>
+                    
+                    <ul class="features-list">
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Colores 100% adaptables a tu club</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Escudos, números y sponsors incluidos</li>
+                        <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Confección en telas Elite Alto Rendimiento</li>
+                    </ul>
+                    
+                    <div class="action-box">
+                        <h4>Hazlo tuyo</h4>
+                        <p>Los modelos del catálogo son un punto de partida. Seleccioná este diseño y nosotros nos encargamos de adaptarlo a los colores e identidad de tu equipo.</p>
+                        <button class="btn btn-primary btn-full" id="btn-consultar-modelo" onclick="">Solicitar este diseño</button>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="#" style="color: var(--text-gray); font-size: 0.8rem; text-decoration: underline; text-underline-offset: 4px; transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-gray)'" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño totalmente desde cero, fuera del catálogo.')">Prefiero diseñar desde cero</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LIGHTBOX PARA LA GALERÍA -->
+    <div class="lightbox" id="lightbox" onclick="app.closeLightbox(event)">
+        <span class="lightbox-close" onclick="app.closeLightbox(event)">&times;</span>
+        <img id="lightbox-img" src="" alt="Trabajo destacado">
+    </div>
+
+    <!-- FOOTER PREMIUM -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px; font-size: 1.8rem;">ELITE<span>INDUMENTARIA</span></div>
+                <p style="color: var(--text-gray); font-size: 0.9rem; max-width: 300px;">Diseño y fabricación de indumentaria deportiva y de invierno para clubes en Uruguay. La identidad de tu equipo, elevada al máximo nivel.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#" onclick="app.navigate('home')">Inicio</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-deportes')">Catálogos</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-beneficios')">Calidad Premium</a></li>
+                    <li><a href="#" onclick="app.navigate('home', 'seccion-galeria')">Nuestros Trabajos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto directo</h4>
+                <ul>
+                    <li><span style="color:var(--primary)">❖</span> WhatsApp: 092 669 504</li>
+                    <li><span style="color:var(--primary)">❖</span> Instagram: @eliteindumentariauy</li>
+                    <li><span style="color:var(--primary)">❖</span> Envíos a todo el país</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Elite Indumentaria. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script>
+        const WHATSAPP_NUMBER = "59892669504"; 
+
+        // ==========================================
+        // FUNCIONES DE MENÚ MÓVIL RESPONSIVE
+        // ==========================================
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('open');
+            document.getElementById('menu-btn').classList.toggle('open');
+            document.getElementById('menu-overlay').classList.toggle('open');
+        }
+
+        function closeMenuIfMobile() {
+            if(window.innerWidth <= 900) {
+                document.getElementById('nav-links').classList.remove('open');
+                document.getElementById('menu-btn').classList.remove('open');
+                document.getElementById('menu-overlay').classList.remove('open');
+            }
+        }
+
+        // ==========================================
+        // BASE DE DATOS Y LÓGICA PRINCIPAL
+        // ==========================================
+        const physicalCuts = {
+            futbol: [
+                { id: "cut-f1", name: "Clásico", base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f2", name: "Cuello V", base: "M 65,10 L 100,45 L 135,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 65,10 L 100,45 L 135,10 L 125,10 L 100,35 L 75,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f3", name: "Polo", base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
+            ],
+            basquet: [
+                { id: "cut-b1", name: "Único", base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
+            ],
+            canguros: [
+                { id: "cut-c1", name: "Canguro Clásico", base: "M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 C 75,45 70,25 75,10 Z", trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 90,55 L 92,100 L 89,100 L 87,55 Z M 110,55 L 113,100 L 110,100 L 108,55 Z M 80,170 L 120,170 L 119,172 L 81,172 Z M 80,170 L 65,225 L 68,225 L 82,170 Z M 120,170 L 135,225 L 132,225 L 118,170 Z M 80,50 C 100,65 120,50 120,50 L 118,48 C 100,62 82,48 80,50 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z" }
+            ],
+            camperas: [
+                { id: "cut-camp1", name: "Campera Deportiva", base: "M 85,30 L 115,30 L 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 Z", trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 99,30 L 101,30 L 101,240 L 99,240 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z M 70,180 L 85,210 L 87,208 L 72,178 Z M 130,180 L 115,210 L 113,208 L 128,178 Z" }
+            ]
+        };
+
+        const shortsData = {
+            futbol: { base: "M 50,242 C 100,252 150,242 150,242 L 165,360 C 165,365 160,370 155,370 L 108,370 C 103,370 100,360 100,340 C 100,360 97,370 92,370 L 45,370 C 40,370 35,365 35,360 Z", trim: "M 50,242 L 35,360 L 45,360 L 60,245 Z M 150,242 L 165,360 L 155,360 L 140,245 Z" },
+            basquet: { base: "M 52,242 C 75,247 125,247 148,242 L 170,410 C 170,415 165,420 155,420 L 108,420 C 103,420 100,410 100,380 C 100,410 97,420 92,420 L 45,420 C 35,420 30,415 30,410 Z", trim: "M 52,242 L 30,410 L 45,420 L 50,420 L 38,405 L 60,245 Z M 148,242 L 170,410 L 155,420 L 150,420 L 162,405 L 140,245 Z" },
+            canguros: { base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z", trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z" },
+            camperas: { base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z", trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z" }
+        };
+
+        const designPatterns = {
+            futbol: [
+                { id: "mod-f1", name: "Sin Diseño", svg: `` },
+                { id: "mod-f2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
+                { id: "mod-f3", name: "3 Bastones", svg: `<rect x="15" width="30" height="500" class="c-sec"/><rect x="85" width="30" height="500" class="c-sec"/><rect x="155" width="30" height="500" class="c-sec"/>` },
+                { id: "mod-f4", name: "4 Bastones", svg: `<rect x="20" width="25" height="500" class="c-sec"/><rect x="70" width="25" height="500" class="c-sec"/><rect x="120" width="25" height="500" class="c-sec"/><rect x="170" width="25" height="500" class="c-sec"/>` },
+                { id: "mod-f5", name: "Banda Diagonal", svg: `<polygon points="250,-50 150,-50 -50,300 50,300" class="c-sec" />` },
+                { id: "mod-f6", name: "Banda Diagonal 2", svg: `<polygon points="-50,-50 50,-50 250,300 150,300" class="c-sec" />` },
+                { id: "mod-f7", name: "Franja Horizontal", svg: `<rect y="110" width="200" height="50" class="c-sec"/>` },
+                { id: "mod-f8", name: "Chevron", svg: `<polygon points="-20,50 100,140 220,50 220,100 100,190 -20,100" class="c-sec" />` },
+                { id: "mod-f9", name: "Mitad", svg: `<rect x="100" width="100" height="500" class="c-sec" />` },
+                { id: "mod-f10", name: "Hoops", svg: `<rect y="0" width="200" height="30" class="c-sec"/><rect y="60" width="200" height="30" class="c-sec"/><rect y="120" width="200" height="30" class="c-sec"/><rect y="180" width="200" height="30" class="c-sec"/><rect y="240" width="200" height="30" class="c-sec"/><rect y="300" width="200" height="30" class="c-sec"/><rect y="360" width="200" height="30" class="c-sec"/><rect y="420" width="200" height="30" class="c-sec"/><rect y="480" width="200" height="30" class="c-sec"/>` },
+                { id: "mod-f11", name: "Hoops 2", svg: `<rect y="0" width="200" height="10" class="c-sec"/><rect y="20" width="200" height="10" class="c-sec"/><rect y="40" width="200" height="10" class="c-sec"/><rect y="60" width="200" height="10" class="c-sec"/><rect y="80" width="200" height="10" class="c-sec"/><rect y="100" width="200" height="10" class="c-sec"/><rect y="120" width="200" height="10" class="c-sec"/><rect y="140" width="200" height="10" class="c-sec"/><rect y="160" width="200" height="10" class="c-sec"/><rect y="180" width="200" height="10" class="c-sec"/><rect y="200" width="200" height="10" class="c-sec"/><rect y="220" width="200" height="10" class="c-sec"/><rect y="240" width="200" height="10" class="c-sec"/><rect y="260" width="200" height="10" class="c-sec"/><rect y="280" width="200" height="10" class="c-sec"/><rect y="300" width="200" height="10" class="c-sec"/><rect y="320" width="200" height="10" class="c-sec"/><rect y="340" width="200" height="10" class="c-sec"/><rect y="360" width="200" height="10" class="c-sec"/><rect y="380" width="200" height="10" class="c-sec"/><rect y="400" width="200" height="10" class="c-sec"/><rect y="420" width="200" height="10" class="c-sec"/><rect y="440" width="200" height="10" class="c-sec"/><rect y="460" width="200" height="10" class="c-sec"/><rect y="480" width="200" height="10" class="c-sec"/>` },
+                { id: "mod-f12", name: "Franja Vertical", svg: `<rect x="35" width="12" height="500" class="c-sec"/><rect x="75" width="50" height="500" class="c-sec"/><rect x="153" width="12" height="500" class="c-sec"/>` },
+                { id: "mod-f13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
+                { id: "mod-f14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
+                { id: "mod-f15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` },
+                { id: "mod-f17", name: "Tradicional Rayas Finas", svg: `<rect x="10" width="5" height="500" class="c-sec"/><rect x="30" width="5" height="500" class="c-sec"/><rect x="50" width="5" height="500" class="c-sec"/><rect x="70" width="5" height="500" class="c-sec"/><rect x="90" width="5" height="500" class="c-sec"/><rect x="110" width="5" height="500" class="c-sec"/><rect x="130" width="5" height="500" class="c-sec"/><rect x="150" width="5" height="500" class="c-sec"/><rect x="170" width="5" height="500" class="c-sec"/><rect x="190" width="5" height="500" class="c-sec"/>` },
+                { id: "mod-f19", name: "Franja Central", svg: `<rect x="75" width="50" height="500" class="c-sec"/>` },
+                { id: "mod-f20", name: "Bandera", svg: `<rect x="66" width="68" height="500" class="c-sec"/>` },
+                { id: "mod-f21", name: "2 Bastones con Líneas", svg: `<rect x="25" width="8" height="500" class="c-sec"/><rect x="55" width="35" height="500" class="c-sec"/><rect x="110" width="35" height="500" class="c-sec"/><rect x="167" width="8" height="500" class="c-sec"/>` }
+            ],
+            basquet: [
+                { id: "mod-b1", name: "Sin Diseño", svg: `` },
+                { id: "mod-b2", name: "2 Bastones", svg: `<rect x="40" width="40" height="500" class="c-sec"/><rect x="120" width="40" height="500" class="c-sec"/>` },
+                { id: "mod-b5", name: "Banda Diagonal", svg: `<polygon points="-10,260 40,260 210,-10 160,-10" class="c-sec"/><polygon points="-10,510 40,510 210,240 160,240" class="c-sec"/>` },
+                { id: "mod-b6", name: "Banda Diagonal 2", svg: `<polygon points="-10,-10 40,-10 210,260 160,260" class="c-sec"/><polygon points="-10,240 40,240 210,510 160,510" class="c-sec"/>` },
+                { id: "mod-b7", name: "Franja Horizontal", svg: `<rect y="100" width="200" height="50" class="c-sec"/><rect y="330" width="200" height="40" class="c-sec"/>` },
+                { id: "mod-b8", name: "Chevron", svg: `<polygon points="0,50 100,120 200,50 200,90 100,160 0,90" class="c-sec" /><polygon points="0,290 100,360 200,290 200,330 100,400 0,330" class="c-sec" />` },
+                { id: "mod-b9", name: "Mitad", svg: `<rect x="100" width="100" height="500" class="c-sec" />` },
+                { id: "mod-b10", name: "Hoops", svg: `<rect y="0" width="200" height="30" class="c-sec"/><rect y="60" width="200" height="30" class="c-sec"/><rect y="120" width="200" height="30" class="c-sec"/><rect y="180" width="200" height="30" class="c-sec"/><rect y="240" width="200" height="30" class="c-sec"/><rect y="300" width="200" height="30" class="c-sec"/><rect y="360" width="200" height="30" class="c-sec"/><rect y="420" width="200" height="30" class="c-sec"/><rect y="480" width="200" height="30" class="c-sec"/>` },
+                { id: "mod-b11", name: "Hoops 2", svg: `<rect y="0" width="200" height="10" class="c-sec"/><rect y="20" width="200" height="10" class="c-sec"/><rect y="40" width="200" height="10" class="c-sec"/><rect y="60" width="200" height="10" class="c-sec"/><rect y="80" width="200" height="10" class="c-sec"/><rect y="100" width="200" height="10" class="c-sec"/><rect y="120" width="200" height="10" class="c-sec"/><rect y="140" width="200" height="10" class="c-sec"/><rect y="160" width="200" height="10" class="c-sec"/><rect y="180" width="200" height="10" class="c-sec"/><rect y="200" width="200" height="10" class="c-sec"/><rect y="220" width="200" height="10" class="c-sec"/><rect y="240" width="200" height="10" class="c-sec"/><rect y="260" width="200" height="10" class="c-sec"/><rect y="280" width="200" height="10" class="c-sec"/><rect y="300" width="200" height="10" class="c-sec"/><rect y="320" width="200" height="10" class="c-sec"/><rect y="340" width="200" height="10" class="c-sec"/><rect y="360" width="200" height="10" class="c-sec"/><rect y="380" width="200" height="10" class="c-sec"/><rect y="400" width="200" height="10" class="c-sec"/><rect y="420" width="200" height="10" class="c-sec"/><rect y="440" width="200" height="10" class="c-sec"/><rect y="460" width="200" height="10" class="c-sec"/><rect y="480" width="200" height="10" class="c-sec"/>` },
+                { id: "mod-b12", name: "Franja Vertical", svg: `<rect x="70" width="60" height="500" class="c-sec"/>` },
+                { id: "mod-b13", name: "Cuadros", svg: `<rect x="100" y="0" width="100" height="125" class="c-sec"/><rect x="0" y="125" width="100" height="125" class="c-sec"/><rect x="100" y="250" width="100" height="125" class="c-sec"/><rect x="0" y="375" width="100" height="125" class="c-sec"/>` },
+                { id: "mod-b14", name: "Mitad Diagonal", svg: `<polygon points="0,250 200,0 200,250" class="c-sec"/><polygon points="0,500 200,250 200,500" class="c-sec"/>` },
+                { id: "mod-b15", name: "Mitad Diagonal 2", svg: `<polygon points="0,0 200,250 0,250" class="c-sec"/><polygon points="0,250 200,500 0,500" class="c-sec"/>` }
+            ],
+            canguros: [
+                { id: "mod-c1", name: "Un Solo Color", svg: `` },
+                { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` }
+            ],
+            camperas: [
+                { id: "mod-camp1", name: "Un Solo Color", svg: `` },
+                { id: "mod-camp2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` },
+                { id: "mod-camp3", name: "Mangas con Franja", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><polygon points="35,65 45,60 40,195 30,197" class="c-primary"/><polygon points="165,65 155,60 160,195 170,197" class="c-primary"/>` }
+            ]
+        };
+        
+        const globalColors = [
+            { hex: "#ffffff", name: "Blanco" },
+            { hex: "#222222", name: "Negro" },
+            { hex: "#e63946", name: "Rojo" },
+            { hex: "#1d3557", name: "Azul Marino" },
+            { hex: "#ffb703", name: "Amarillo" },
+            { hex: "#2a9d8f", name: "Verde" },
+            { hex: "#8338ec", name: "Morado" },
+            { hex: "#a8a9ad", name: "Gris Jaspeado" } 
+        ];
+
+        const catalogData = {
+            "futbol": {
+                id: "futbol", title: "Camisetas de Fútbol", bgImg: "FUTBOLCHICOS.jpg",
+              designs: [
+                    // ===== LÍNEA SUBLIMADAS (22 MODELOS) =====
+                    { id: "f-s01", name: "Modelo Sublimado 01", desc: "Diseño exclusivo de la línea sublimada.", img: "SUBLIMADO1.jpeg", type: "sublimadas" },
+                    { id: "f-s02", name: "Modelo Sublimado 02", desc: "Patrón dinámico con degradado de color.", img: "SUBLIMADO2.jpeg", type: "sublimadas" },
+                    { id: "f-s03", name: "Modelo Sublimado 03", desc: "Diseño moderno con texturas geométricas.", img: "SUBLIMADO3.jpeg", type: "sublimadas" },
+                    { id: "f-s04", name: "Modelo Sublimado 04", desc: "Patrón difuminado ideal para equipos dinámicos.", img: "SUBLIMADO4.jpeg", type: "sublimadas" },
+                    { id: "f-s05", name: "Modelo Sublimado 05", desc: "Estilo rayado con fusión de colores.", img: "SUBLIMADO5.jpeg", type: "sublimadas" },
+                    { id: "f-s06", name: "Modelo Sublimado 06", desc: "Diseño abstracto con colores vibrantes.", img: "SUBLIMADO6.jpeg", type: "sublimadas" },
+                    { id: "f-s07", name: "Modelo Sublimado 07", desc: "Clásico renovado con trama sutil.", img:"SUBLIMADO7.jpeg", type: "sublimadas" },
+                    { id: "f-s08", name: "Modelo Sublimado 08", desc: "Camiseta con diseño de camuflaje deportivo.", img: "SUBLIMADO8.jpeg", type: "sublimadas" },
+                    { id: "f-s09", name: "Modelo Sublimado 09", desc: "Efecto humo en la base con detalles a contratono.", img: "SUBLIMADO9.jpeg", type: "sublimadas" },
+                    { id: "f-s10", name: "Modelo Sublimado 10", desc: "Corte asimétrico con franja digital cruzada.", img: "s10.jpeg", type: "sublimadas" },
+                    { id: "f-s11", name: "Modelo Sublimado 11", desc: "Patrón de panal de abejas de alto rendimiento.", img: "s11.jpeg", type: "sublimadas" },
+                    { id: "f-s12", name: "Modelo Sublimado 12", desc: "Franjas horizontales con efecto brocha.", img: "s12.jpeg", type: "sublimadas" },
+                    { id: "f-s13", name: "Modelo Sublimado 13", desc: "Diseño pixelado retro-moderno.", img: "s13.jpeg", type: "sublimadas" },
+                    { id: "f-s14", name: "Modelo Sublimado 14", desc: "Trama de líneas de velocidad para máximo impacto.", img: "s14.jpeg", type: "sublimadas" },
+                    { id: "f-s15", name: "Modelo Sublimado 15", desc: "Estilo urbano con detalles tipo grafiti.", img: "s15.jpeg", type: "sublimadas" },
+                    { id: "f-s16", name: "Modelo Sublimado 16", desc: "Fusión de texturas orgánicas y deportivas.", img: "s16.jpeg", type: "sublimadas" },
+                    { id: "f-s17", name: "Modelo Sublimado 17", desc: "Diseño de ondas sonoras de alta definición.", img: "s17.jpeg", type: "sublimadas" },
+                    { id: "f-s18", name: "Modelo Sublimado 18", desc: "Camiseta con estrellas o emblemas difuminados.", img: "s18.jpeg", type: "sublimadas" },
+                    { id: "f-s19", name: "Modelo Sublimado 19", desc: "Estilo elegante con patrón de diamante.", img: "s19.jpeg", type: "sublimadas" },
+                    { id: "f-s20", name: "Modelo Sublimado 20", desc: "Patrón de fractales reflectivos simulados.", img: "s20.jpeg", type: "sublimadas" },
+                    { id: "f-s21", name: "Modelo Sublimado 21", desc: "Estilo ciberpunk con colores de alto contraste.", img: "s21.jpeg", type: "sublimadas" },
+                    { id: "f-s22", name: "Modelo Sublimado 22", desc: "Edición especial de lujo para aniversarios.", img: "s22.jpeg", type: "sublimadas" },
+                    { id: "f-s23", name: "Modelo Sublimado 23", desc: "Edición especial de lujo para aniversarios.", img: "s23.jpeg", type: "sublimadas" },
+                    { id: "f-s24", name: "Modelo Sublimado 24", desc: "Edición especial de lujo para aniversarios.", img: "s24.jpeg", type: "sublimadas" },
+
+                    // ===== LÍNEA BÁSICAS (22 MODELOS) =====
+                    { id: "f-b01", name: "Modelo Básico 01", desc: "Remera clásica de la línea básica.", img: "elite1.jpg", type: "basicas" },
+                    { id: "f-b02", name: "Modelo Básico 02", desc: "Corte estándar con terminaciones reforzadas.", img: "elite2.jpeg", type: "basicas" },
+                    { id: "f-b03", name: "Modelo Básico 03", desc: "Remera lisa con detalles a contratono en cuello.", img: "elite3.jpeg", type: "basicas" },
+                    { id: "f-b04", name: "Modelo Básico 04", desc: "Diseño tradicional de un solo color.", img: "elite4.jpeg", type: "basicas" },
+                    { id: "f-b05", name: "Modelo Básico 05", desc: "Corte ajustado con bandas laterales.", img: "elite5.jpeg", type: "basicas" },
+                    { id: "f-b06", name: "Modelo Básico 06", desc: "Remera clásica con puños destacados.", img: "elite6.jpeg", type: "basicas" },
+                    { id: "f-b07", name: "Modelo Básico 07", desc: "Estilo retro con cuello chomba.", img: "elite7.jpeg", type: "basicas" },
+                    { id: "f-b08", name: "Modelo Básico 08", desc: "Diseño bicolor mitad y mitad.", img: "elite8.jpeg", type: "basicas" },
+                    { id: "f-b09", name: "Modelo Básico 09", desc: "Remera básica con hombreras marcadas.", img: "elite9.jpeg", type: "basicas" },
+                    { id: "f-b10", name: "Modelo Básico 10", desc: "Minimalista y elegante para entrenamiento.", img: "elite10.jpeg", type: "basicas" },
+                    { id: "f-b11", name: "Modelo Básico 11", desc: "Clásica con cuello en V profundo.", img: "elite11.jpg", type: "basicas" },
+                    { id: "f-b12", name: "Modelo Básico 12", desc: "Diseño limpio ideal para estampar sponsors grandes.", img: "elite12.jpeg", type: "basicas" },
+                    { id: "f-b13", name: "Modelo Básico 13", desc: "Corte recto tradicional de máxima comodidad.", img: "elite13.jpeg", type: "basicas" },
+                    { id: "f-b14", name: "Modelo Básico 14", desc: "Básica con franja central ancha.", img: "elite14.jpg", type: "basicas" },
+                    { id: "f-b15", name: "Modelo Básico 15", desc: "Diseño liso con mangas de diferente color.", img: "elite15.jpg", type: "basicas" },
+                    { id: "f-b16", name: "Modelo Básico 16", desc: "Estilo tradicional de bastones anchos.", img: "elite16.jpg", type: "basicas" },
+                    { id: "f-b17", name: "Modelo Básico 17", desc: "Línea fina deportiva en el pecho.", img: "elite17.jpg", type: "basicas" },
+                    { id: "f-b18", name: "Modelo Básico 18", desc: "Modelo clásico con ribetes en hombros.", img: "elite18.jpeg", type: "basicas" },
+                    { id: "f-b19", name: "Modelo Básico 19", desc: "Básica premium con tela texturizada ligera.", img: "elite19.jpeg", type: "basicas" },
+                    { id: "f-b20", name: "Modelo Básico 20", desc: "Estilo europeo sin distracciones visuales.", img: "elite20.jpg", type: "basicas" },
+                    { id: "f-b21", name: "Modelo Básico 21", desc: "Cuello redondo con costuras reforzadas.", img: "elite21.jpg", type: "basicas" },
+                    { id: "f-b22", name: "Modelo Básico 22", desc: "Modelo ultra-liviano para altas temperaturas.", img: "elite22.jpg", type: "basicas" }
+                ]
+            },
+            "basquet": {
+                id: "basquet", title: "Camisetas de Básquetbol", bgImg: "BASKETURU.jpg",
+                designs: [
+                    { id: "b-01", name: "Modelo All-Star", desc: "Musculosa clásica de básquet.", img: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800" },
+                    { id: "b-02", name: "Modelo Street", desc: "Diseño urbano para torneos 3x3.", img: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800" }
+                ]
+            },
+            "canguros": {
+                id: "canguros", title: "Canguros", bgImg: "CAMPERONES.jpg",
+                designs: [
+                    { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
+                    { id: "c-02", name: "Canguro Pro", desc: "Abrigo ideal para la temporada de invierno.", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
+                ]
+            },
+            "camperas": {
+                id: "camperas", title: "Camperas Deportivas", bgImg: "CAMPERASFUTBOL.jpg",
+                designs: [
+                    { id: "camp-01", name: "Campera Track", desc: "Diseño deportivo con cierre central y cuello alto.", img: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?q=80&w=800" },
+                    { id: "camp-02", name: "Conjunto Selección", desc: "Conjunto completo de campera y pantalón largo.", img: "https://images.unsplash.com/photo-1512413913400-111111111111?q=80&w=800" }
+                ]
+            }
+        };
+
+        const app = {
+            simState: { 
+                sport: 'futbol', 
+                outfitType: 'remera',
+                activePart: 'remera',
+                cutId: '', cutName: '',
+                size: 'M',
+                remera: {
+                    modelId: 'mod-f1', modelName: 'Sin Diseño', 
+                    cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
+                    textStr: 'SPONSOR', hasLogo: false,
+                    textFont: 'Bebas Neue', textSize: 22, logoSize: 25
+                },
+                short: {
+                    modelId: 'mod-f1', modelName: 'Sin Diseño', 
+                    cPrimary: 'Negro', cSecondary: 'Blanco', cTrim: 'Blanco', cText: 'Blanco',
+                    textStr: 'NUM', hasLogo: false,
+                    textFont: 'Bebas Neue', textSize: 22, logoSize: 25
+                }
+            },
+            futbolState: {
+                tab: 'sublimadas',
+                search: ''
+            },
+            currentSportId: null,
+
+            openWhatsApp: function(message) {
+                const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                const win = window.open(url, '_blank');
+                if (!win || win.closed || typeof win.closed == 'undefined') {
+                    window.location.href = url;
+                }
+            },
+
+            navigate: function(viewId, scrollToId = null) {
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.getElementById(`view-${viewId}`).classList.add('active');
+                if(scrollToId) {
+                    setTimeout(() => { document.getElementById(scrollToId).scrollIntoView({behavior: 'smooth'}); }, 100);
+                } else { window.scrollTo({top: 0, behavior: 'smooth'}); }
+            },
+
+            toggleAcc: function(headerEl) {
+                document.querySelectorAll('.acc-header').forEach(h => h.classList.remove('active'));
+                document.querySelectorAll('.acc-content').forEach(c => c.classList.remove('active'));
+                headerEl.classList.add('active');
+                headerEl.nextElementSibling.classList.add('active');
+            },
+
+            filterGallery: function(event, category) {
+                const btns = document.querySelectorAll('.gallery-section .filter-btn');
+                btns.forEach(b => b.classList.remove('active'));
+                event.target.classList.add('active');
+
+                const items = document.querySelectorAll('.gallery-item');
+                items.forEach(item => {
+                    if(category === 'todos' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            },
+
+            openLightbox: function(imgSrc) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = imgSrc;
+                lightbox.classList.add('active');
+            },
+
+            closeLightbox: function(e) {
+                if(e.target.id === 'lightbox' || e.target.classList.contains('lightbox-close')) {
+                    document.getElementById('lightbox').classList.remove('active');
+                }
+            },
+
+            init: function() {
+                this.buildHomeCategories();
+                this.setInitialColors();
+                this.buildSimulatorColors();
+                this.attachSimulatorEvents();
+            },
+
+            buildHomeCategories: function() {
+                const grid = document.getElementById('home-categories-grid');
+                grid.innerHTML = '';
+                for (const key in catalogData) {
+                    const cat = catalogData[key];
+                    const card = document.createElement('div');
+                    card.className = 'sport-card';
+                    
+                    let titleText = cat.title.replace('Camisetas de ', '');
+                    if (key === 'canguros') titleText = 'Canguros';
+                    if (key === 'camperas') titleText = 'Camperas';
+                    
+                    card.innerHTML = `
+                        <div class="sport-card-bg" style="background-image: url('${cat.bgImg}')"></div>
+                        <h3>${titleText}</h3><span>Ver Diseños ➔</span>
+                    `;
+                    card.onclick = () => app.openCategory(key);
+                    grid.appendChild(card);
+                }
+            },
+
+            openSimulator: function(sportId) {
+                this.setSimulatorSport(sportId);
+                const bcCat = document.getElementById('sim-breadcrumb-cat');
+                bcCat.innerText = catalogData[sportId].title;
+                bcCat.onclick = () => app.openCategory(sportId);
+                this.navigate('simulator');
+            },
+
+            setInitialColors: function() {
+                const wrapper = document.getElementById('sim-wrapper');
+                const parts = ['remera', 'short'];
+                parts.forEach(part => {
+                    wrapper.style.setProperty(`--sim-primary-${part}`, '#222222');
+                    wrapper.style.setProperty(`--sim-sec-${part}`, '#ffffff');
+                    wrapper.style.setProperty(`--sim-trim-${part}`, '#ffffff');
+                    wrapper.style.setProperty(`--sim-text-${part}`, '#ffffff');
+                });
+            },
+
+            setSimulatorSport: function(sportId) {
+                this.simState.sport = sportId;
+                
+                this.simState.outfitType = 'remera';
+                this.simState.activePart = 'remera';
+
+                const isCanguro = sportId === 'canguros';
+                const isCampera = sportId === 'camperas';
+                const isLongOutfit = isCanguro || isCampera;
+
+                document.getElementById('btn-outfit-single').innerText = isCampera ? 'Solo Campera' : (isCanguro ? 'Solo Canguro' : 'Solo Remera');
+                document.getElementById('btn-outfit-set').innerText = isLongOutfit ? 'Conjunto Largo' : 'Remera + Short';
+                
+                document.getElementById('btn-toggle-remera').innerText = isCampera ? '🧥 Editar Campera' : (isCanguro ? '🧥 Editar Canguro' : '👕 Editar Remera');
+                document.getElementById('btn-toggle-short').innerText = isLongOutfit ? '👖 Editar Pantalón' : '🩳 Editar Short';
+                
+                document.getElementById('lbl-acc-molde-tipo').innerText = isCampera ? '(Aplica a Campera)' : (isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)');
+                document.getElementById('lbl-molde-desc').innerText = isLongOutfit ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
+
+                const moldeSection = document.getElementById('acc-item-molde');
+                if (isLongOutfit) {
+                    moldeSection.style.display = 'none';
+                } else {
+                    moldeSection.style.display = 'block';
+                }
+
+                const acc1 = document.querySelectorAll('.acc-item')[0];
+                if(acc1) {
+                    const btns = acc1.querySelectorAll('.model-btn');
+                    if(btns.length > 0) {
+                        btns.forEach(b => b.classList.remove('active'));
+                        document.getElementById('btn-outfit-single').classList.add('active'); 
+                    }
+                }
+                
+                document.getElementById('sim-garment-editor-toggle').style.display = 'none';
+                document.getElementById('sim-group-short').style.display = 'none';
+                
+                const cutsGrid = document.getElementById('sim-cuts-grid');
+                cutsGrid.innerHTML = '';
+                const cuts = physicalCuts[sportId];
+                
+                cuts.forEach((cut, index) => {
+                    const btn = document.createElement('div');
+                    btn.className = `cut-btn ${index === 0 ? 'active' : ''}`;
+                    btn.innerText = cut.name;
+                    btn.onclick = () => this.setSimulatorCut(cut, btn);
+                    cutsGrid.appendChild(btn);
+                });
+                this.setSimulatorCut(cuts[0], cutsGrid.firstChild);
+
+                const modelsGrid = document.getElementById('sim-models-grid');
+                modelsGrid.innerHTML = '';
+                const models = designPatterns[sportId];
+                
+                models.forEach((mod, index) => {
+                    const btn = document.createElement('div');
+                    btn.className = `model-btn ${index === 0 ? 'active' : ''}`;
+                    btn.innerText = mod.name;
+                    btn.onclick = () => this.setSimulatorModel(mod, btn);
+                    modelsGrid.appendChild(btn);
+                });
+                this.setSimulatorModel(models[0], modelsGrid.firstChild);
+
+                document.getElementById('sim-logo-remera').setAttribute('x', '125');
+                document.getElementById('sim-logo-remera').setAttribute('y', '45');
+                document.getElementById('sim-text-remera').setAttribute('x', '100');
+                document.getElementById('sim-text-remera').setAttribute('y', '125');
+                
+                if(isLongOutfit) {
+                    document.getElementById('sim-logo-short').setAttribute('x', '60');
+                    document.getElementById('sim-logo-short').setAttribute('y', '280'); 
+                    document.getElementById('sim-text-short').setAttribute('x', '140');
+                    document.getElementById('sim-text-short').setAttribute('y', '380');
+                } else {
+                    document.getElementById('sim-logo-short').setAttribute('x', '60');
+                    document.getElementById('sim-logo-short').setAttribute('y', '320');
+                    document.getElementById('sim-text-short').setAttribute('x', '140');
+                    document.getElementById('sim-text-short').setAttribute('y', '335');
+                }
+                
+                this.setActiveGarment('remera');
+            },
+
+            setOutfitType: function(type, btnElement) {
+                this.simState.outfitType = type;
+                
+                if (btnElement) {
+                    btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                    btnElement.classList.add('active');
+                }
+
+                const editorToggle = document.getElementById('sim-garment-editor-toggle');
+                if (type === 'conjunto') {
+                    editorToggle.style.display = 'block';
+                    document.getElementById('sim-group-short').style.display = 'inline';
+                    
+                    const shortModel = designPatterns[this.simState.sport].find(m => m.id === this.simState.short.modelId) || designPatterns[this.simState.sport][0];
+                    document.getElementById('sim-design-short').innerHTML = shortModel.svg;
+                } else {
+                    editorToggle.style.display = 'none';
+                    document.getElementById('sim-group-short').style.display = 'none';
+                    this.setActiveGarment('remera', document.getElementById('btn-toggle-remera'));
+                }
+                
+                this.updateSimulatorShapes();
+            },
+
+            setActiveGarment: function(part, btnElement) {
+                this.simState.activePart = part;
+                
+                if (btnElement) {
+                    btnElement.parentElement.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+                    btnElement.classList.add('active');
+                } else {
+                    document.getElementById('btn-toggle-remera').classList.remove('active');
+                    document.getElementById('btn-toggle-short').classList.remove('active');
+                    document.getElementById(`btn-toggle-${part}`).classList.add('active');
+                }
+
+                const moldeSection = document.getElementById('acc-item-molde');
+                const isLongOutfit = (this.simState.sport === 'canguros' || this.simState.sport === 'camperas');
+                const isMoldeHidden = (isLongOutfit || part === 'short');
+                
+                if (isMoldeHidden) {
+                    moldeSection.style.display = 'none';
+                } else {
+                    moldeSection.style.display = 'block';
+                }
+
+                let step = 2;
+                if (!isMoldeHidden) {
+                    document.getElementById('lbl-acc-molde-num').innerText = step + ".";
+                    step++;
+                }
+                document.getElementById('lbl-acc-dis-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-esc-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-txt-num').innerText = step + "."; step++;
+                document.getElementById('lbl-acc-tal-num').innerText = step + ".";
+
+                this.syncUI();
+            },
+
+            syncUI: function() {
+                const partState = this.simState[this.simState.activePart];
+
+                document.querySelectorAll('#sim-models-grid .model-btn').forEach(b => {
+                    if (b.innerText === partState.modelName) b.classList.add('active');
+                    else b.classList.remove('active');
+                });
+
+                const syncColor = (id, prop) => {
+                    const swatches = document.getElementById(id).querySelectorAll('.color-swatch');
+                    swatches.forEach(sw => {
+                        if (sw.dataset.name === partState[prop]) sw.classList.add('active');
+                        else sw.classList.remove('active');
+                    });
+                };
+                syncColor('sim-colors-primary', 'cPrimary');
+                syncColor('sim-colors-secondary', 'cSecondary');
+                syncColor('sim-colors-trim', 'cTrim');
+                syncColor('sim-colors-text', 'cText');
+
+                document.getElementById('sim-text-input').value = partState.textStr;
+                
+                const fontSelect = document.getElementById('sim-font-family');
+                for (let i = 0; i < fontSelect.options.length; i++) {
+                    if (fontSelect.options[i].text === partState.textFont) {
+                        fontSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+                
+                document.getElementById('sim-text-size').value = partState.textSize;
+                document.getElementById('sim-logo-size').value = partState.logoSize;
+            },
+
+            setSimulatorCut: function(cutObj, btnElement) {
+                this.simState.cutId = cutObj.id;
+                this.simState.cutName = cutObj.name;
+                
+                document.querySelectorAll('.cut-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+                
+                this.updateSimulatorShapes();
+            },
+
+            updateSimulatorShapes: function() {
+                const cuts = physicalCuts[this.simState.sport];
+                const cutObj = cuts.find(c => c.id === this.simState.cutId) || cuts[0];
+
+                let baseD_remera = cutObj.base;
+                let trimD_remera = cutObj.trim;
+                
+                document.getElementById('sim-clip-path-remera').setAttribute('d', baseD_remera);
+                document.getElementById('sim-base-remera').setAttribute('d', baseD_remera);
+                document.getElementById('sim-trim-remera').setAttribute('d', trimD_remera);
+
+                let combinedBase = baseD_remera;
+
+                if (this.simState.outfitType === 'conjunto') {
+                    const shorts = shortsData[this.simState.sport];
+                    if (shorts) {
+                        document.getElementById('sim-clip-path-short').setAttribute('d', shorts.base);
+                        document.getElementById('sim-base-short').setAttribute('d', shorts.base);
+                        document.getElementById('sim-trim-short').setAttribute('d', shorts.trim);
+                        combinedBase += ' ' + shorts.base;
+                    }
+                    
+                    if(this.simState.sport === 'canguros' || this.simState.sport === 'camperas') {
+                        document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 500');
+                    } else {
+                        document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 450');
+                    }
+                } else {
+                    document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 250');
+                }
+
+                document.getElementById('sim-shading-shape').setAttribute('d', combinedBase);
+                document.getElementById('sim-shadows-shape').setAttribute('d', combinedBase);
+            },
+
+            setSimulatorModel: function(modelObj, btnElement) {
+                const part = this.simState.activePart;
+                this.simState[part].modelId = modelObj.id;
+                this.simState[part].modelName = modelObj.name;
+                
+                document.querySelectorAll('#sim-models-grid .model-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+                
+                document.getElementById(`sim-design-${part}`).innerHTML = modelObj.svg;
+            },
+
+            setSimulatorSize: function(sizeStr, btnElement) {
+                this.simState.size = sizeStr;
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                if(btnElement) btnElement.classList.add('active');
+            },
+
+            buildSimulatorColors: function() {
+                const createRow = (id, targetVarBase, stateKey, defColorHex) => {
+                    const container = document.getElementById(id);
+                    container.innerHTML = '';
+                    globalColors.forEach(color => {
+                        const sw = document.createElement('div');
+                        sw.className = 'color-swatch';
+                        if (color.hex === defColorHex) sw.classList.add('active');
+                        sw.style.backgroundColor = color.hex;
+                        sw.dataset.name = color.name;
+                        sw.onclick = () => {
+                            container.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                            sw.classList.add('active');
+                            
+                            const part = this.simState.activePart;
+                            const targetVar = `${targetVarBase}-${part}`;
+                            document.getElementById('sim-wrapper').style.setProperty(targetVar, color.hex);
+                            this.simState[part][stateKey] = color.name;
+                        };
+                        container.appendChild(sw);
+                    });
+                };
+
+                createRow('sim-colors-primary', '--sim-primary', 'cPrimary', '#222222');
+                createRow('sim-colors-secondary', '--sim-sec', 'cSecondary', '#ffffff');
+                createRow('sim-colors-trim', '--sim-trim', 'cTrim', '#ffffff');
+                createRow('sim-colors-text', '--sim-text', 'cText', '#ffffff');
+            },
+
+            attachSimulatorEvents: function() {
+                const textInput = document.getElementById('sim-text-input');
+                textInput.addEventListener('input', (e) => {
+                    const val = e.target.value.toUpperCase();
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).textContent = val;
+                    this.simState[part].textStr = val;
+                });
+
+                const fontSelect = document.getElementById('sim-font-family');
+                fontSelect.addEventListener('change', (e) => {
+                    const val = e.target.value;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).setAttribute('font-family', val);
+                    this.simState[part].textFont = e.target.options[e.target.selectedIndex].text;
+                });
+
+                const sizeRange = document.getElementById('sim-text-size');
+                sizeRange.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-text-${part}`).setAttribute('font-size', val);
+                    this.simState[part].textSize = val;
+                });
+
+                const logoInput = document.getElementById('sim-logo-upload');
+                logoInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if(file) {
+                        const reader = new FileReader();
+                        reader.onload = (f) => {
+                            const part = this.simState.activePart;
+                            document.getElementById(`sim-logo-${part}`).setAttribute('href', f.target.result);
+                            this.simState[part].hasLogo = true;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                const logoSize = document.getElementById('sim-logo-size');
+                logoSize.addEventListener('input', (e) => {
+                    const val = e.target.value;
+                    const part = this.simState.activePart;
+                    document.getElementById(`sim-logo-${part}`).setAttribute('width', val);
+                    document.getElementById(`sim-logo-${part}`).setAttribute('height', val);
+                    this.simState[part].logoSize = val;
+                });
+
+                const svgElement = document.querySelector('.svg-container svg');
+                let draggingElement = null;
+                let startPt = svgElement.createSVGPoint();
+
+                function getMousePosition(evt) {
+                    let CTM = svgElement.getScreenCTM();
+                    let clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+                    let clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+                    startPt.x = clientX;
+                    startPt.y = clientY;
+                    return startPt.matrixTransform(CTM.inverse());
+                }
+
+                const startDrag = (evt) => {
+                    const id = evt.target.id;
+                    if (['sim-text-remera', 'sim-logo-remera', 'sim-text-short', 'sim-logo-short'].includes(id)) {
+                        draggingElement = evt.target;
+                        let coord = getMousePosition(evt);
+                        const x = parseFloat(draggingElement.getAttribute('x')) || 0;
+                        const y = parseFloat(draggingElement.getAttribute('y')) || 0;
+                        draggingElement.dataset.offsetX = coord.x - x;
+                        draggingElement.dataset.offsetY = coord.y - y;
+                    }
+                };
+
+                const drag = (evt) => {
+                    if (draggingElement) {
+                        evt.preventDefault();
+                        let coord = getMousePosition(evt);
+                        let newX = coord.x - parseFloat(draggingElement.dataset.offsetX);
+                        let newY = coord.y - parseFloat(draggingElement.dataset.offsetY);
+                        draggingElement.setAttribute('x', newX);
+                        draggingElement.setAttribute('y', newY);
+                    }
+                };
+
+                const endDrag = () => {
+                    draggingElement = null;
+                };
+
+                const elementsToDrag = ['sim-text-remera', 'sim-logo-remera', 'sim-text-short', 'sim-logo-short'];
+                elementsToDrag.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) {
+                        el.addEventListener('mousedown', startDrag);
+                        el.addEventListener('touchstart', startDrag, {passive: false});
+                    }
+                });
+                
+                svgElement.addEventListener('mousemove', drag);
+                svgElement.addEventListener('touchmove', drag, {passive: false});
+                
+                window.addEventListener('mouseup', endDrag);
+                window.addEventListener('touchend', endDrag);
+
+                document.getElementById('btn-sim-consult').onclick = async () => {
+                    const btn = document.getElementById('btn-sim-consult');
+                    const originalText = btn.innerText;
+                    btn.innerText = "Generando diseño...";
+                    btn.disabled = true;
+
+                    const targetToExport = document.querySelector('.sim-viewer-col');
+                    const helperText = document.getElementById('sim-helper-text');
+                    const svgContainer = targetToExport.querySelector('.svg-container');
+                    const actualSvg = targetToExport.querySelector('svg');
+
+                    if (helperText) helperText.style.display = 'none';
+                    
+                    const originalAnimation = svgContainer.style.animation;
+                    svgContainer.style.animation = 'none';
+
+                    const originalFilter = actualSvg.getAttribute('filter');
+                    if (originalFilter) actualSvg.removeAttribute('filter');
+
+                    const transitioningElements = actualSvg.querySelectorAll('[style*="transition"]');
+                    const originalStyles = [];
+                    transitioningElements.forEach(el => {
+                        originalStyles.push(el.getAttribute('style'));
+                        el.style.transition = 'none';
+                    });
+
+                    try {
+                        await new Promise(resolve => setTimeout(resolve, 150));
+
+                        const dataUrl = await htmlToImage.toPng(targetToExport, { 
+                            backgroundColor: '#080808', 
+                            pixelRatio: 2,
+                            cacheBust: true
+                        });
+
+                        svgContainer.style.animation = originalAnimation;
+                        if (helperText) helperText.style.display = '';
+                        if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
+                        transitioningElements.forEach((el, index) => {
+                            if(originalStyles[index]) {
+                                el.setAttribute('style', originalStyles[index]);
+                            }
+                        });
+
+                        const link = document.createElement('a');
+                        link.download = `Diseño-Elite-${Date.now()}.png`;
+                        link.href = dataUrl;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+
+                        setTimeout(() => {
+                            const s = app.simState;
+                            const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
+                            const isCang = s.sport === 'canguros';
+                            const isCamp = s.sport === 'camperas';
+                            const isLong = isCang || isCamp;
+                            const topName = isCamp ? 'CAMPERA' : (isCang ? 'CANGURO' : 'REMERA');
+                            const bottomName = isLong ? 'PANTALÓN' : 'SHORT';
+                            
+                            let msg = `¡Hola Elite Indumentaria! Quiero consultar por este diseño personalizado.%0A%0A⚠️ *Te enviaré la imagen del diseño que acabo de guardar en el siguiente mensaje.*%0A%0A`;
+                            
+                            if (s.outfitType === 'conjunto') {
+                                msg += `*Tipo de Conjunto:* ${isLong ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}%0A%0A`;
+                                msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary} (Fondo), ${s.short.cSecondary} (Secundario), ${s.short.cTrim} (Detalles)%0A*Texto:* "${s.short.textStr}" (Color: ${s.short.cText}, Fuente: ${s.short.textFont})%0A*Logo:* ${s.short.hasLogo ? 'Sí' : 'No'}`;
+                            } else {
+                                msg += `*Tipo de Conjunto:* ${isCamp ? 'Solo Campera' : (isCang ? 'Solo Canguro' : 'Solo Remera')}%0A*Deporte:* ${sportName}%0A*Molde/Corte:* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}`;
+                            }
+                            
+                            const proceed = confirm("✅ IMAGEN DEL DISEÑO GUARDADA\n\nPrimero hemos guardado la foto de tu diseño en tu dispositivo/galería.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez que se abra el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
+                            
+                            if (proceed) {
+                                app.openWhatsApp(msg);
+                            }
+                        }, 500);
+
+                    } catch (err) {
+                        console.error("Error crítico al generar imagen:", err);
+                        
+                        svgContainer.style.animation = originalAnimation;
+                        if (helperText) helperText.style.display = '';
+                        if (originalFilter) actualSvg.setAttribute('filter', originalFilter);
+                        transitioningElements.forEach((el, index) => {
+                            if(originalStyles[index]) el.setAttribute('style', originalStyles[index]);
+                        });
+                        
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                        
+                        alert("Hubo un problema de memoria en el navegador para generar la imagen de alta calidad automáticamente.\n\n¡Sugerencia: Tómale una captura de pantalla al diseño para adjuntarla manualmente en WhatsApp!");
+
+                        const s = app.simState;
+                        const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
+                        const isCang = s.sport === 'canguros';
+                        const isCamp = s.sport === 'camperas';
+                        const isLong = isCang || isCamp;
+                        const topName = isCamp ? 'CAMPERA' : (isCang ? 'CANGURO' : 'REMERA');
+                        const bottomName = isLong ? 'PANTALÓN' : 'SHORT';
+                        
+                        let msg = `¡Hola Elite Indumentaria! Armé un diseño en el simulador y quiero consultarte (Mi dispositivo no pudo descargar la imagen, pero te paso los detalles).%0A%0A`;
+                        
+                        if (s.outfitType === 'conjunto') {
+                            msg += `*Tipo de Conjunto:* ${isLong ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                            msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"%0A%0A`;
+                            msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary}, ${s.short.cSecondary}, ${s.short.cTrim}%0A*Texto:* "${s.short.textStr}"`;
+                        } else {
+                            msg += `*Tipo:* ${isCamp ? 'Solo Campera' : (isCang ? 'Solo Canguro' : 'Solo Remera')}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"`;
+                        }
+                        
+                        app.openWhatsApp(msg);
+                    }
+                };
+
+                document.getElementById('btn-sim-custom').onclick = () => {
+                    const sportName = catalogData[app.simState.sport].title;
+                    const msg = `¡Hola! Tengo mi propio diseño para ${sportName} y quisiera consultar para realizarlo con ustedes.`;
+                    app.openWhatsApp(msg);
+                };
+            },
+
+            openCategory: function(sportId) {
+                const cat = catalogData[sportId];
+                if(!cat) return;
+                
+                this.currentSportId = sportId;
+                
+                document.getElementById('cat-breadcrumb-name').innerText = cat.title;
+                document.getElementById('cat-title').innerHTML = `Línea <span>${cat.title.replace('Camisetas de ', '')}</span>`;
+                
+                const filterSection = document.getElementById('futbol-filters');
+                
+                if (sportId === 'futbol') {
+                    filterSection.style.display = 'block';
+                    this.futbolState.search = '';
+                    document.getElementById('futbol-search').value = '';
+                } else {
+                    filterSection.style.display = 'none';
+                }
+
+                this.renderCatalogGrid(sportId);
+
+                this.navigate('category');
+            },
+
+            renderCatalogGrid: function(sportId) {
+                const cat = catalogData[sportId];
+                const grid = document.getElementById('catalog-grid');
+                grid.innerHTML = '';
+
+                let designsToRender = cat.designs;
+
+                if (sportId === 'futbol') {
+                    const tab = this.futbolState.tab;
+                    const search = this.futbolState.search.toLowerCase();
+                    
+                    designsToRender = designsToRender.filter(d => d.type === tab);
+                    
+                    if (search) {
+                        designsToRender = designsToRender.filter(d => 
+                            d.name.toLowerCase().includes(search) || 
+                            d.desc.toLowerCase().includes(search)
+                        );
+                    }
+                }
+
+                designsToRender.forEach(design => {
+                    const dCard = document.createElement('div');
+                    dCard.className = 'design-card';
+                    dCard.onclick = () => app.openDetail(sportId, design.id);
+                    
+                    // Se agrega manejo de fallos para las imágenes genéricas (onError)
+                    dCard.innerHTML = `
+                        <div class="design-img-wrapper"><img src="${design.img}" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800'" alt="${design.name}"></div>
+                        <div class="design-info"><h4>${design.name}</h4><p>${design.desc}</p><div class="design-btn">Ver Diseño ➔</div></div>
+                    `;
+                    grid.appendChild(dCard);
+                });
+            },
+
+            filterFutbol: function(tab) {
+                this.futbolState.tab = tab;
+                document.getElementById('btn-sublimadas').classList.remove('active');
+                document.getElementById('btn-basicas').classList.remove('active');
+                document.getElementById('btn-' + tab).classList.add('active');
+                
+                this.renderCatalogGrid('futbol');
+            },
+
+            searchFutbol: function(query) {
+                this.futbolState.search = query;
+                this.renderCatalogGrid('futbol');
+            },
+
+            openDetail: function(sportId, designId) {
+                const cat = catalogData[sportId];
+                const design = cat.designs.find(d => d.id === designId);
+                if(!design) return;
+
+                const bcCat = document.getElementById('det-breadcrumb-cat');
+                bcCat.innerText = cat.title;
+                bcCat.onclick = () => app.openCategory(sportId); 
+                document.getElementById('det-breadcrumb-name').innerText = design.name;
+
+                // Soporte para fallo en carga de imagen en el Detalle
+                const imgElement = document.getElementById('det-img');
+                imgElement.onerror = () => imgElement.src = 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800';
+                imgElement.src = design.img;
+                
+                document.getElementById('det-tag').innerText = cat.title;
+                document.getElementById('det-title').innerText = design.name;
+                document.getElementById('det-desc').innerText = design.desc;
+
+                document.getElementById('btn-consultar-modelo').onclick = async () => {
+                    const btn = document.getElementById('btn-consultar-modelo');
+                    const originalText = btn.innerText;
+                    btn.innerText = "Guardando imagen...";
+                    btn.disabled = true;
+
+                    try {
+                        // Respaldo para el link en caso de error original
+                        const imgUrl = imgElement.src;
+                        const response = await fetch(imgUrl);
+                        const blob = await response.blob();
+                        const url = window.URL.createObjectURL(blob);
+                        
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `Elite-${design.name.replace(/\s+/g, '-')}.jpg`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+
+                        setTimeout(() => {
+                            const msg = `¡Hola Elite Indumentaria! Estoy interesado en el diseño de catálogo: *${design.name}* (Línea: ${cat.title}).%0A%0A⚠️ *Te enviaré la foto del modelo que acabo de guardar en el siguiente mensaje para que sepas cuál es.*%0A%0AQuisiera saber presupuesto y cómo adaptarlo a mi club.`;
+                            
+                            const proceed = confirm("✅ IMAGEN DEL MODELO GUARDADA\n\nHemos guardado la foto de este diseño en la galería/descargas de tu dispositivo.\n\nAl presionar 'Aceptar' abriremos WhatsApp.\n\n⚠️ RECUERDA: Una vez en el chat, deberás enviar MANUALMENTE la imagen que se acaba de descargar.\n\n¿Deseas continuar a WhatsApp ahora?");
+                            
+                            if (proceed) {
+                                app.openWhatsApp(msg);
+                            }
+                            
+                            btn.innerText = originalText;
+                            btn.disabled = false;
+                        }, 500);
+
+                    } catch (err) {
+                        console.error("Error al descargar imagen estática:", err);
+                        const msg = `¡Hola Elite Indumentaria! Estoy interesado en el diseño de catálogo: *${design.name}* (Línea: ${cat.title}).%0A%0AQuisiera saber presupuesto y cómo adaptarlo a mi club.`;
+                        app.openWhatsApp(msg);
+                        btn.innerText = originalText;
+                        btn.disabled = false;
+                    }
+                };
+
+                this.navigate('detail');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+
+    </script>
+</body>
+</html>
