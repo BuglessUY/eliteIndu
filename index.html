@@ -33,8 +33,9 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
         body { font-family: var(--font-body); background-color: var(--bg-dark); color: var(--text-light); line-height: 1.6; overflow-x: hidden; font-weight: 300; }
+        h1, h2, h3, h4, p { overflow-wrap: break-word; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         img { max-width: 100%; display: block; }
@@ -74,7 +75,7 @@
         .btn-primary-outline { background-color: transparent; border: 1px solid var(--primary); color: var(--primary); }
         .btn-primary-outline:hover { background-color: var(--primary); color: #000; }
 
-        .breadcrumb { display: flex; gap: 10px; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 30px; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--text-gray); margin-bottom: 30px; padding-top: 20px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
         .breadcrumb a { cursor: pointer; transition: color 0.3s; }
         .breadcrumb a:hover { color: var(--primary); }
         .breadcrumb span { color: var(--primary); }
@@ -84,28 +85,58 @@
            ========================================== */
         header { background-color: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
         .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
-        .logo { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; letter-spacing: 2px; cursor: pointer; color: var(--text-light); }
+        .logo { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; letter-spacing: 2px; cursor: pointer; color: var(--text-light); z-index: 1001; }
         .logo span { color: var(--primary); font-weight: bold; }
         .nav-links { display: flex; gap: 40px; }
         .nav-links a { font-family: var(--font-body); text-transform: uppercase; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px; color: var(--text-gray); transition: color 0.3s; cursor: pointer; position: relative; }
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 1px; background-color: var(--primary); transition: width 0.3s ease; }
         .nav-links a:hover { color: var(--text-light); }
         .nav-links a:hover::after { width: 100%; }
-        @media (max-width: 768px) { .nav-links { display: none; } }
 
         /* ==========================================
-           VISTA INICIAL: HERO INMERSIVO
+           VISTA INICIAL: HERO INMERSIVO CON CARRUSEL
            ========================================== */
         .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: -80px; padding-top: 80px;}
-        /* SE ACTUALIZÓ EL FONDO DEL HERO PARA USAR LA FOTOGRAFÍA DE ACCIÓN */
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.9) 100%), url('BASKETPARTIDOIMPORTANTEFOTO.jpg') center/cover; z-index: 1; }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 20px; animation: fadeInUp 1s ease 0.2s forwards; opacity: 0; transform: translateY(30px); }
+        
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-color: var(--bg-dark); overflow: hidden; }
+        
+        /* Slides del Carrusel */
+        .hero-slide {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center 20%;
+            opacity: 0;
+            animation: heroCrossfade 25s linear infinite;
+        }
+        
+        /* Definición de fotografías reutilizadas */
+        .slide-1 { background-image: url('FUTBOLPARTIDOUNO.jpeg'); animation-delay: 0s; }
+        .slide-2 { background-image: url('FUTBOLCHICOS.jpg'); animation-delay: 5s; }
+        .slide-3 { background-image: url('BASKETBALLCHICAS.jpg'); background-position: center 15%; animation-delay: 10s; }
+        .slide-4 { background-image: url('CAMPERONES.jpg'); animation-delay: 15s; }
+        .slide-5 { background-image: url('BASKETPARTIDOIMPORTANTEFOTO.jpeg'); animation-delay: 20s; }
+
+        /* Capa oscura superpuesta para asegurar legibilidad */
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.5) 50%, rgba(5,5,5,0.9) 100%);
+            z-index: 2; pointer-events: none;
+        }
+
+        /* Animación suave Fade + Ken Burns (Zoom) */
+        @keyframes heroCrossfade {
+            0%   { opacity: 0; transform: scale(1); }
+            4%   { opacity: 1; }      /* Aparece en 1 segundo */
+            20%  { opacity: 1; }      /* Se mantiene hasta el segundo 5 */
+            24%  { opacity: 0; transform: scale(1.08); } /* Se desvanece suavemente mientras se acerca */
+            100% { opacity: 0; transform: scale(1.08); }
+        }
+
+        .hero-content { position: relative; z-index: 3; text-align: center; max-width: 800px; padding: 0 20px; animation: fadeInUp 1s ease 0.2s forwards; opacity: 0; transform: translateY(30px); }
         .hero-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); background: rgba(0,0,0,0.3);}
         .hero-content h1 { font-family: var(--font-display); font-size: 6rem; line-height: 0.9; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gray); }
         .hero-content h1 span { color: var(--primary); }
         .hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
         .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
-        @media (max-width: 768px) { .hero-content h1 { font-size: 4rem; } }
 
         /* ==========================================
            SECCIÓN: SOBRE NOSOTROS
@@ -115,7 +146,6 @@
         .about-text h2 { text-align: left; margin-bottom: 20px; }
         .about-text p { color: var(--text-gray); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.8; }
         .about-image { position: relative; }
-        /* DISEÑO MEJORADO PARA LA IMAGEN DE SOBRE NOSOTROS */
         .about-image img { border-radius: 12px; filter: grayscale(40%); transition: var(--transition); width: 100%; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .about-image:hover img { filter: grayscale(0%); transform: translateY(-5px); }
         .about-image::after { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); z-index: -1; transition: var(--transition); border-radius: 12px; }
@@ -123,7 +153,7 @@
         @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } .about-text h2 { text-align: center; } }
 
         /* ==========================================
-           SECCIÓN: PROCESO / CÓMO TRABAJAMOS / PROMOCIONES
+           SECCIÓN: PROCESO / PROMOCIONES
            ========================================== */
         .process-section { background-color: var(--bg-panel); padding: 100px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
@@ -135,33 +165,21 @@
         .process-step p { color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 2; }
 
         /* ==========================================
-           CATEGORÍAS DE DEPORTES (DISEÑO PREMIUM RENOVADO)
+           CATEGORÍAS DE DEPORTES
            ========================================== */
         .sports-section { padding: 120px 0; }
         .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .sport-card { 
-            height: 380px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            cursor: pointer; position: relative; overflow: hidden; 
-            border-radius: 12px; border: 1px solid var(--border-color); 
-            background-color: var(--bg-panel);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: var(--transition);
+            height: 380px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            cursor: pointer; position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--border-color); 
+            background-color: var(--bg-panel); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: var(--transition);
         }
-        .sport-card:hover { 
-            border-color: var(--primary); 
-            transform: translateY(-5px); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
-        }
+        .sport-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
         .sport-card-bg {
-            position: absolute; inset: 0; 
-            background-size: cover; background-position: center 15%; /* Mantiene las cabezas/rostros a la vista */
-            transition: transform 0.8s ease, filter 0.8s ease; 
-            filter: grayscale(60%) brightness(0.6); z-index: 1;
+            position: absolute; inset: 0; background-size: cover; background-position: center 15%; 
+            transition: transform 0.8s ease, filter 0.8s ease; filter: grayscale(60%) brightness(0.6); z-index: 1;
         }
-        .sport-card:hover .sport-card-bg {
-            transform: scale(1.08); filter: grayscale(0%) brightness(0.9);
-        }
+        .sport-card:hover .sport-card-bg { transform: scale(1.08); filter: grayscale(0%) brightness(0.9); }
         .sport-card::after { 
             content: ''; position: absolute; inset: 0; 
             background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); 
@@ -169,13 +187,10 @@
         }
         .sport-card h3 { 
             font-family: var(--font-display); font-size: 3.2rem; text-transform: uppercase; 
-            z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
-            color: var(--text-light); text-align: center;
+            z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); color: var(--text-light); text-align: center;
             transition: transform 0.4s ease;
         }
-        .sport-card:hover h3 {
-            transform: translateY(-10px);
-        }
+        .sport-card:hover h3 { transform: translateY(-10px); }
         .sport-card span { 
             color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; 
             letter-spacing: 2px; z-index: 3; opacity: 0; transition: var(--transition); 
@@ -200,7 +215,6 @@
         .gallery-overlay span { color: var(--primary); font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); text-shadow: 0 5px 15px rgba(0,0,0,0.8);}
         .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
 
-        /* LIGHTBOX PARA GALERÍA */
         .lightbox { position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .lightbox.active { display: flex; opacity: 1; }
         .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.8); border-radius: 4px; }
@@ -222,7 +236,6 @@
         .tech-image-wrapper::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; border-bottom: 2px solid var(--primary); border-right: 2px solid var(--primary); border-radius: 0 0 12px 0;}
         .tech-image-wrapper img { width: 100%; border-radius: 8px; filter: grayscale(40%); transition: var(--transition); position: relative; z-index: 2; box-shadow: 0 15px 40px rgba(0,0,0,0.5);}
         .tech-image-wrapper:hover img { filter: grayscale(0%); transform: scale(1.02); }
-        @media (max-width: 768px) { .tech-grid { grid-template-columns: 1fr; } }
 
         /* ==========================================
            CTA FINAL BANNER
@@ -240,7 +253,6 @@
         .custom-design-banner { background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 4px solid var(--primary); padding: 50px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 8px;}
         .custom-design-banner h3 { font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
         .custom-design-banner p { color: var(--text-gray); font-size: 1rem; max-width: 600px; }
-        @media (max-width: 900px) { .custom-design-banner { flex-direction: column; text-align: center; gap: 30px; } }
 
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-bottom: 100px;}
         .design-card { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; overflow: hidden;}
@@ -276,7 +288,6 @@
         .action-box h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; color: var(--text-light); }
         .action-box p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 30px; }
         .btn-full { width: 100%; margin-bottom: 20px; }
-        @media (max-width: 900px) { .detail-layout { grid-template-columns: 1fr; gap: 50px; } }
 
         /* ==========================================
            SIMULADOR
@@ -285,12 +296,10 @@
         .sim-layout { display: flex; gap: 50px; align-items: flex-start; }
         .sim-viewer-col { flex: 1; display: flex; justify-content: center; align-items: center; position: sticky; top: 120px; background: #080808; border: 1px solid var(--border-color); border-radius: 8px; padding: 40px 0; }
         .sim-controls-col { flex: 1; display: flex; flex-direction: column; gap: 15px; width: 100%; }
-        @media (max-width: 900px) { .sim-layout { flex-direction: column; } .sim-viewer-col { position: relative; top: 0; width: 100%; } .configurator-ui { padding: 20px;} }
 
         .svg-container { height: 450px; width: 100%; animation: float 6s ease-in-out infinite; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         
-        /* Acordeón para Controles del Simulador */
         .acc-item { border: 1px solid var(--border-color); overflow: hidden; background: var(--bg-dark); transition: var(--transition); border-radius: 6px;}
         .acc-header { background: var(--bg-panel); padding: 20px 25px; font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; letter-spacing: 1px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); border-bottom: 1px solid transparent; color: var(--text-light); }
         .acc-header:hover { background: #1a1a1a; color: var(--primary); }
@@ -317,8 +326,8 @@
         .file-upload-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
         .file-upload-btn input[type="file"] { display: none; }
 
-        /* Estilo para elementos arrastrables en el SVG */
-        #sim-text-remera, #sim-logo-remera, #sim-text-short, #sim-logo-short { cursor: grab; user-select: none; pointer-events: all; }
+        /* Evitar scroll nativo al arrastrar en táctil */
+        #sim-text-remera, #sim-logo-remera, #sim-text-short, #sim-logo-short { cursor: grab; user-select: none; pointer-events: all; touch-action: none; }
         #sim-text-remera:active, #sim-logo-remera:active, #sim-text-short:active, #sim-logo-short:active { cursor: grabbing; }
 
         /* ==========================================
@@ -329,31 +338,190 @@
         .footer-col h4 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
         .footer-col ul li { margin-bottom: 15px; color: var(--text-gray); font-size: 0.95rem; display: flex; align-items: center; gap: 10px;}
         .footer-bottom { text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px; color: #555; font-size: 0.85rem; font-weight: 500;}
+
+        /* ==========================================
+           ADAPTACIÓN RESPONSIVE (MOBILE & TABLET)
+           ========================================== */
+
+        .menu-btn { display: none; }
+        .menu-overlay { display: none; }
+        .mobile-contact { display: none; }
+
+        @media (max-width: 900px) {
+            /* Menú Hamburguesa Lateral */
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+                background-color: var(--bg-dark); border-left: 1px solid var(--border-color);
+                flex-direction: column; justify-content: flex-start; align-items: flex-start;
+                padding: 100px 30px; gap: 30px; transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                z-index: 1000; box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            }
+            .nav-links.open { right: 0; }
+            .nav-links a { font-size: 1.1rem; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 15px; }
+            .nav-links a::after { display: none; }
+            
+            /* Botón Menú Animado */
+            .menu-btn {
+                display: flex; flex-direction: column; justify-content: space-between;
+                width: 35px; height: 24px; cursor: pointer; z-index: 1001; position: relative;
+            }
+            .menu-btn span {
+                display: block; width: 100%; height: 3px; background-color: var(--text-light);
+                transition: var(--transition); border-radius: 2px;
+            }
+            .menu-btn.open span:nth-child(1) { transform: translateY(10.5px) rotate(45deg); }
+            .menu-btn.open span:nth-child(2) { opacity: 0; }
+            .menu-btn.open span:nth-child(3) { transform: translateY(-10.5px) rotate(-45deg); }
+            
+            /* Overlay Oscuro */
+            .menu-overlay {
+                display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px);
+                z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            }
+            .menu-overlay.open { opacity: 1; pointer-events: all; }
+            
+            /* Botones Contacto */
+            .desktop-contact-btn { display: none !important; }
+            .mobile-contact { display: block; color: var(--primary) !important; font-weight: 600; }
+            
+            /* Grillas / Columnas */
+            .about-grid { grid-template-columns: 1fr; } 
+            .about-text h2 { text-align: center; }
+            .custom-design-banner { flex-direction: column; text-align: center; gap: 30px; }
+            .detail-layout { grid-template-columns: 1fr; gap: 50px; }
+            .sim-layout { flex-direction: column; } 
+            .sim-viewer-col { position: relative; top: 0; width: 100%; } 
+            .configurator-ui { padding: 20px;}
+        }
+
+        @media (max-width: 768px) {
+            /* Tipografías y Espaciados */
+            .section-title { font-size: 2.8rem; margin-bottom: 15px; }
+            .section-subtitle { font-size: 1rem; margin-bottom: 35px; }
+            
+            .about-section, .process-section, .sports-section, .gallery-section, .tech-section, .cta-banner { padding: 60px 20px; }
+            
+            .hero-content h1 { font-size: 3.8rem; }
+            .hero-content p { font-size: 1.05rem; }
+            
+            .tech-grid { grid-template-columns: 1fr; gap: 40px; }
+            
+            /* Ajuste de Imágenes / Cajas para que no ocupen demasiada pantalla */
+            .gallery-item { height: 320px; }
+            .sport-card { height: 320px; }
+            .design-img-wrapper { height: 320px; }
+            
+            .custom-design-banner h3 { font-size: 2rem; }
+            .detail-content h1 { font-size: 3.2rem; }
+            .cta-banner h2 { font-size: 2.8rem; }
+            
+            /* Evitar desbordes horizontales de efectos de diseño */
+            .tech-image-wrapper::before, .tech-image-wrapper::after { display: none; }
+            .detail-image-box::before { top: -8px; left: -8px; }
+            
+            .lightbox-close { top: 15px; right: 20px; font-size: 40px; }
+
+            /* Ajustes para el Carrusel en Celular (Centrar a las personas) */
+            .slide-1 { background-position: center; }
+            .slide-2 { background-position: center 10%; }
+            .slide-3 { background-position: center 15%; }
+            .slide-4 { background-position: center 10%; }
+            .slide-5 { background-position: center 15%; }
+        }
+
+        @media (max-width: 480px) {
+            /* Optimizaciones para celulares (320px - 480px) */
+            .logo { font-size: 1.6rem; }
+            .hero-content h1 { font-size: 3.2rem; }
+            .section-title { font-size: 2.4rem; }
+            
+            /* Botones 100% Ancho táctiles */
+            .btn { padding: 16px 20px; font-size: 0.8rem; width: 100%; justify-content: center; }
+            .hero-buttons { flex-direction: column; width: 100%; gap: 15px; }
+            
+            /* Reorganización de tarjetas a 1 Columna (Evita Scroll Horizontal) */
+            .process-steps { grid-template-columns: 1fr; gap: 20px; }
+            .process-step { padding: 30px 20px; }
+            .sports-grid { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .catalog-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-col ul li { justify-content: center; }
+            
+            .custom-design-banner div:last-child { flex-direction: column; width: 100%; gap: 15px; }
+            .custom-design-banner div:last-child .btn { margin: 0; }
+            
+            /* Filtros de la Galería en cuadrícula 2x2 para fácil lectura */
+            .gallery-filters { display: grid; grid-template-columns: 1fr 1fr; width: 100%; gap: 10px; }
+            .filter-btn { width: 100%; padding: 12px; font-size: 0.75rem; }
+            
+            /* INTERFAZ DEL SIMULADOR MÓVIL */
+            .sim-layout { gap: 25px; }
+            .sim-viewer-col { padding: 20px 0; }
+            .svg-container { height: 320px; }
+            .configurator-ui { padding: 20px 15px; }
+            
+            .acc-header { font-size: 1.15rem; padding: 15px; }
+            .acc-content { padding: 20px 15px; }
+            
+            /* Botones del simulador más cómodos y a 2 columnas */
+            .model-btn, .cut-btn, .size-btn { padding: 14px 8px; font-size: 0.8rem; }
+            .model-grid[style*="grid-template-columns"] { grid-template-columns: 1fr 1fr !important; }
+            .model-grid { grid-template-columns: 1fr 1fr !important; }
+            
+            /* Selector de Colores optimizado */
+            .color-swatch { width: 42px; height: 42px; margin-bottom: 5px; }
+            .color-row { gap: 10px; }
+            
+            .form-input { padding: 15px; font-size: 1rem; }
+            .range-slider { height: 25px; }
+            
+            .file-upload-btn { padding: 30px 15px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
+    <!-- HEADER Y NAVEGACIÓN -->
     <header>
         <div class="container nav-container">
             <div class="logo" onclick="app.navigate('home')">ELITE<span>INDUMENTARIA</span></div>
-            <nav class="nav-links">
-                <a onclick="app.navigate('home')">Inicio</a>
-                <a onclick="app.navigate('home', 'seccion-deportes')">Diseños</a>
-                <a onclick="app.navigate('home', 'seccion-galeria')">Nuestros Trabajos</a>
+            
+            <!-- Botón Hamburguesa -->
+            <div class="menu-btn" id="menu-btn" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+
+            <!-- Menú Enlaces -->
+            <nav class="nav-links" id="nav-links">
+                <a onclick="app.navigate('home'); closeMenuIfMobile();">Inicio</a>
+                <a onclick="app.navigate('home', 'seccion-deportes'); closeMenuIfMobile();">Diseños</a>
+                <a onclick="app.navigate('home', 'seccion-galeria'); closeMenuIfMobile();">Nuestros Trabajos</a>
+                <a class="mobile-contact" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.'); closeMenuIfMobile();">Contacto</a>
             </nav>
-            <a href="#" class="btn btn-primary" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.')">Contactar</a>
+
+            <a href="#" class="btn btn-primary desktop-contact-btn" onclick="app.openWhatsApp('¡Hola! Me gustaría crear un diseño personalizado para mi equipo.')">Contactar</a>
         </div>
     </header>
+    
+    <!-- Overlay Oscuro del Menú Celular -->
+    <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
 
     <!-- =========================================================
          VISTA 1: HOME
          ========================================================= -->
     <main id="view-home" class="view-section active">
         
-        <!-- HERO INMERSIVO CON FOTO DE ACCIÓN -->
+        <!-- HERO INMERSIVO CON CARRUSEL DE FONDO -->
         <section class="hero">
-            <div class="hero-bg"></div>
+            <div class="hero-bg">
+                <div class="hero-slide slide-1"></div>
+                <div class="hero-slide slide-2"></div>
+                <div class="hero-slide slide-3"></div>
+                <div class="hero-slide slide-4"></div>
+                <div class="hero-slide slide-5"></div>
+                <div class="hero-overlay"></div>
+            </div>
             <div class="container hero-content">
                 <span class="hero-tag">Indumentaria Deportiva Premium</span>
                 <h1>Viste a tu <span>Equipo</span></h1>
@@ -369,7 +537,7 @@
             </div>
         </section>
 
-        <!-- SOBRE NOSOTROS CON FOTO DEL EQUIPO FEMENINO -->
+        <!-- SOBRE NOSOTROS -->
         <section class="about-section container">
             <div class="about-grid">
                 <div class="about-text">
@@ -379,7 +547,7 @@
                     <button class="btn btn-primary-outline" style="margin-top: 20px;" onclick="document.getElementById('seccion-proceso').scrollIntoView({behavior: 'smooth'})">Conocer el proceso</button>
                 </div>
                 <div class="about-image">
-                    <img src="foto-basquet-femenino.jpg" alt="Equipo femenino vistiendo indumentaria Elite">
+                    <img src="BASKETPARTIDOIMPORTANTEFOTO.jpeg" alt="Equipo femenino vistiendo indumentaria Elite">
                 </div>
             </div>
         </section>
@@ -434,17 +602,16 @@
             </div>
         </section>
 
-        <!-- CATEGORÍAS (TARJETAS CON FOTOGRAFÍAS REALES) -->
+        <!-- CATEGORÍAS -->
         <section id="seccion-deportes" class="sports-section">
             <div class="container">
                 <h2 class="section-title">Seleccioná tu <span>Disciplina</span></h2>
                 <p class="section-subtitle">Explora nuestras líneas de diseño exclusivas desarrolladas para el máximo rendimiento deportivo.</p>
-                <!-- Las tarjetas se inyectan por JS aquí -->
                 <div class="sports-grid" id="home-categories-grid"></div>
             </div>
         </section>
 
-        <!-- GALERÍA DE TRABAJOS DESTACADOS CON TODAS LAS FOTOS -->
+        <!-- GALERÍA DE TRABAJOS DESTACADOS -->
         <section id="seccion-galeria" class="gallery-section container">
             <h2 class="section-title">Trabajos <span>Destacados</span></h2>
             <p class="section-subtitle">Conocé la calidad y los detalles de nuestras equipaciones reales fabricadas para distintos clubes.</p>
@@ -453,36 +620,30 @@
                 <button class="filter-btn active" onclick="app.filterGallery(event, 'todos')">Todos</button>
                 <button class="filter-btn" onclick="app.filterGallery(event, 'futbol')">Fútbol</button>
                 <button class="filter-btn" onclick="app.filterGallery(event, 'basquet')">Básquetbol</button>
-                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Abrigo / Otros</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Canguros/ Camperas</button>
             </div>
 
             <div class="gallery-grid" id="gallery-grid">
-                <!-- Foto 1: Equipo de Fútbol -->
                 <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-futbol.jpg" alt="Equipación de Fútbol Elite">
+                    <img src="FUTBOLCHICOS.jpg" alt="Equipación de Fútbol Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <!-- Foto 2: Equipo de Básquetbol Femenino -->
                 <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-basquet-femenino.jpg" alt="Equipación Femenina Básquet Elite">
+                    <img src="BASKETBALLCHICAS.jpg" alt="Equipación Femenina Básquet Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <!-- Foto 5: Equipo de Básquetbol Masculino -->
-                <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="BASKETURU.jpg" alt="Equipación Masculina Básquet Elite">
-                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
-                </div>
-                <!-- Foto 3: Niños con Camperones (Canguros/Abrigo) -->
                 <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="CAMPERONES.jpg" alt="Camperones Deportivos Elite">
+                    <img src="CAMPERONES.jpg" alt="Equipación Masculina Básquet Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <!-- Foto 6: Jugador en Acción -->
-                <div class="gallery-item basquet futbol" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="BASKETPARTIDOIMPORTANTEFOTO.jpg" alt="Indumentaria en Acción Elite">
+                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="FUTBOLPARTIDOUNO.jpg" alt="Camperones Deportivos Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <!-- Foto 4: Niñas con Camperas -->
+                <div class="gallery-item basquet " onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="BASKETURU.jpg" alt="Indumentaria en Acción Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
                 <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
                     <img src="CAMPERASFUTBOL.jpg" alt="Camperas Deportivas Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
@@ -494,7 +655,7 @@
             </div>
         </section>
 
-        <!-- BENEFICIOS / TECNOLOGÍA (REUTILIZAMOS FOTO DEL EQUIPO DE FÚTBOL) -->
+        <!-- BENEFICIOS / TECNOLOGÍA -->
         <section id="seccion-beneficios" class="tech-section">
             <div class="container tech-grid">
                 <div>
@@ -566,7 +727,6 @@
                 </div>
             </div>
 
-            <!-- FILTROS Y BÚSQUEDA ESPECÍFICOS PARA FÚTBOL -->
             <div id="futbol-filters" style="display: none; margin-bottom: 50px;">
                 <div class="gallery-filters" style="margin-bottom: 25px;">
                     <button class="filter-btn active" id="btn-sublimadas" onclick="app.filterFutbol('sublimadas')">REMERAS SUBLIMADAS</button>
@@ -887,6 +1047,26 @@
     <script>
         const WHATSAPP_NUMBER = "59892669504"; 
 
+        // ==========================================
+        // FUNCIONES DE MENÚ MÓVIL RESPONSIVE
+        // ==========================================
+        function toggleMenu() {
+            document.getElementById('nav-links').classList.toggle('open');
+            document.getElementById('menu-btn').classList.toggle('open');
+            document.getElementById('menu-overlay').classList.toggle('open');
+        }
+
+        function closeMenuIfMobile() {
+            if(window.innerWidth <= 900) {
+                document.getElementById('nav-links').classList.remove('open');
+                document.getElementById('menu-btn').classList.remove('open');
+                document.getElementById('menu-overlay').classList.remove('open');
+            }
+        }
+
+        // ==========================================
+        // BASE DE DATOS Y LÓGICA PRINCIPAL
+        // ==========================================
         const physicalCuts = {
             futbol: [
                 { id: "cut-f1", name: "Clásico", base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
@@ -970,15 +1150,59 @@
             { hex: "#a8a9ad", name: "Gris Jaspeado" } 
         ];
 
-        /* SE ACTUALIZARON LAS IMÁGENES DE LAS DISCIPLINAS POR LAS FOTOGRAFÍAS REALES */
         const catalogData = {
             "futbol": {
                 id: "futbol", title: "Camisetas de Fútbol", bgImg: "FUTBOLCHICOS.jpg",
-                designs: [
-                    { id: "f-s01", name: "Modelo Sublimado 01", desc: "Diseño exclusivo de la línea sublimada.", img: "SUBLIMADO1.jpg", type: "sublimadas" },
-                    { id: "f-s02", name: "Modelo Sublimado 02", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-02.jpg", type: "sublimadas" },
-                    { id: "f-b01", name: "Modelo Básico 01", desc: "Remera clásica de la línea básica.", img: "elite1.jpeg", type: "basicas" },
-                    { id: "f-b02", name: "Modelo Básico 02", desc: "Remera clásica de la línea básica.", img: "elite2.jpg", type: "basicas" }
+              designs: [
+                    // ===== LÍNEA SUBLIMADAS (22 MODELOS) =====
+                    { id: "f-s01", name: "Modelo Sublimado 01", desc: "Diseño exclusivo de la línea sublimada.", img: "SUBLIMADO1.jpeg", type: "sublimadas" },
+                    { id: "f-s02", name: "Modelo Sublimado 02", desc: "Patrón dinámico con degradado de color.", img: "SUBLIMADO2.jpeg", type: "sublimadas" },
+                    { id: "f-s03", name: "Modelo Sublimado 03", desc: "Diseño moderno con texturas geométricas.", img: "SUBLIMADO3.jpeg", type: "sublimadas" },
+                    { id: "f-s04", name: "Modelo Sublimado 04", desc: "Patrón difuminado ideal para equipos dinámicos.", img: "SUBLIMADO4.jpeg", type: "sublimadas" },
+                    { id: "f-s05", name: "Modelo Sublimado 05", desc: "Estilo rayado con fusión de colores.", img: "SUBLIMADO5.jpeg", type: "sublimadas" },
+                    { id: "f-s06", name: "Modelo Sublimado 06", desc: "Diseño abstracto con colores vibrantes.", img: "SUBLIMADO6.jpeg", type: "sublimadas" },
+                    { id: "f-s07", name: "Modelo Sublimado 07", desc: "Clásico renovado con trama sutil.", img:"SUBLIMADO7.jpeg", type: "sublimadas" },
+                    { id: "f-s08", name: "Modelo Sublimado 08", desc: "Camiseta con diseño de camuflaje deportivo.", img: "SUBLIMADO8.jpeg", type: "sublimadas" },
+                    { id: "f-s09", name: "Modelo Sublimado 09", desc: "Efecto humo en la base con detalles a contratono.", img: "SUBLIMADO9.jpeg", type: "sublimadas" },
+                    { id: "f-s10", name: "Modelo Sublimado 10", desc: "Corte asimétrico con franja digital cruzada.", img: "s10.jpeg", type: "sublimadas" },
+                    { id: "f-s11", name: "Modelo Sublimado 11", desc: "Patrón de panal de abejas de alto rendimiento.", img: "s11.jpeg", type: "sublimadas" },
+                    { id: "f-s12", name: "Modelo Sublimado 12", desc: "Franjas horizontales con efecto brocha.", img: "s12.jpeg", type: "sublimadas" },
+                    { id: "f-s13", name: "Modelo Sublimado 13", desc: "Diseño pixelado retro-moderno.", img: "s13.jpeg", type: "sublimadas" },
+                    { id: "f-s14", name: "Modelo Sublimado 14", desc: "Trama de líneas de velocidad para máximo impacto.", img: "s14.jpeg", type: "sublimadas" },
+                    { id: "f-s15", name: "Modelo Sublimado 15", desc: "Estilo urbano con detalles tipo grafiti.", img: "s15.jpeg", type: "sublimadas" },
+                    { id: "f-s16", name: "Modelo Sublimado 16", desc: "Fusión de texturas orgánicas y deportivas.", img: "s16.jpeg", type: "sublimadas" },
+                    { id: "f-s17", name: "Modelo Sublimado 17", desc: "Diseño de ondas sonoras de alta definición.", img: "s17.jpeg", type: "sublimadas" },
+                    { id: "f-s18", name: "Modelo Sublimado 18", desc: "Camiseta con estrellas o emblemas difuminados.", img: "s18.jpeg", type: "sublimadas" },
+                    { id: "f-s19", name: "Modelo Sublimado 19", desc: "Estilo elegante con patrón de diamante.", img: "s19.jpeg", type: "sublimadas" },
+                    { id: "f-s20", name: "Modelo Sublimado 20", desc: "Patrón de fractales reflectivos simulados.", img: "s20.jpeg", type: "sublimadas" },
+                    { id: "f-s21", name: "Modelo Sublimado 21", desc: "Estilo ciberpunk con colores de alto contraste.", img: "s21.jpeg", type: "sublimadas" },
+                    { id: "f-s22", name: "Modelo Sublimado 22", desc: "Edición especial de lujo para aniversarios.", img: "s22.jpeg", type: "sublimadas" },
+                    { id: "f-s23", name: "Modelo Sublimado 23", desc: "Edición especial de lujo para aniversarios.", img: "s23.jpeg", type: "sublimadas" },
+                    { id: "f-s24", name: "Modelo Sublimado 24", desc: "Edición especial de lujo para aniversarios.", img: "s24.jpeg", type: "sublimadas" },
+
+                    // ===== LÍNEA BÁSICAS (22 MODELOS) =====
+                    { id: "f-b01", name: "Modelo Básico 01", desc: "Remera clásica de la línea básica.", img: "elite1.jpg", type: "basicas" },
+                    { id: "f-b02", name: "Modelo Básico 02", desc: "Corte estándar con terminaciones reforzadas.", img: "elite2.jpeg", type: "basicas" },
+                    { id: "f-b03", name: "Modelo Básico 03", desc: "Remera lisa con detalles a contratono en cuello.", img: "elite3.jpeg", type: "basicas" },
+                    { id: "f-b04", name: "Modelo Básico 04", desc: "Diseño tradicional de un solo color.", img: "elite4.jpeg", type: "basicas" },
+                    { id: "f-b05", name: "Modelo Básico 05", desc: "Corte ajustado con bandas laterales.", img: "elite5.jpeg", type: "basicas" },
+                    { id: "f-b06", name: "Modelo Básico 06", desc: "Remera clásica con puños destacados.", img: "elite6.jpeg", type: "basicas" },
+                    { id: "f-b07", name: "Modelo Básico 07", desc: "Estilo retro con cuello chomba.", img: "elite7.jpeg", type: "basicas" },
+                    { id: "f-b08", name: "Modelo Básico 08", desc: "Diseño bicolor mitad y mitad.", img: "elite8.jpeg", type: "basicas" },
+                    { id: "f-b09", name: "Modelo Básico 09", desc: "Remera básica con hombreras marcadas.", img: "elite9.jpeg", type: "basicas" },
+                    { id: "f-b10", name: "Modelo Básico 10", desc: "Minimalista y elegante para entrenamiento.", img: "elite10.jpeg", type: "basicas" },
+                    { id: "f-b11", name: "Modelo Básico 11", desc: "Clásica con cuello en V profundo.", img: "elite11.jpg", type: "basicas" },
+                    { id: "f-b12", name: "Modelo Básico 12", desc: "Diseño limpio ideal para estampar sponsors grandes.", img: "elite12.jpeg", type: "basicas" },
+                    { id: "f-b13", name: "Modelo Básico 13", desc: "Corte recto tradicional de máxima comodidad.", img: "elite13.jpeg", type: "basicas" },
+                    { id: "f-b14", name: "Modelo Básico 14", desc: "Básica con franja central ancha.", img: "elite14.jpg", type: "basicas" },
+                    { id: "f-b15", name: "Modelo Básico 15", desc: "Diseño liso con mangas de diferente color.", img: "elite15.jpg", type: "basicas" },
+                    { id: "f-b16", name: "Modelo Básico 16", desc: "Estilo tradicional de bastones anchos.", img: "elite16.jpg", type: "basicas" },
+                    { id: "f-b17", name: "Modelo Básico 17", desc: "Línea fina deportiva en el pecho.", img: "elite17.jpg", type: "basicas" },
+                    { id: "f-b18", name: "Modelo Básico 18", desc: "Modelo clásico con ribetes en hombros.", img: "elite18.jpeg", type: "basicas" },
+                    { id: "f-b19", name: "Modelo Básico 19", desc: "Básica premium con tela texturizada ligera.", img: "elite19.jpeg", type: "basicas" },
+                    { id: "f-b20", name: "Modelo Básico 20", desc: "Estilo europeo sin distracciones visuales.", img: "elite20.jpg", type: "basicas" },
+                    { id: "f-b21", name: "Modelo Básico 21", desc: "Cuello redondo con costuras reforzadas.", img: "elite21.jpg", type: "basicas" },
+                    { id: "f-b22", name: "Modelo Básico 22", desc: "Modelo ultra-liviano para altas temperaturas.", img: "elite22.jpg", type: "basicas" }
                 ]
             },
             "basquet": {
@@ -1673,6 +1897,8 @@
                     const dCard = document.createElement('div');
                     dCard.className = 'design-card';
                     dCard.onclick = () => app.openDetail(sportId, design.id);
+                    
+                    // Se agrega manejo de fallos para las imágenes genéricas (onError)
                     dCard.innerHTML = `
                         <div class="design-img-wrapper"><img src="${design.img}" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800'" alt="${design.name}"></div>
                         <div class="design-info"><h4>${design.name}</h4><p>${design.desc}</p><div class="design-btn">Ver Diseño ➔</div></div>
@@ -1705,7 +1931,11 @@
                 bcCat.onclick = () => app.openCategory(sportId); 
                 document.getElementById('det-breadcrumb-name').innerText = design.name;
 
-                document.getElementById('det-img').src = design.img;
+                // Soporte para fallo en carga de imagen en el Detalle
+                const imgElement = document.getElementById('det-img');
+                imgElement.onerror = () => imgElement.src = 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800';
+                imgElement.src = design.img;
+                
                 document.getElementById('det-tag').innerText = cat.title;
                 document.getElementById('det-title').innerText = design.name;
                 document.getElementById('det-desc').innerText = design.desc;
@@ -1717,7 +1947,9 @@
                     btn.disabled = true;
 
                     try {
-                        const response = await fetch(design.img);
+                        // Respaldo para el link en caso de error original
+                        const imgUrl = imgElement.src;
+                        const response = await fetch(imgUrl);
                         const blob = await response.blob();
                         const url = window.URL.createObjectURL(blob);
                         
