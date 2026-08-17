@@ -97,12 +97,13 @@
            VISTA INICIAL: HERO INMERSIVO
            ========================================== */
         .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: -80px; padding-top: 80px;}
-        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.8) 100%), url('https://images.unsplash.com/photo-1518659737119-48135832a85e?q=80&w=1920&auto=format&fit=crop') center/cover; z-index: 1; }
+        /* SE ACTUALIZÓ EL FONDO DEL HERO PARA USAR LA FOTOGRAFÍA DE ACCIÓN */
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.6) 50%, rgba(5,5,5,0.9) 100%), url('foto-basquet-accion.jpg') center/cover; z-index: 1; }
         .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 20px; animation: fadeInUp 1s ease 0.2s forwards; opacity: 0; transform: translateY(30px); }
-        .hero-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; }
+        .hero-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-bottom: 20px; border: 1px solid var(--primary); padding: 5px 15px; border-radius: 20px; backdrop-filter: blur(5px); background: rgba(0,0,0,0.3);}
         .hero-content h1 { font-family: var(--font-display); font-size: 6rem; line-height: 0.9; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; color: var(--text-gray); }
         .hero-content h1 span { color: var(--primary); }
-        .hero-content p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 40px; font-weight: 300; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
         .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
         @media (max-width: 768px) { .hero-content h1 { font-size: 4rem; } }
 
@@ -114,9 +115,10 @@
         .about-text h2 { text-align: left; margin-bottom: 20px; }
         .about-text p { color: var(--text-gray); font-size: 1.1rem; margin-bottom: 20px; line-height: 1.8; }
         .about-image { position: relative; }
-        .about-image img { border-radius: 4px; filter: grayscale(10%); transition: var(--transition); width: 100%; object-fit: cover; }
-        .about-image:hover img { filter: grayscale(0%); }
-        .about-image::after { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); z-index: -1; transition: var(--transition); }
+        /* DISEÑO MEJORADO PARA LA IMAGEN DE SOBRE NOSOTROS */
+        .about-image img { border-radius: 12px; filter: grayscale(40%); transition: var(--transition); width: 100%; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .about-image:hover img { filter: grayscale(0%); transform: translateY(-5px); }
+        .about-image::after { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 2px solid var(--primary); z-index: -1; transition: var(--transition); border-radius: 12px; }
         .about-image:hover::after { top: -10px; right: -10px; }
         @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } .about-text h2 { text-align: center; } }
 
@@ -125,48 +127,83 @@
            ========================================== */
         .process-section { background-color: var(--bg-panel); padding: 100px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px; }
-        .process-step { padding: 40px 30px; text-align: center; transition: var(--transition); position: relative; border: 1px solid transparent; background: var(--bg-dark); }
-        .process-step:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .process-step { padding: 40px 30px; text-align: center; transition: var(--transition); position: relative; border: 1px solid transparent; background: var(--bg-dark); border-radius: 8px; }
+        .process-step:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
         .step-number { font-family: var(--font-display); font-size: 4rem; color: rgba(255, 255, 255, 0.05); position: absolute; top: 10px; left: 50%; transform: translateX(-50%); line-height: 1; z-index: 1; transition: var(--transition); }
         .process-step:hover .step-number { color: rgba(255, 255, 255, 0.15); }
         .process-step h4 { font-family: var(--font-display); font-size: 2rem; color: var(--text-light); margin-bottom: 15px; text-transform: uppercase; position: relative; z-index: 2; letter-spacing: 1px; }
         .process-step p { color: var(--text-gray); font-size: 0.95rem; position: relative; z-index: 2; }
 
         /* ==========================================
-           CATEGORÍAS DE DEPORTES
+           CATEGORÍAS DE DEPORTES (DISEÑO PREMIUM RENOVADO)
            ========================================== */
         .sports-section { padding: 120px 0; }
         .sports-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .sport-card { height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: var(--transition); position: relative; overflow: hidden; border: 1px solid var(--border-color); background-color: var(--bg-panel); }
-        .sport-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.4; transition: var(--transition); z-index: 1; filter: grayscale(100%); }
-        .sport-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 2; opacity: 0.8; }
-        .sport-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
-        .sport-card:hover::before { opacity: 0.6; filter: grayscale(0%); transform: scale(1.05); }
-        .sport-card h3 { font-family: var(--font-display); font-size: 3rem; text-transform: uppercase; z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); color: var(--text-light); }
-        .sport-card span { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; z-index: 3; opacity: 0; transition: var(--transition); transform: translateY(15px); margin-top: 10px; }
-        .sport-card:hover span { opacity: 1; transform: translateY(0); }
+        .sport-card { 
+            height: 380px; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            cursor: pointer; position: relative; overflow: hidden; 
+            border-radius: 12px; border: 1px solid var(--border-color); 
+            background-color: var(--bg-panel);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+        .sport-card:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
+        }
+        .sport-card-bg {
+            position: absolute; inset: 0; 
+            background-size: cover; background-position: center 15%; /* Mantiene las cabezas/rostros a la vista */
+            transition: transform 0.8s ease, filter 0.8s ease; 
+            filter: grayscale(60%) brightness(0.6); z-index: 1;
+        }
+        .sport-card:hover .sport-card-bg {
+            transform: scale(1.08); filter: grayscale(0%) brightness(0.9);
+        }
+        .sport-card::after { 
+            content: ''; position: absolute; inset: 0; 
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); 
+            z-index: 2; pointer-events: none;
+        }
+        .sport-card h3 { 
+            font-family: var(--font-display); font-size: 3.2rem; text-transform: uppercase; 
+            z-index: 3; letter-spacing: 2px; text-shadow: 2px 2px 15px rgba(0,0,0,0.8); 
+            color: var(--text-light); text-align: center;
+            transition: transform 0.4s ease;
+        }
+        .sport-card:hover h3 {
+            transform: translateY(-10px);
+        }
+        .sport-card span { 
+            color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; 
+            letter-spacing: 2px; z-index: 3; opacity: 0; transition: var(--transition); 
+            transform: translateY(15px); margin-top: 5px;
+        }
+        .sport-card:hover span { opacity: 1; transform: translateY(-5px); }
 
         /* ==========================================
            SECCIÓN: GALERÍA DE TRABAJOS
            ========================================== */
         .gallery-section { padding: 80px 0 120px 0; }
         .gallery-filters { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
-        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-gray); padding: 10px 25px; font-family: var(--font-body); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); }
+        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-gray); padding: 10px 25px; font-family: var(--font-body); text-transform: uppercase; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; transition: var(--transition); border-radius: 4px;}
         .filter-btn.active, .filter-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
         
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
-        .gallery-item { position: relative; overflow: hidden; border: 1px solid var(--border-color); cursor: pointer; height: 400px; background-color: var(--bg-panel); transition: var(--transition); }
+        .gallery-item { position: relative; overflow: hidden; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; height: 400px; background-color: var(--bg-panel); transition: var(--transition); }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .gallery-item:hover img { transform: scale(1.05); }
-        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); }
+        .gallery-item:hover img { transform: scale(1.05); filter: brightness(0.6); }
+        .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition); }
         .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-overlay span { color: var(--primary); font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); }
+        .gallery-overlay span { color: var(--primary); font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 2px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); text-shadow: 0 5px 15px rgba(0,0,0,0.8);}
         .gallery-item:hover .gallery-overlay span { transform: translateY(0); }
 
         /* LIGHTBOX PARA GALERÍA */
         .lightbox { position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 9999; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .lightbox.active { display: flex; opacity: 1; }
-        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .lightbox img { max-width: 90%; max-height: 90vh; object-fit: contain; border: 1px solid var(--border-color); box-shadow: 0 20px 60px rgba(0,0,0,0.8); border-radius: 4px; }
         .lightbox-close { position: absolute; top: 30px; right: 40px; color: var(--text-gray); font-size: 50px; cursor: pointer; font-family: sans-serif; line-height: 1; transition: color 0.3s; }
         .lightbox-close:hover { color: var(--primary); }
 
@@ -181,10 +218,10 @@
         .tech-list h4 { font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; color: var(--text-light); }
         .tech-list p { color: var(--text-gray); font-size: 1rem; }
         .tech-image-wrapper { position: relative; padding: 20px; }
-        .tech-image-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 60%; border-top: 2px solid var(--primary); border-left: 2px solid var(--primary); }
-        .tech-image-wrapper::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; border-bottom: 2px solid var(--primary); border-right: 2px solid var(--primary); }
-        .tech-image-wrapper img { width: 100%; filter: grayscale(80%); transition: var(--transition); position: relative; z-index: 2; }
-        .tech-image-wrapper:hover img { filter: grayscale(0%); }
+        .tech-image-wrapper::before { content: ''; position: absolute; top: 0; left: 0; width: 60%; height: 60%; border-top: 2px solid var(--primary); border-left: 2px solid var(--primary); border-radius: 12px 0 0 0;}
+        .tech-image-wrapper::after { content: ''; position: absolute; bottom: 0; right: 0; width: 60%; height: 60%; border-bottom: 2px solid var(--primary); border-right: 2px solid var(--primary); border-radius: 0 0 12px 0;}
+        .tech-image-wrapper img { width: 100%; border-radius: 8px; filter: grayscale(40%); transition: var(--transition); position: relative; z-index: 2; box-shadow: 0 15px 40px rgba(0,0,0,0.5);}
+        .tech-image-wrapper:hover img { filter: grayscale(0%); transform: scale(1.02); }
         @media (max-width: 768px) { .tech-grid { grid-template-columns: 1fr; } }
 
         /* ==========================================
@@ -200,13 +237,13 @@
         /* ==========================================
            VISTA: CATÁLOGO DE DEPORTE
            ========================================== */
-        .custom-design-banner { background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 4px solid var(--primary); padding: 50px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .custom-design-banner { background: var(--bg-panel); border: 1px solid var(--border-color); border-left: 4px solid var(--primary); padding: 50px; margin-bottom: 60px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 8px;}
         .custom-design-banner h3 { font-family: var(--font-display); font-size: 2.5rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
         .custom-design-banner p { color: var(--text-gray); font-size: 1rem; max-width: 600px; }
         @media (max-width: 900px) { .custom-design-banner { flex-direction: column; text-align: center; gap: 30px; } }
 
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 40px; margin-bottom: 100px;}
-        .design-card { background-color: var(--bg-panel); border: 1px solid var(--border-color); transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; }
+        .design-card { background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 8px; transition: var(--transition); cursor: pointer; display: flex; flex-direction: column; overflow: hidden;}
         .design-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
         .design-img-wrapper { height: 400px; background-color: #080808; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; }
         .design-img-wrapper::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.1); transition: var(--transition); }
@@ -223,19 +260,19 @@
            VISTA: DETALLE DE DISEÑO
            ========================================== */
         .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 100px; align-items: start;}
-        .detail-image-box { background-color: #080808; border: 1px solid var(--border-color); padding: 0; position: relative; }
-        .detail-image-box::before { content: ''; position: absolute; top: -15px; left: -15px; width: 100%; height: 100%; border: 1px solid var(--border-color); z-index: -1; }
-        .detail-image-box img { width: 100%; height: auto; display: block; filter: grayscale(10%); }
+        .detail-image-box { background-color: #080808; border: 1px solid var(--border-color); border-radius: 8px; padding: 0; position: relative; }
+        .detail-image-box::before { content: ''; position: absolute; top: -15px; left: -15px; width: 100%; height: 100%; border: 1px solid var(--border-color); border-radius: 8px; z-index: -1; }
+        .detail-image-box img { width: 100%; height: auto; display: block; border-radius: 8px; filter: grayscale(10%); }
         
         .detail-content h1 { font-family: var(--font-display); font-size: 4.5rem; text-transform: uppercase; line-height: 0.9; margin-bottom: 15px; letter-spacing: 2px; color: var(--text-light); }
-        .detail-content .category-tag { display: inline-block; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; }
+        .detail-content .category-tag { display: inline-block; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; border-radius: 4px;}
         .detail-content p { color: var(--text-gray); margin-bottom: 40px; font-size: 1.1rem; }
         
         .features-list { margin-bottom: 50px; }
         .features-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 1rem; color: #ccc; }
         .features-list li svg { width: 18px; fill: var(--primary); }
         
-        .action-box { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; }
+        .action-box { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; border-radius: 8px;}
         .action-box h4 { font-family: var(--font-display); font-size: 2rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; color: var(--text-light); }
         .action-box p { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 30px; }
         .btn-full { width: 100%; margin-bottom: 20px; }
@@ -244,9 +281,9 @@
         /* ==========================================
            SIMULADOR
            ========================================== */
-        .configurator-ui { background-color: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; margin-bottom: 100px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); }
+        .configurator-ui { background-color: var(--bg-panel); border: 1px solid var(--border-color); padding: 40px; margin-bottom: 100px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border-radius: 8px;}
         .sim-layout { display: flex; gap: 50px; align-items: flex-start; }
-        .sim-viewer-col { flex: 1; display: flex; justify-content: center; align-items: center; position: sticky; top: 120px; background: #080808; border: 1px solid var(--border-color); padding: 40px 0; }
+        .sim-viewer-col { flex: 1; display: flex; justify-content: center; align-items: center; position: sticky; top: 120px; background: #080808; border: 1px solid var(--border-color); border-radius: 8px; padding: 40px 0; }
         .sim-controls-col { flex: 1; display: flex; flex-direction: column; gap: 15px; width: 100%; }
         @media (max-width: 900px) { .sim-layout { flex-direction: column; } .sim-viewer-col { position: relative; top: 0; width: 100%; } .configurator-ui { padding: 20px;} }
 
@@ -254,7 +291,7 @@
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         
         /* Acordeón para Controles del Simulador */
-        .acc-item { border: 1px solid var(--border-color); overflow: hidden; background: var(--bg-dark); transition: var(--transition); }
+        .acc-item { border: 1px solid var(--border-color); overflow: hidden; background: var(--bg-dark); transition: var(--transition); border-radius: 6px;}
         .acc-header { background: var(--bg-panel); padding: 20px 25px; font-family: var(--font-display); text-transform: uppercase; font-size: 1.4rem; letter-spacing: 1px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); border-bottom: 1px solid transparent; color: var(--text-light); }
         .acc-header:hover { background: #1a1a1a; color: var(--primary); }
         .acc-header.active { color: var(--primary); border-bottom: 1px solid var(--border-color); }
@@ -264,7 +301,7 @@
         .control-group label { display: block; font-family: var(--font-body); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-gray); margin-bottom: 12px; letter-spacing: 1px; }
         .model-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         
-        .model-btn, .cut-btn, .size-btn { background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-gray); padding: 12px 5px; text-align: center; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; transition: var(--transition); }
+        .model-btn, .cut-btn, .size-btn { background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-gray); padding: 12px 5px; text-align: center; cursor: pointer; font-size: 0.75rem; text-transform: uppercase; font-weight: 600; transition: var(--transition); border-radius: 4px;}
         .model-btn.active, .model-btn:hover, .cut-btn.active, .cut-btn:hover, .size-btn.active, .size-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
 
         .color-row { display: flex; gap: 12px; flex-wrap: wrap; }
@@ -276,7 +313,7 @@
         
         .range-slider { width: 100%; cursor: pointer; accent-color: var(--primary); }
 
-        .file-upload-btn { background: var(--bg-dark); border: 1px dashed var(--border-color); padding: 20px; text-align: center; cursor: pointer; color: var(--text-gray); transition: var(--transition); display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;}
+        .file-upload-btn { background: var(--bg-dark); border: 1px dashed var(--border-color); padding: 20px; text-align: center; cursor: pointer; color: var(--text-gray); transition: var(--transition); display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 6px;}
         .file-upload-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(255, 255, 255, 0.05); }
         .file-upload-btn input[type="file"] { display: none; }
 
@@ -314,7 +351,7 @@
          ========================================================= -->
     <main id="view-home" class="view-section active">
         
-        <!-- HERO INMERSIVO -->
+        <!-- HERO INMERSIVO CON FOTO DE ACCIÓN -->
         <section class="hero">
             <div class="hero-bg"></div>
             <div class="container hero-content">
@@ -327,13 +364,12 @@
                 </div>
                 
                 <div style="margin-top: 50px; font-size: 1.1rem; color: var(--text-light); line-height: 1.8; font-weight: 400; letter-spacing: 1px;">
-              
-                    <span style="color: var(--primary); font-weight: 600;">Envíos a todo el país 🇺🇾<br>@eliteindumentariauy</span>
+                    <span style="color: var(--primary); font-weight: 600; text-shadow: 0 2px 5px rgba(0,0,0,0.8);">Envíos a todo el país 🇺🇾<br>@eliteindumentariauy</span>
                 </div>
             </div>
         </section>
 
-        <!-- SOBRE NOSOTROS -->
+        <!-- SOBRE NOSOTROS CON FOTO DEL EQUIPO FEMENINO -->
         <section class="about-section container">
             <div class="about-grid">
                 <div class="about-text">
@@ -343,7 +379,7 @@
                     <button class="btn btn-primary-outline" style="margin-top: 20px;" onclick="document.getElementById('seccion-proceso').scrollIntoView({behavior: 'smooth'})">Conocer el proceso</button>
                 </div>
                 <div class="about-image">
-                    <img src="foto-match-2.jpg" alt="Jugador vistiendo indumentaria Elite" onerror="this.src='https://images.unsplash.com/photo-1574629810360-7efbb4d2b2c3?q=80&w=800&auto=format&fit=crop'">
+                    <img src="foto-basquet-femenino.jpg" alt="Equipo femenino vistiendo indumentaria Elite">
                 </div>
             </div>
         </section>
@@ -398,16 +434,17 @@
             </div>
         </section>
 
-        <!-- CATEGORÍAS -->
+        <!-- CATEGORÍAS (TARJETAS CON FOTOGRAFÍAS REALES) -->
         <section id="seccion-deportes" class="sports-section">
             <div class="container">
                 <h2 class="section-title">Seleccioná tu <span>Disciplina</span></h2>
-                <p class="section-subtitle">Explora nuestras líneas de diseño exclusivas desarrolladas para el máximo rendimiento.</p>
+                <p class="section-subtitle">Explora nuestras líneas de diseño exclusivas desarrolladas para el máximo rendimiento deportivo.</p>
+                <!-- Las tarjetas se inyectan por JS aquí -->
                 <div class="sports-grid" id="home-categories-grid"></div>
             </div>
         </section>
 
-        <!-- GALERÍA DE TRABAJOS DESTACADOS -->
+        <!-- GALERÍA DE TRABAJOS DESTACADOS CON TODAS LAS FOTOS -->
         <section id="seccion-galeria" class="gallery-section container">
             <h2 class="section-title">Trabajos <span>Destacados</span></h2>
             <p class="section-subtitle">Conocé la calidad y los detalles de nuestras equipaciones reales fabricadas para distintos clubes.</p>
@@ -416,32 +453,38 @@
                 <button class="filter-btn active" onclick="app.filterGallery(event, 'todos')">Todos</button>
                 <button class="filter-btn" onclick="app.filterGallery(event, 'futbol')">Fútbol</button>
                 <button class="filter-btn" onclick="app.filterGallery(event, 'basquet')">Básquetbol</button>
-                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Otros</button>
+                <button class="filter-btn" onclick="app.filterGallery(event, 'otros')">Abrigo / Otros</button>
             </div>
 
             <div class="gallery-grid" id="gallery-grid">
-                <div class="gallery-item futbol otros" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-1.jpg" alt="Equipación Elite 1" onerror="this.src='https://images.unsplash.com/photo-1522778526582-12297eb098fa?q=80&w=800'">
-                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
-                </div>
+                <!-- Foto 1: Equipo de Fútbol -->
                 <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-2.jpg" alt="Equipación Elite 2" onerror="this.src='https://images.unsplash.com/photo-1551280857-22d4168c4d15?q=80&w=800'">
+                    <img src="foto-futbol.jpg" alt="Equipación de Fútbol Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-3.jpg" alt="Equipación Elite 3" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=800'">
-                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
-                </div>
+                <!-- Foto 2: Equipo de Básquetbol Femenino -->
                 <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-basquet-1.jpg" alt="Trabajo de Básquetbol Elite" onerror="this.src='https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=800'">
+                    <img src="foto-basquet-femenino.jpg" alt="Equipación Femenina Básquet Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
-                <div class="gallery-item futbol" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-4.jpg" alt="Camiseta de fútbol Elite" onerror="this.src='https://images.unsplash.com/photo-1518659737119-48135832a85e?q=80&w=800'">
+                <!-- Foto 5: Equipo de Básquetbol Masculino -->
+                <div class="gallery-item basquet" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-basquet-masculino.jpg" alt="Equipación Masculina Básquet Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
+                <!-- Foto 3: Niños con Camperones (Canguros/Abrigo) -->
                 <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
-                    <img src="foto-match-otros-1.jpg" alt="Indumentaria deportiva Elite" onerror="this.src='https://images.unsplash.com/photo-1618455495615-5b23ea022b73?q=80&w=800'">
+                    <img src="foto-canguros.jpg" alt="Camperones Deportivos Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <!-- Foto 6: Jugador en Acción -->
+                <div class="gallery-item basquet futbol" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-basquet-accion.jpg" alt="Indumentaria en Acción Elite">
+                    <div class="gallery-overlay"><span>Ver Detalle</span></div>
+                </div>
+                <!-- Foto 4: Niñas con Camperas -->
+                <div class="gallery-item otros" onclick="app.openLightbox(this.querySelector('img').src)">
+                    <img src="foto-camperas.jpg" alt="Camperas Deportivas Elite">
                     <div class="gallery-overlay"><span>Ver Detalle</span></div>
                 </div>
             </div>
@@ -451,7 +494,7 @@
             </div>
         </section>
 
-        <!-- BENEFICIOS / TECNOLOGÍA -->
+        <!-- BENEFICIOS / TECNOLOGÍA (REUTILIZAMOS FOTO DEL EQUIPO DE FÚTBOL) -->
         <section id="seccion-beneficios" class="tech-section">
             <div class="container tech-grid">
                 <div>
@@ -482,7 +525,7 @@
                     </ul>
                 </div>
                 <div class="tech-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1618455495615-5b23ea022b73?q=80&w=800&auto=format&fit=crop" alt="Textura de tela deportiva">
+                    <img src="foto-futbol.jpg" alt="Calidad y Confección Elite">
                 </div>
             </div>
         </section>
@@ -553,7 +596,6 @@
 
             <div class="configurator-ui" id="sim-wrapper">
                 <style>
-                    /* Varios grupos y CSS Variables para colores independientes */
                     #sim-wrapper {
                         --sim-primary-remera: #111111;
                         --sim-sec-remera: #ffffff;
@@ -594,7 +636,6 @@
                                         <stop offset="100%" stop-color="rgba(0,0,0,0.4)" />
                                     </linearGradient>
 
-                                    <!-- Clip Paths Independientes -->
                                     <clipPath id="sim-clip-remera">
                                         <path id="sim-clip-path-remera" d="" style="transition: d 0.4s ease;" />
                                     </clipPath>
@@ -603,7 +644,6 @@
                                     </clipPath>
                                 </defs>
 
-                                <!-- REMERA / CANGURO / CAMPERA GROUP -->
                                 <g id="sim-group-remera">
                                     <path id="sim-base-remera" class="c-primary" d="" style="transition: d 0.4s ease;" />
                                     <g clip-path="url(#sim-clip-remera)">
@@ -615,7 +655,6 @@
                                     <text id="sim-text-remera" class="c-text" x="100" y="125" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">SPONSOR</text>
                                 </g>
 
-                                <!-- SHORT / PANTALON GROUP -->
                                 <g id="sim-group-short" style="display: none; transition: opacity 0.4s ease;">
                                     <path id="sim-base-short" class="c-primary" d="" style="transition: d 0.4s ease;" />
                                     <g clip-path="url(#sim-clip-short)">
@@ -627,7 +666,6 @@
                                     <text id="sim-text-short" class="c-text" x="140" y="335" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="22" style="text-transform: uppercase;">NUM</text>
                                 </g>
 
-                                <!-- COMBINED SHADOWS AND SHADING -->
                                 <path id="sim-shading-shape" fill="url(#shading)" style="mix-blend-mode: overlay; pointer-events: none; transition: d 0.4s ease;" d="" />
                                 <path id="sim-shadows-shape" fill="url(#shadowFolds)" style="mix-blend-mode: multiply; pointer-events: none; transition: d 0.4s ease;" d="" />
                             </svg>
@@ -639,8 +677,6 @@
 
                     <!-- Columna Derecha: Acordeón de Controles -->
                     <div class="sim-controls-col">
-                        
-                        <!-- SECCIÓN 0: TIPO DE CONJUNTO Y TOGGLE PRENDA -->
                         <div class="acc-item">
                             <div class="acc-header active" onclick="app.toggleAcc(this)">1. Tipo de Conjunto <span>▼</span></div>
                             <div class="acc-content active">
@@ -662,7 +698,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- SECCIÓN 1: MOLDE FÍSICO -->
+                        </div>
+                        
                         <div class="acc-item" id="acc-item-molde">
                             <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-molde-num">2.</span> Molde / Estructura <span id="lbl-acc-molde-tipo">(Aplica a Remera)</span> <span>▼</span></div>
                             <div class="acc-content">
@@ -673,7 +710,6 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 2: DISEÑO GRÁFICO Y COLORES -->
                         <div class="acc-item">
                             <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-dis-num">3.</span> Diseño Gráfico y Colores <span>▼</span></div>
                             <div class="acc-content">
@@ -696,7 +732,6 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 3: LOGOS Y ESCUDOS -->
                         <div class="acc-item">
                             <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-esc-num">4.</span> Escudo del Club <span>▼</span></div>
                             <div class="acc-content">
@@ -717,7 +752,6 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 4: TEXTO / SPONSOR -->
                         <div class="acc-item">
                             <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-txt-num">5.</span> Textos y Sponsors <span>▼</span></div>
                             <div class="acc-content">
@@ -748,7 +782,6 @@
                             </div>
                         </div>
 
-                        <!-- SECCIÓN 5: TALLE -->
                         <div class="acc-item">
                             <div class="acc-header" onclick="app.toggleAcc(this)"><span id="lbl-acc-tal-num">6.</span> Talle <span>▼</span></div>
                             <div class="acc-content">
@@ -766,7 +799,6 @@
                             </div>
                         </div>
 
-                        <!-- Botones de Acción -->
                         <div style="margin-top: 25px; display: flex; gap: 15px; flex-direction: column;">
                             <button class="btn btn-primary" id="btn-sim-consult" style="width: 100%;">Solicitar este Diseño</button>
                             <button class="btn btn-outline" id="btn-sim-custom" style="width: 100%;">Quiero algo aún más único</button>
@@ -853,68 +885,32 @@
     </footer>
 
     <script>
-        // ==========================================
-        // 1. CONFIGURACIÓN PRINCIPAL
-        // ==========================================
         const WHATSAPP_NUMBER = "59892669504"; 
 
-        // ==========================================
-        // 2. BASE DE DATOS DEL SIMULADOR
-        // ==========================================
-        
-        // MOLDES / ESTRUCTURA FÍSICA (Remera / Canguro / Campera)
         const physicalCuts = {
             futbol: [
-                { id: "cut-f1", name: "Clásico", 
-                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
-                  trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
-                { id: "cut-f2", name: "Cuello V", 
-                  base: "M 65,10 L 100,45 L 135,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
-                  trim: "M 65,10 L 100,45 L 135,10 L 125,10 L 100,35 L 75,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
-                { id: "cut-f3", name: "Polo", 
-                  base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", 
-                  trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
+                { id: "cut-f1", name: "Clásico", base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 C 120,18 100,18 60,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f2", name: "Cuello V", base: "M 65,10 L 100,45 L 135,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 65,10 L 100,45 L 135,10 L 125,10 L 100,35 L 75,10 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" },
+                { id: "cut-f3", name: "Polo", base: "M 60,10 C 60,10 80,30 100,30 C 120,30 140,10 140,10 L 190,40 L 175,85 L 150,70 L 150,240 C 150,240 100,250 50,240 L 50,70 L 25,85 L 10,40 Z", trim: "M 60,10 L 70,30 L 100,45 L 130,30 L 140,10 C 120,20 80,20 60,10 Z M 95,45 L 105,45 L 105,80 L 95,80 Z M 10,40 L 25,85 L 30,82 L 15,38 Z M 190,40 L 175,85 L 170,82 L 185,38 Z" }
             ],
             basquet: [
-                { id: "cut-b1", name: "Único", 
-                  base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", 
-                  trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
+                { id: "cut-b1", name: "Único", base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
             ],
             canguros: [
-                { id: "cut-c1", name: "Canguro Clásico", 
-                  base: "M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 C 75,45 70,25 75,10 Z", 
-                  trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 90,55 L 92,100 L 89,100 L 87,55 Z M 110,55 L 113,100 L 110,100 L 108,55 Z M 80,170 L 120,170 L 119,172 L 81,172 Z M 80,170 L 65,225 L 68,225 L 82,170 Z M 120,170 L 135,225 L 132,225 L 118,170 Z M 80,50 C 100,65 120,50 120,50 L 118,48 C 100,62 82,48 80,50 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z" }
+                { id: "cut-c1", name: "Canguro Clásico", base: "M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 C 75,45 70,25 75,10 Z", trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 90,55 L 92,100 L 89,100 L 87,55 Z M 110,55 L 113,100 L 110,100 L 108,55 Z M 80,170 L 120,170 L 119,172 L 81,172 Z M 80,170 L 65,225 L 68,225 L 82,170 Z M 120,170 L 135,225 L 132,225 L 118,170 Z M 80,50 C 100,65 120,50 120,50 L 118,48 C 100,62 82,48 80,50 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z" }
             ],
-            // NUEVO MOLDE 3D PARA CAMPERAS BASADO EN LA REFERENCIA (Cuello alto, cierre, mangas con puños)
             camperas: [
-                { id: "cut-camp1", name: "Campera Deportiva", 
-                  base: "M 85,30 L 115,30 L 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 Z", 
-                  trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 99,30 L 101,30 L 101,240 L 99,240 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z M 70,180 L 85,210 L 87,208 L 72,178 Z M 130,180 L 115,210 L 113,208 L 128,178 Z" }
+                { id: "cut-camp1", name: "Campera Deportiva", base: "M 85,30 L 115,30 L 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 Z", trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 99,30 L 101,30 L 101,240 L 99,240 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z M 70,180 L 85,210 L 87,208 L 72,178 Z M 130,180 L 115,210 L 113,208 L 128,178 Z" }
             ]
         };
 
-        // MOLDES / ESTRUCTURA FÍSICA (Shorts / Pantalón Largo)
         const shortsData = {
-            futbol: {
-                base: "M 50,242 C 100,252 150,242 150,242 L 165,360 C 165,365 160,370 155,370 L 108,370 C 103,370 100,360 100,340 C 100,360 97,370 92,370 L 45,370 C 40,370 35,365 35,360 Z",
-                trim: "M 50,242 L 35,360 L 45,360 L 60,245 Z M 150,242 L 165,360 L 155,360 L 140,245 Z"
-            },
-            basquet: {
-                base: "M 52,242 C 75,247 125,247 148,242 L 170,410 C 170,415 165,420 155,420 L 108,420 C 103,420 100,410 100,380 C 100,410 97,420 92,420 L 45,420 C 35,420 30,415 30,410 Z",
-                trim: "M 52,242 L 30,410 L 45,420 L 50,420 L 38,405 L 60,245 Z M 148,242 L 170,410 L 155,420 L 150,420 L 162,405 L 140,245 Z"
-            },
-            canguros: {
-                base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z",
-                trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z"
-            },
-            // PANTALÓN LARGO PARA CAMPERAS (Mismo molde que Canguros para mantener el conjunto)
-            camperas: {
-                base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z",
-                trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z"
-            }
+            futbol: { base: "M 50,242 C 100,252 150,242 150,242 L 165,360 C 165,365 160,370 155,370 L 108,370 C 103,370 100,360 100,340 C 100,360 97,370 92,370 L 45,370 C 40,370 35,365 35,360 Z", trim: "M 50,242 L 35,360 L 45,360 L 60,245 Z M 150,242 L 165,360 L 155,360 L 140,245 Z" },
+            basquet: { base: "M 52,242 C 75,247 125,247 148,242 L 170,410 C 170,415 165,420 155,420 L 108,420 C 103,420 100,410 100,380 C 100,410 97,420 92,420 L 45,420 C 35,420 30,415 30,410 Z", trim: "M 52,242 L 30,410 L 45,420 L 50,420 L 38,405 L 60,245 Z M 148,242 L 170,410 L 155,420 L 150,420 L 162,405 L 140,245 Z" },
+            canguros: { base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z", trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z" },
+            camperas: { base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z", trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z" }
         };
 
-        // DISEÑOS
         const designPatterns = {
             futbol: [
                 { id: "mod-f1", name: "Sin Diseño", svg: `` },
@@ -959,7 +955,7 @@
             camperas: [
                 { id: "mod-camp1", name: "Un Solo Color", svg: `` },
                 { id: "mod-camp2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` },
-                { id: "mod-camp3", name: "Mangas con Franja (Ref. Seleccion)", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><polygon points="35,65 45,60 40,195 30,197" class="c-primary"/><polygon points="165,65 155,60 160,195 170,197" class="c-primary"/>` }
+                { id: "mod-camp3", name: "Mangas con Franja", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><polygon points="35,65 45,60 40,195 30,197" class="c-primary"/><polygon points="165,65 155,60 160,195 170,197" class="c-primary"/>` }
             ]
         };
         
@@ -974,84 +970,33 @@
             { hex: "#a8a9ad", name: "Gris Jaspeado" } 
         ];
 
-        // ==========================================
-        // 3. BASE DE DATOS CATÁLOGO GENERAL
-        // ==========================================
+        /* SE ACTUALIZARON LAS IMÁGENES DE LAS DISCIPLINAS POR LAS FOTOGRAFÍAS REALES */
         const catalogData = {
             "futbol": {
-                id: "futbol", title: "Camisetas de Fútbol", bgImg: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600",
+                id: "futbol", title: "Camisetas de Fútbol", bgImg: "foto-futbol.jpg",
                 designs: [
-                    // --- 25 MODELOS SUBLIMADOS ---
                     { id: "f-s01", name: "Modelo Sublimado 01", desc: "Diseño exclusivo de la línea sublimada.", img: "SUBLIMADO1.jpg", type: "sublimadas" },
                     { id: "f-s02", name: "Modelo Sublimado 02", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-02.jpg", type: "sublimadas" },
-                    { id: "f-s03", name: "Modelo Sublimado 03", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-03.jpg", type: "sublimadas" },
-                    { id: "f-s04", name: "Modelo Sublimado 04", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-04.jpg", type: "sublimadas" },
-                    { id: "f-s05", name: "Modelo Sublimado 05", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-05.jpg", type: "sublimadas" },
-                    { id: "f-s06", name: "Modelo Sublimado 06", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-06.jpg", type: "sublimadas" },
-                    { id: "f-s07", name: "Modelo Sublimado 07", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-07.jpg", type: "sublimadas" },
-                    { id: "f-s08", name: "Modelo Sublimado 08", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-08.jpg", type: "sublimadas" },
-                    { id: "f-s09", name: "Modelo Sublimado 09", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-09.jpg", type: "sublimadas" },
-                    { id: "f-s10", name: "Modelo Sublimado 10", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-10.jpg", type: "sublimadas" },
-                    { id: "f-s11", name: "Modelo Sublimado 11", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-11.jpg", type: "sublimadas" },
-                    { id: "f-s12", name: "Modelo Sublimado 12", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-12.jpg", type: "sublimadas" },
-                    { id: "f-s13", name: "Modelo Sublimado 13", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-13.jpg", type: "sublimadas" },
-                    { id: "f-s14", name: "Modelo Sublimado 14", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-14.jpg", type: "sublimadas" },
-                    { id: "f-s15", name: "Modelo Sublimado 15", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-15.jpg", type: "sublimadas" },
-                    { id: "f-s16", name: "Modelo Sublimado 16", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-16.jpg", type: "sublimadas" },
-                    { id: "f-s17", name: "Modelo Sublimado 17", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-17.jpg", type: "sublimadas" },
-                    { id: "f-s18", name: "Modelo Sublimado 18", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-18.jpg", type: "sublimadas" },
-                    { id: "f-s19", name: "Modelo Sublimado 19", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-19.jpg", type: "sublimadas" },
-                    { id: "f-s20", name: "Modelo Sublimado 20", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-20.jpg", type: "sublimadas" },
-                    { id: "f-s21", name: "Modelo Sublimado 21", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-21.jpg", type: "sublimadas" },
-                    { id: "f-s22", name: "Modelo Sublimado 22", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-22.jpg", type: "sublimadas" },
-                    { id: "f-s23", name: "Modelo Sublimado 23", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-23.jpg", type: "sublimadas" },
-                    { id: "f-s24", name: "Modelo Sublimado 24", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-24.jpg", type: "sublimadas" },
-                    { id: "f-s25", name: "Modelo Sublimado 25", desc: "Diseño exclusivo de la línea sublimada.", img: "ruta/a/tu/foto-sublimada-25.jpg", type: "sublimadas" },
-
-                    // --- 25 MODELOS BÁSICOS ---
                     { id: "f-b01", name: "Modelo Básico 01", desc: "Remera clásica de la línea básica.", img: "elite1.jpeg", type: "basicas" },
-                    { id: "f-b02", name: "Modelo Básico 02", desc: "Remera clásica de la línea básica.", img: "elite2.jpg", type: "basicas" },
-                    { id: "f-b03", name: "Modelo Básico 03", desc: "Remera clásica de la línea básica.", img: "elite3.jpg", type: "basicas" },
-                    { id: "f-b04", name: "Modelo Básico 04", desc: "Remera clásica de la línea básica.", img: "elite4.jpg", type: "basicas" },
-                    { id: "f-b05", name: "Modelo Básico 05", desc: "Remera clásica de la línea básica.", img: "elite5.jpg", type: "basicas" },
-                    { id: "f-b06", name: "Modelo Básico 06", desc: "Remera clásica de la línea básica.", img: "elite6.jpg", type: "basicas" },
-                    { id: "f-b07", name: "Modelo Básico 07", desc: "Remera clásica de la línea básica.", img: "elite7.jpg", type: "basicas" },
-                    { id: "f-b08", name: "Modelo Básico 08", desc: "Remera clásica de la línea básica.", img: "elite8.jpg", type: "basicas" },
-                    { id: "f-b09", name: "Modelo Básico 09", desc: "Remera clásica de la línea básica.", img: "elite9.jpg", type: "basicas" },
-                    { id: "f-b10", name: "Modelo Básico 10", desc: "Remera clásica de la línea básica.", img: "elite10.jpg", type: "basicas" },
-                    { id: "f-b11", name: "Modelo Básico 11", desc: "Remera clásica de la línea básica.", img: "elite11.jpg", type: "basicas" },
-                    { id: "f-b12", name: "Modelo Básico 12", desc: "Remera clásica de la línea básica.", img: "elite12.jpg", type: "basicas" },
-                    { id: "f-b13", name: "Modelo Básico 13", desc: "Remera clásica de la línea básica.", img: "elite13.jpg", type: "basicas" },
-                    { id: "f-b14", name: "Modelo Básico 14", desc: "Remera clásica de la línea básica.", img: "elite14.jpg", type: "basicas" },
-                    { id: "f-b15", name: "Modelo Básico 15", desc: "Remera clásica de la línea básica.", img: "elite15.jpg", type: "basicas" },
-                    { id: "f-b16", name: "Modelo Básico 16", desc: "Remera clásica de la línea básica.", img: "elite16.jpg", type: "basicas" },
-                    { id: "f-b17", name: "Modelo Básico 17", desc: "Remera clásica de la línea básica.", img: "elite17.jpg", type: "basicas" },
-                    { id: "f-b18", name: "Modelo Básico 18", desc: "Remera clásica de la línea básica.", img: "elite18.jpg", type: "basicas" },
-                    { id: "f-b19", name: "Modelo Básico 19", desc: "Remera clásica de la línea básica.", img: "elite19.jpg", type: "basicas" },
-                    { id: "f-b20", name: "Modelo Básico 20", desc: "Remera clásica de la línea básica.", img: "elite20.jpg", type: "basicas" },
-                    { id: "f-b21", name: "Modelo Básico 21", desc: "Remera clásica de la línea básica.", img: "elite21.jpg", type: "basicas" },
-                    { id: "f-b22", name: "Modelo Básico 22", desc: "Remera clásica de la línea básica.", img: "elite22.jpg", type: "basicas" },
-                    { id: "f-b23", name: "Modelo Básico 23", desc: "Remera clásica de la línea básica.", img: "elite23.jpg", type: "basicas" },
-                    { id: "f-b24", name: "Modelo Básico 24", desc: "Remera clásica de la línea básica.", img: "elite24.jpg", type: "basicas" },
-                    { id: "f-b25", name: "Modelo Básico 25", desc: "Remera clásica de la línea básica.", img: "elite25.jpg", type: "basicas" }
+                    { id: "f-b02", name: "Modelo Básico 02", desc: "Remera clásica de la línea básica.", img: "elite2.jpg", type: "basicas" }
                 ]
             },
             "basquet": {
-                id: "basquet", title: "Camisetas de Básquetbol", bgImg: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+                id: "basquet", title: "Camisetas de Básquetbol", bgImg: "foto-basquet-masculino.jpg",
                 designs: [
                     { id: "b-01", name: "Modelo All-Star", desc: "Musculosa clásica de básquet.", img: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800" },
                     { id: "b-02", name: "Modelo Street", desc: "Diseño urbano para torneos 3x3.", img: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?q=80&w=800" }
                 ]
             },
             "canguros": {
-                id: "canguros", title: "Canguros", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
+                id: "canguros", title: "Canguros", bgImg: "foto-canguros.jpg",
                 designs: [
                     { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
                     { id: "c-02", name: "Canguro Pro", desc: "Abrigo ideal para la temporada de invierno.", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
                 ]
             },
             "camperas": {
-                id: "camperas", title: "Camperas Deportivas", bgImg: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?q=80&w=600",
+                id: "camperas", title: "Camperas Deportivas", bgImg: "foto-camperas.jpg",
                 designs: [
                     { id: "camp-01", name: "Campera Track", desc: "Diseño deportivo con cierre central y cuello alto.", img: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?q=80&w=800" },
                     { id: "camp-02", name: "Conjunto Selección", desc: "Conjunto completo de campera y pantalón largo.", img: "https://images.unsplash.com/photo-1512413913400-111111111111?q=80&w=800" }
@@ -1059,9 +1004,6 @@
             }
         };
 
-        // ==========================================
-        // 4. LÓGICA DE LA APLICACIÓN
-        // ==========================================
         const app = {
             simState: { 
                 sport: 'futbol', 
@@ -1111,9 +1053,6 @@
                 headerEl.nextElementSibling.classList.add('active');
             },
 
-            // ==========================================
-            // FUNCIONES PARA GALERÍA Y LIGHTBOX
-            // ==========================================
             filterGallery: function(event, category) {
                 const btns = document.querySelectorAll('.gallery-section .filter-btn');
                 btns.forEach(b => b.classList.remove('active'));
@@ -1141,7 +1080,6 @@
                     document.getElementById('lightbox').classList.remove('active');
                 }
             },
-            // ==========================================
 
             init: function() {
                 this.buildHomeCategories();
@@ -1157,13 +1095,15 @@
                     const cat = catalogData[key];
                     const card = document.createElement('div');
                     card.className = 'sport-card';
-                    card.style.backgroundImage = `url('${cat.bgImg}')`;
-                    // Limpieza visual
+                    
                     let titleText = cat.title.replace('Camisetas de ', '');
                     if (key === 'canguros') titleText = 'Canguros';
                     if (key === 'camperas') titleText = 'Camperas';
                     
-                    card.innerHTML = `<h3>${titleText}</h3><span>Ver Diseños ➔</span>`;
+                    card.innerHTML = `
+                        <div class="sport-card-bg" style="background-image: url('${cat.bgImg}')"></div>
+                        <h3>${titleText}</h3><span>Ver Diseños ➔</span>
+                    `;
                     card.onclick = () => app.openCategory(key);
                     grid.appendChild(card);
                 }
@@ -1191,13 +1131,9 @@
             setSimulatorSport: function(sportId) {
                 this.simState.sport = sportId;
                 
-                // Reiniciar selección de outfit a una sola prenda
                 this.simState.outfitType = 'remera';
                 this.simState.activePart = 'remera';
 
-                // ============================================================
-                // CAMBIO DINÁMICO DE TEXTOS SEGÚN CATEGORÍA
-                // ============================================================
                 const isCanguro = sportId === 'canguros';
                 const isCampera = sportId === 'camperas';
                 const isLongOutfit = isCanguro || isCampera;
@@ -1211,7 +1147,6 @@
                 document.getElementById('lbl-acc-molde-tipo').innerText = isCampera ? '(Aplica a Campera)' : (isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)');
                 document.getElementById('lbl-molde-desc').innerText = isLongOutfit ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
 
-                // Ocultar sección de Molde si es Canguro o Campera desde el inicio
                 const moldeSection = document.getElementById('acc-item-molde');
                 if (isLongOutfit) {
                     moldeSection.style.display = 'none';
@@ -1219,20 +1154,18 @@
                     moldeSection.style.display = 'block';
                 }
 
-                // Resetear el estilo activo en el menú de conjunto
                 const acc1 = document.querySelectorAll('.acc-item')[0];
                 if(acc1) {
                     const btns = acc1.querySelectorAll('.model-btn');
                     if(btns.length > 0) {
                         btns.forEach(b => b.classList.remove('active'));
-                        document.getElementById('btn-outfit-single').classList.add('active'); // Botón principal por defecto
+                        document.getElementById('btn-outfit-single').classList.add('active'); 
                     }
                 }
                 
                 document.getElementById('sim-garment-editor-toggle').style.display = 'none';
                 document.getElementById('sim-group-short').style.display = 'none';
                 
-                // Construir menú de moldes físicos
                 const cutsGrid = document.getElementById('sim-cuts-grid');
                 cutsGrid.innerHTML = '';
                 const cuts = physicalCuts[sportId];
@@ -1246,7 +1179,6 @@
                 });
                 this.setSimulatorCut(cuts[0], cutsGrid.firstChild);
 
-                // Construir menú de diseños gráficos
                 const modelsGrid = document.getElementById('sim-models-grid');
                 modelsGrid.innerHTML = '';
                 const models = designPatterns[sportId];
@@ -1260,16 +1192,14 @@
                 });
                 this.setSimulatorModel(models[0], modelsGrid.firstChild);
 
-                // Posicionamiento de escudos y textos inicial
                 document.getElementById('sim-logo-remera').setAttribute('x', '125');
                 document.getElementById('sim-logo-remera').setAttribute('y', '45');
                 document.getElementById('sim-text-remera').setAttribute('x', '100');
                 document.getElementById('sim-text-remera').setAttribute('y', '125');
                 
-                // Ajuste de altura/posicion si es Pantalón (Canguros/Camperas) vs Short (Fútbol/Básquet)
                 if(isLongOutfit) {
                     document.getElementById('sim-logo-short').setAttribute('x', '60');
-                    document.getElementById('sim-logo-short').setAttribute('y', '280'); // Más arriba en la pierna
+                    document.getElementById('sim-logo-short').setAttribute('y', '280'); 
                     document.getElementById('sim-text-short').setAttribute('x', '140');
                     document.getElementById('sim-text-short').setAttribute('y', '380');
                 } else {
@@ -1279,7 +1209,6 @@
                     document.getElementById('sim-text-short').setAttribute('y', '335');
                 }
                 
-                // Asegurarnos de que los botones y numeración estén en sync perfecto
                 this.setActiveGarment('remera');
             },
 
@@ -1320,7 +1249,6 @@
                 }
 
                 const moldeSection = document.getElementById('acc-item-molde');
-                // Ocultar sección molde si es Canguro/Campera o si estamos editando el Short
                 const isLongOutfit = (this.simState.sport === 'canguros' || this.simState.sport === 'camperas');
                 const isMoldeHidden = (isLongOutfit || part === 'short');
                 
@@ -1330,7 +1258,6 @@
                     moldeSection.style.display = 'block';
                 }
 
-                // Ajustar numéricamente los pasos visibles del simulador
                 let step = 2;
                 if (!isMoldeHidden) {
                     document.getElementById('lbl-acc-molde-num').innerText = step + ".";
@@ -1347,13 +1274,11 @@
             syncUI: function() {
                 const partState = this.simState[this.simState.activePart];
 
-                // Models
                 document.querySelectorAll('#sim-models-grid .model-btn').forEach(b => {
                     if (b.innerText === partState.modelName) b.classList.add('active');
                     else b.classList.remove('active');
                 });
 
-                // Colors
                 const syncColor = (id, prop) => {
                     const swatches = document.getElementById(id).querySelectorAll('.color-swatch');
                     swatches.forEach(sw => {
@@ -1366,7 +1291,6 @@
                 syncColor('sim-colors-trim', 'cTrim');
                 syncColor('sim-colors-text', 'cText');
 
-                // Text and Size Inputs
                 document.getElementById('sim-text-input').value = partState.textStr;
                 
                 const fontSelect = document.getElementById('sim-font-family');
@@ -1413,7 +1337,6 @@
                         combinedBase += ' ' + shorts.base;
                     }
                     
-                    // AJUSTE CLAVE: El pantalón largo necesita más espacio vertical (ViewBox hasta 500)
                     if(this.simState.sport === 'canguros' || this.simState.sport === 'camperas') {
                         document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 500');
                     } else {
@@ -1521,9 +1444,6 @@
                     this.simState[part].logoSize = val;
                 });
 
-                // =======================================================
-                // LÓGICA DE DRAG & DROP
-                // =======================================================
                 const svgElement = document.querySelector('.svg-container svg');
                 let draggingElement = null;
                 let startPt = svgElement.createSVGPoint();
@@ -1579,9 +1499,6 @@
                 window.addEventListener('mouseup', endDrag);
                 window.addEventListener('touchend', endDrag);
 
-                // =======================================================
-                // LÓGICA DE EXPORTACIÓN Y WHATSAPP PARA EL SIMULADOR
-                // =======================================================
                 document.getElementById('btn-sim-consult').onclick = async () => {
                     const btn = document.getElementById('btn-sim-consult');
                     const originalText = btn.innerText;
@@ -1707,9 +1624,6 @@
                 };
             },
 
-            // =========================================================
-            // APERTURA DE CATEGORÍA DE CATÁLOGO Y RENDERIZADO
-            // =========================================================
             openCategory: function(sportId) {
                 const cat = catalogData[sportId];
                 if(!cat) return;
@@ -1721,7 +1635,6 @@
                 
                 const filterSection = document.getElementById('futbol-filters');
                 
-                // Mostrar filtros SOLO para Fútbol
                 if (sportId === 'futbol') {
                     filterSection.style.display = 'block';
                     this.futbolState.search = '';
@@ -1782,9 +1695,6 @@
                 this.renderCatalogGrid('futbol');
             },
 
-            // =========================================================
-            // VISTA DETALLE DEL CATÁLOGO
-            // =========================================================
             openDetail: function(sportId, designId) {
                 const cat = catalogData[sportId];
                 const design = cat.designs.find(d => d.id === designId);
@@ -1800,7 +1710,6 @@
                 document.getElementById('det-title').innerText = design.name;
                 document.getElementById('det-desc').innerText = design.desc;
 
-                // BOTÓN: Solicitar este diseño (Catálogo Estático)
                 document.getElementById('btn-consultar-modelo').onclick = async () => {
                     const btn = document.getElementById('btn-consultar-modelo');
                     const originalText = btn.innerText;
@@ -1846,7 +1755,6 @@
             }
         };
 
-        // Inicializar aplicación
         document.addEventListener('DOMContentLoaded', () => {
             app.init();
         });
