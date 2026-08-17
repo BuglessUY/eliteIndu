@@ -320,7 +320,7 @@
             <div class="container hero-content">
                 <span class="hero-tag">Indumentaria Deportiva Premium</span>
                 <h1>Viste a tu <span>Equipo</span></h1>
-                <p>Somos Elite Indumentaria. Fabricantes de ropa deportiva, camperones, canguros y equipos personalizados con calidad profesional para que tu club destaque en cualquier temporada.</p>
+                <p>Somos Elite Indumentaria. Fabricantes de ropa deportiva, camperones, canguros, camperas y equipos personalizados con calidad profesional para que tu club destaque en cualquier temporada.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="document.getElementById('seccion-promociones').scrollIntoView({behavior: 'smooth'})">Ver Promociones</button>
                     <button class="btn btn-outline" onclick="document.getElementById('seccion-deportes').scrollIntoView({behavior: 'smooth'})">Explorar Catálogos</button>
@@ -338,7 +338,7 @@
             <div class="about-grid">
                 <div class="about-text">
                     <h2 class="section-title">Nuestra <span>Esencia</span></h2>
-                    <p>En Elite Indumentaria no hacemos simples camisetas, creamos la armadura de tu equipo. Ofrecemos calidad superior en prendas de juego y abrigo (camperones, canguros, sudaderas) para acompañarte todo el año.</p>
+                    <p>En Elite Indumentaria no hacemos simples camisetas, creamos la armadura de tu equipo. Ofrecemos calidad superior en prendas de juego y abrigo (camperones, camperas, canguros, sudaderas) para acompañarte todo el año.</p>
                     <p>Entendemos que la imagen de tu club es fundamental. Por eso, ofrecemos atención personalizada para asegurar que cada detalle, escudo y color refleje fielmente la identidad de tu plantel.</p>
                     <button class="btn btn-primary-outline" style="margin-top: 20px;" onclick="document.getElementById('seccion-proceso').scrollIntoView({behavior: 'smooth'})">Conocer el proceso</button>
                 </div>
@@ -462,7 +462,7 @@
                             <div class="tech-list-icon">❖</div>
                             <div>
                                 <h4>Telas Avanzadas y Abrigo</h4>
-                                <p>Desde materiales Dry-Fit de última generación hasta prendas de invierno con abrigo garantizado (frizza, corderito, polar).</p>
+                                <p>Desde materiales Dry-Fit de última generación hasta prendas de invierno con abrigo garantizado (frizza, corderito, polar, acetato).</p>
                             </div>
                         </li>
                         <li>
@@ -603,7 +603,7 @@
                                     </clipPath>
                                 </defs>
 
-                                <!-- REMERA / CANGURO GROUP -->
+                                <!-- REMERA / CANGURO / CAMPERA GROUP -->
                                 <g id="sim-group-remera">
                                     <path id="sim-base-remera" class="c-primary" d="" style="transition: d 0.4s ease;" />
                                     <g clip-path="url(#sim-clip-remera)">
@@ -862,7 +862,7 @@
         // 2. BASE DE DATOS DEL SIMULADOR
         // ==========================================
         
-        // MOLDES / ESTRUCTURA FÍSICA (Remera / Canguro)
+        // MOLDES / ESTRUCTURA FÍSICA (Remera / Canguro / Campera)
         const physicalCuts = {
             futbol: [
                 { id: "cut-f1", name: "Clásico", 
@@ -880,11 +880,16 @@
                   base: "M 45,25 L 70,20 C 70,70 130,70 130,20 L 155,25 C 148,60 142,90 145,130 L 148,240 C 125,245 75,245 52,240 L 55,130 C 58,90 52,60 45,25 Z", 
                   trim: "M 70,20 C 70,70 130,70 130,20 L 123,20 C 123,63 77,63 77,20 Z M 155,25 C 148,60 142,90 145,130 L 138,130 C 135,90 141,60 148,25 Z M 45,25 C 52,60 58,90 55,130 L 62,130 C 65,90 59,60 52,25 Z M 52,238 C 75,243 125,243 148,238 L 148,240 C 125,245 75,245 52,240 Z" }
             ],
-            // MOLDE EXACTO DE CANGURO BASADO EN LA FOTO DE REFERENCIA
             canguros: [
                 { id: "cut-c1", name: "Canguro Clásico", 
                   base: "M 75,10 C 85,0 115,0 125,10 C 130,25 125,45 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 C 75,45 70,25 75,10 Z", 
                   trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 90,55 L 92,100 L 89,100 L 87,55 Z M 110,55 L 113,100 L 110,100 L 108,55 Z M 80,170 L 120,170 L 119,172 L 81,172 Z M 80,170 L 65,225 L 68,225 L 82,170 Z M 120,170 L 135,225 L 132,225 L 118,170 Z M 80,50 C 100,65 120,50 120,50 L 118,48 C 100,62 82,48 80,50 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z" }
+            ],
+            // NUEVO MOLDE 3D PARA CAMPERAS BASADO EN LA REFERENCIA (Cuello alto, cierre, mangas con puños)
+            camperas: [
+                { id: "cut-camp1", name: "Campera Deportiva", 
+                  base: "M 85,30 L 115,30 L 120,50 L 140,55 L 190,90 L 175,200 L 145,190 L 140,140 L 140,240 L 60,240 L 60,140 L 55,190 L 25,200 L 10,90 L 60,55 L 80,50 Z", 
+                  trim: "M 60,225 L 140,225 L 140,240 L 60,240 Z M 21,188 L 48,179 L 55,190 L 25,200 Z M 179,188 L 152,179 L 145,190 L 175,200 Z M 99,30 L 101,30 L 101,240 L 99,240 Z M 80,50 C 75,80 60,140 60,140 L 58,140 C 58,140 73,80 78,50 Z M 120,50 C 125,80 140,140 140,140 L 142,140 C 142,140 127,80 122,50 Z M 70,180 L 85,210 L 87,208 L 72,178 Z M 130,180 L 115,210 L 113,208 L 128,178 Z" }
             ]
         };
 
@@ -898,14 +903,18 @@
                 base: "M 52,242 C 75,247 125,247 148,242 L 170,410 C 170,415 165,420 155,420 L 108,420 C 103,420 100,410 100,380 C 100,410 97,420 92,420 L 45,420 C 35,420 30,415 30,410 Z",
                 trim: "M 52,242 L 30,410 L 45,420 L 50,420 L 38,405 L 60,245 Z M 148,242 L 170,410 L 155,420 L 150,420 L 162,405 L 140,245 Z"
             },
-            // PANTALÓN LARGO PARA EL CONJUNTO DE INVIERNO
             canguros: {
+                base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z",
+                trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z"
+            },
+            // PANTALÓN LARGO PARA CAMPERAS (Mismo molde que Canguros para mantener el conjunto)
+            camperas: {
                 base: "M 60,240 C 100,245 140,240 140,240 L 155,480 L 115,480 L 100,320 L 85,480 L 45,480 Z",
                 trim: "M 60,240 L 140,240 L 141,255 L 59,255 Z M 45,470 L 85,470 L 85,480 L 45,480 Z M 115,470 L 155,470 L 155,480 L 115,480 Z M 95,250 L 92,280 L 90,280 L 93,250 Z M 105,250 L 108,280 L 110,280 L 107,250 Z M 62,260 L 68,300 L 66,300 L 60,260 Z M 138,260 L 132,300 L 134,300 L 140,260 Z"
             }
         };
 
-        // NUEVOS DISEÑOS
+        // DISEÑOS
         const designPatterns = {
             futbol: [
                 { id: "mod-f1", name: "Sin Diseño", svg: `` },
@@ -946,8 +955,15 @@
             canguros: [
                 { id: "mod-c1", name: "Un Solo Color", svg: `` },
                 { id: "mod-c2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` }
+            ],
+            camperas: [
+                { id: "mod-camp1", name: "Un Solo Color", svg: `` },
+                { id: "mod-camp2", name: "Frente y Mangas Combinado", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" />` },
+                { id: "mod-camp3", name: "Mangas con Franja (Ref. Seleccion)", svg: `<path d="M 10,90 L 25,200 L 55,190 L 60,140 C 60,140 75,80 80,50 L 60,55 Z" class="c-sec" /><path d="M 190,90 L 175,200 L 145,190 L 140,140 C 140,140 125,80 120,50 L 140,55 Z" class="c-sec" /><polygon points="35,65 45,60 40,195 30,197" class="c-primary"/><polygon points="165,65 155,60 160,195 170,197" class="c-primary"/>` }
             ]
-        };const globalColors = [
+        };
+        
+        const globalColors = [
             { hex: "#ffffff", name: "Blanco" },
             { hex: "#222222", name: "Negro" },
             { hex: "#e63946", name: "Rojo" },
@@ -1028,10 +1044,17 @@
                 ]
             },
             "canguros": {
-                id: "canguros", title: "Canguros y Camperones", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
+                id: "canguros", title: "Canguros", bgImg: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=600",
                 designs: [
                     { id: "c-01", name: "Canguro Elite", desc: "Diseño clásico con capucha y bolsillo canguro.", img: "https://images.unsplash.com/photo-1556822284-32a75ef40208?q=80&w=800" },
-                    { id: "c-02", name: "Camperón Pro", desc: "Abrigo ideal para la temporada de invierno (Con cierre).", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
+                    { id: "c-02", name: "Canguro Pro", desc: "Abrigo ideal para la temporada de invierno.", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=800" }
+                ]
+            },
+            "camperas": {
+                id: "camperas", title: "Camperas Deportivas", bgImg: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?q=80&w=600",
+                designs: [
+                    { id: "camp-01", name: "Campera Track", desc: "Diseño deportivo con cierre central y cuello alto.", img: "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?q=80&w=800" },
+                    { id: "camp-02", name: "Conjunto Selección", desc: "Conjunto completo de campera y pantalón largo.", img: "https://images.unsplash.com/photo-1512413913400-111111111111?q=80&w=800" }
                 ]
             }
         };
@@ -1135,8 +1158,11 @@
                     const card = document.createElement('div');
                     card.className = 'sport-card';
                     card.style.backgroundImage = `url('${cat.bgImg}')`;
-                    // Limpieza visual: si es canguros, mostramos Canguros, de lo contrario limpiamos "Camisetas de"
-                    const titleText = key === 'canguros' ? 'Canguros' : cat.title.replace('Camisetas de ', '');
+                    // Limpieza visual
+                    let titleText = cat.title.replace('Camisetas de ', '');
+                    if (key === 'canguros') titleText = 'Canguros';
+                    if (key === 'camperas') titleText = 'Camperas';
+                    
                     card.innerHTML = `<h3>${titleText}</h3><span>Ver Diseños ➔</span>`;
                     card.onclick = () => app.openCategory(key);
                     grid.appendChild(card);
@@ -1173,18 +1199,21 @@
                 // CAMBIO DINÁMICO DE TEXTOS SEGÚN CATEGORÍA
                 // ============================================================
                 const isCanguro = sportId === 'canguros';
-                document.getElementById('btn-outfit-single').innerText = isCanguro ? 'Solo Canguro' : 'Solo Remera';
-                document.getElementById('btn-outfit-set').innerText = isCanguro ? 'Conjunto Largo' : 'Remera + Short';
-                
-                document.getElementById('btn-toggle-remera').innerText = isCanguro ? '🧥 Editar Canguro' : '👕 Editar Remera';
-                document.getElementById('btn-toggle-short').innerText = isCanguro ? '👖 Editar Pantalón' : '🩳 Editar Short';
-                
-                document.getElementById('lbl-acc-molde-tipo').innerText = isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)';
-                document.getElementById('lbl-molde-desc').innerText = isCanguro ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
+                const isCampera = sportId === 'camperas';
+                const isLongOutfit = isCanguro || isCampera;
 
-                // Ocultar sección de Molde si es Canguro desde el inicio
+                document.getElementById('btn-outfit-single').innerText = isCampera ? 'Solo Campera' : (isCanguro ? 'Solo Canguro' : 'Solo Remera');
+                document.getElementById('btn-outfit-set').innerText = isLongOutfit ? 'Conjunto Largo' : 'Remera + Short';
+                
+                document.getElementById('btn-toggle-remera').innerText = isCampera ? '🧥 Editar Campera' : (isCanguro ? '🧥 Editar Canguro' : '👕 Editar Remera');
+                document.getElementById('btn-toggle-short').innerText = isLongOutfit ? '👖 Editar Pantalón' : '🩳 Editar Short';
+                
+                document.getElementById('lbl-acc-molde-tipo').innerText = isCampera ? '(Aplica a Campera)' : (isCanguro ? '(Aplica a Canguro)' : '(Aplica a Remera)');
+                document.getElementById('lbl-molde-desc').innerText = isLongOutfit ? 'Estilo de Abrigo' : 'Corte / Estructura Física';
+
+                // Ocultar sección de Molde si es Canguro o Campera desde el inicio
                 const moldeSection = document.getElementById('acc-item-molde');
-                if (isCanguro) {
+                if (isLongOutfit) {
                     moldeSection.style.display = 'none';
                 } else {
                     moldeSection.style.display = 'block';
@@ -1237,8 +1266,8 @@
                 document.getElementById('sim-text-remera').setAttribute('x', '100');
                 document.getElementById('sim-text-remera').setAttribute('y', '125');
                 
-                // Ajuste de altura/posicion si es Pantalón (Canguros) vs Short (Fútbol/Básquet)
-                if(isCanguro) {
+                // Ajuste de altura/posicion si es Pantalón (Canguros/Camperas) vs Short (Fútbol/Básquet)
+                if(isLongOutfit) {
                     document.getElementById('sim-logo-short').setAttribute('x', '60');
                     document.getElementById('sim-logo-short').setAttribute('y', '280'); // Más arriba en la pierna
                     document.getElementById('sim-text-short').setAttribute('x', '140');
@@ -1291,8 +1320,9 @@
                 }
 
                 const moldeSection = document.getElementById('acc-item-molde');
-                // Ocultar sección molde si es Canguro o si estamos editando el Short
-                const isMoldeHidden = (this.simState.sport === 'canguros' || part === 'short');
+                // Ocultar sección molde si es Canguro/Campera o si estamos editando el Short
+                const isLongOutfit = (this.simState.sport === 'canguros' || this.simState.sport === 'camperas');
+                const isMoldeHidden = (isLongOutfit || part === 'short');
                 
                 if (isMoldeHidden) {
                     moldeSection.style.display = 'none';
@@ -1384,7 +1414,7 @@
                     }
                     
                     // AJUSTE CLAVE: El pantalón largo necesita más espacio vertical (ViewBox hasta 500)
-                    if(this.simState.sport === 'canguros') {
+                    if(this.simState.sport === 'canguros' || this.simState.sport === 'camperas') {
                         document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 500');
                     } else {
                         document.querySelector('.svg-container svg').setAttribute('viewBox', '0 0 200 450');
@@ -1610,17 +1640,19 @@
                             const s = app.simState;
                             const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
                             const isCang = s.sport === 'canguros';
-                            const topName = isCang ? 'CANGURO' : 'REMERA';
-                            const bottomName = isCang ? 'PANTALÓN' : 'SHORT';
+                            const isCamp = s.sport === 'camperas';
+                            const isLong = isCang || isCamp;
+                            const topName = isCamp ? 'CAMPERA' : (isCang ? 'CANGURO' : 'REMERA');
+                            const bottomName = isLong ? 'PANTALÓN' : 'SHORT';
                             
                             let msg = `¡Hola Elite Indumentaria! Quiero consultar por este diseño personalizado.%0A%0A⚠️ *Te enviaré la imagen del diseño que acabo de guardar en el siguiente mensaje.*%0A%0A`;
                             
                             if (s.outfitType === 'conjunto') {
-                                msg += `*Tipo de Conjunto:* ${isCang ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*Tipo de Conjunto:* ${isLong ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
                                 msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}%0A%0A`;
                                 msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary} (Fondo), ${s.short.cSecondary} (Secundario), ${s.short.cTrim} (Detalles)%0A*Texto:* "${s.short.textStr}" (Color: ${s.short.cText}, Fuente: ${s.short.textFont})%0A*Logo:* ${s.short.hasLogo ? 'Sí' : 'No'}`;
                             } else {
-                                msg += `*Tipo de Conjunto:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde/Corte:* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                                msg += `*Tipo de Conjunto:* ${isCamp ? 'Solo Campera' : (isCang ? 'Solo Canguro' : 'Solo Remera')}%0A*Deporte:* ${sportName}%0A*Molde/Corte:* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
                                 msg += `*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary} (Fondo), ${s.remera.cSecondary} (Secundario), ${s.remera.cTrim} (Detalles)%0A*Texto:* "${s.remera.textStr}" (Color: ${s.remera.cText}, Fuente: ${s.remera.textFont})%0A*Logo:* ${s.remera.hasLogo ? 'Sí' : 'No'}`;
                             }
                             
@@ -1649,17 +1681,19 @@
                         const s = app.simState;
                         const sportName = catalogData[s.sport] ? catalogData[s.sport].title : s.sport;
                         const isCang = s.sport === 'canguros';
-                        const topName = isCang ? 'CANGURO' : 'REMERA';
-                        const bottomName = isCang ? 'PANTALÓN' : 'SHORT';
+                        const isCamp = s.sport === 'camperas';
+                        const isLong = isCang || isCamp;
+                        const topName = isCamp ? 'CAMPERA' : (isCang ? 'CANGURO' : 'REMERA');
+                        const bottomName = isLong ? 'PANTALÓN' : 'SHORT';
                         
                         let msg = `¡Hola Elite Indumentaria! Armé un diseño en el simulador y quiero consultarte (Mi dispositivo no pudo descargar la imagen, pero te paso los detalles).%0A%0A`;
                         
                         if (s.outfitType === 'conjunto') {
-                            msg += `*Tipo de Conjunto:* ${isCang ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
+                            msg += `*Tipo de Conjunto:* ${isLong ? 'Conjunto Largo' : 'Remera + Short'}%0A*Deporte:* ${sportName}%0A*Molde/Corte (${topName}):* ${s.cutName}%0A*Talle:* ${s.size}%0A%0A`;
                             msg += `*--- ${topName} ---*%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"%0A%0A`;
                             msg += `*--- ${bottomName} ---*%0A*Diseño:* ${s.short.modelName}%0A*Colores:* ${s.short.cPrimary}, ${s.short.cSecondary}, ${s.short.cTrim}%0A*Texto:* "${s.short.textStr}"`;
                         } else {
-                            msg += `*Tipo:* ${isCang ? 'Solo Canguro' : 'Solo Remera'}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"`;
+                            msg += `*Tipo:* ${isCamp ? 'Solo Campera' : (isCang ? 'Solo Canguro' : 'Solo Remera')}%0A*Deporte:* ${sportName}%0A*Molde:* ${s.cutName}%0A*Talle:* ${s.size}%0A*Diseño:* ${s.remera.modelName}%0A*Colores:* ${s.remera.cPrimary}, ${s.remera.cSecondary}, ${s.remera.cTrim}%0A*Texto:* "${s.remera.textStr}"`;
                         }
                         
                         app.openWhatsApp(msg);
@@ -1749,7 +1783,7 @@
             },
 
             // =========================================================
-            // VISTA DETALLE DEL CATÁLOGO (Ahora descarga la imagen también)
+            // VISTA DETALLE DEL CATÁLOGO
             // =========================================================
             openDetail: function(sportId, designId) {
                 const cat = catalogData[sportId];
@@ -1774,14 +1808,12 @@
                     btn.disabled = true;
 
                     try {
-                        // Forzar la descarga automática de la imagen estática
                         const response = await fetch(design.img);
                         const blob = await response.blob();
                         const url = window.URL.createObjectURL(blob);
                         
                         const link = document.createElement('a');
                         link.href = url;
-                        // Le damos un nombre limpio al archivo que se descarga
                         link.download = `Elite-${design.name.replace(/\s+/g, '-')}.jpg`;
                         document.body.appendChild(link);
                         link.click();
@@ -1803,7 +1835,6 @@
 
                     } catch (err) {
                         console.error("Error al descargar imagen estática:", err);
-                        // Fallback de emergencia si el navegador bloquea la descarga por seguridad
                         const msg = `¡Hola Elite Indumentaria! Estoy interesado en el diseño de catálogo: *${design.name}* (Línea: ${cat.title}).%0A%0AQuisiera saber presupuesto y cómo adaptarlo a mi club.`;
                         app.openWhatsApp(msg);
                         btn.innerText = originalText;
